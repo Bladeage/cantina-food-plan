@@ -1,4 +1,4 @@
-"""HTML-Ausgaben: GitHub-Pages-Seite + E-Mail-Body (inline-styled)."""
+"""HTML-Ausgaben: Wochenplan-Seite (docs/index.html) + E-Mail-Body (inline)."""
 import html
 
 
@@ -21,15 +21,32 @@ def _dish_name(d):
     return name
 
 
-def _labels(d):
-    out = []
-    if "vegan" in d["labels"]:
-        out.append("vegan")
-    elif "vegetarisch" in d["labels"] or (d.get("_veg")):
-        out.append("vegetarisch")
-    if "protein" in d["labels"]:
-        out.append("Protein Kick")
-    return out
+REC_ORDER = (("ausgewogen", "ausgewogen"), ("protein", "proteinreich"), ("vegetarisch", "vegetarisch"))
+
+
+def _grouped_recs(rec):
+    """Empfehlungen nach Gericht gruppieren: empfiehlt mehr als eine Schiene
+    dasselbe Gericht, werden die Labels zusammengefasst
+    („ausgewogen / proteinreich: Menü 1")."""
+    groups = []  # [(labels, gerichtname)] in Erst-Nennungs-Reihenfolge
+    for key, label in REC_ORDER:
+        name = rec.get(key)
+        if not name:
+            continue
+        for g in groups:
+            if g[1] == name:
+                g[0].append(label)
+                break
+        else:
+            groups.append(([label], name))
+    return [(" / ".join(labels), name) for labels, name in groups]
+
+
+def _dish_roles(rec, name):
+    return [label for key, label in REC_ORDER if rec.get(key) == name]
+
+
+CHIP_CLASS = {"ausgewogen": "chip-bal", "proteinreich": "chip-pro", "vegetarisch": "chip-veg"}
 
 
 def render_page(plan, meta):
@@ -39,44 +56,54 @@ def render_page(plan, meta):
         rows = []
         for d in day["dishes"]:
             p = d["portion"]
-            tags = []
-            if d["name"] == rec.get("ausgewogen"):
-                tags.append('<span class="chip chip-bal">ausgewogen</span>')
-            if d["name"] == rec.get("protein"):
-                tags.append('<span class="chip chip-pro">Protein</span>')
-            if d["name"] == rec.get("vegetarisch"):
-                tags.append('<span class="chip chip-veg">vegetarisch</span>')
+            roles = _dish_roles(rec, d["name"])
+            if len(roles) > 1:
+                chips = f'<span class="chip chip-multi">{" / ".join(roles)}</span>'
+            elif roles:
+                chips = f'<span class="chip {CHIP_CLASS[roles[0]]}">{roles[0]}</span>'
+            else:
+                chips = ""
             est = "*" if d["weight_estimated"] else ""
-            img = f'<img class="dish-img" src="{html.escape(d["images"][0])}" alt="" loading="lazy">' if d["images"] else ""
             rows.append(f"""
       <tr>
-        <td class="dish">{img}<div><span class="station">{html.escape(d['station'])}</span><br>
-            <strong>{html.escape(_dish_name(d))}</strong> {' '.join(tags)}</div></td>
-        <td class="num">{_fmt(d['weight_g'])}{est} g</td>
-        <td class="num strong">{_fmt(p['kcal'])}</td>
-        <td class="num">{_fmt(p.get('fat'), ' g')}</td>
-        <td class="num">{_fmt(p.get('carbs'), ' g')}</td>
-        <td class="num">{_fmt(p.get('sugar'), ' g')}</td>
-        <td class="num strong">{_fmt(p.get('protein'), ' g')}</td>
-        <td class="num">{_fmt(p.get('salt'), ' g')}</td>
-        <td class="num price">{_euro(d['price_extern'])}{'*' if d['price_extern_estimated'] else ''}</td>
+        <td class="dish"><span class="station">{html.escape(d['station'])}</span>
+            <strong>{html.escape(_dish_name(d))}</strong>{chips}</td>
+        <td class="num" data-l="Portion">{_fmt(d['weight_g'])}{est} g</td>
+        <td class="num strong" data-l="kcal">{_fmt(p['kcal'])}</td>
+        <td class="num" data-l="Fett">{_fmt(p.get('fat'), ' g')}</td>
+        <td class="num dim" data-l="ges. FS">{_fmt(p.get('satfat'), ' g')}</td>
+        <td class="num" data-l="KH">{_fmt(p.get('carbs'), ' g')}</td>
+        <td class="num dim" data-l="Zucker">{_fmt(p.get('sugar'), ' g')}</td>
+        <td class="num strong" data-l="Eiweiß">{_fmt(p.get('protein'), ' g')}</td>
+        <td class="num dim" data-l="Salz">{_fmt(p.get('salt'), ' g')}</td>
+        <td class="num price" data-l="extern">{_euro(d['price_extern'])}{'*' if d['price_extern_estimated'] else ''}</td>
       </tr>""")
 
-        combo_html = ""
-        for target, c in day["combos"].items():
-            combo_html += f"""
-      <div class="combo"><span class="combo-target">~{target} kcal{"†" if c.get("approx") else ""}</span>
+        rec_html = "".join(
+            f'<div class="rec"><span class="rec-label">{labels}</span>'
+            f'<span class="rec-name">{html.escape(name)}</span></div>'
+            for labels, name in _grouped_recs(rec)
+        )
+
+        combo_html = "".join(f"""
+      <div class="combo"><span class="combo-target">~{t} kcal{"†" if c.get("approx") else ""}</span>
         <span class="combo-items">{html.escape(' + '.join(c['items']))}</span>
         <span class="combo-facts">{c['kcal']} kcal · {_fmt(c['protein'])} g Eiweiß · {_euro(c['price_extern'])}</span></div>"""
+            for t, c in day["combos"].items())
 
         days_html.append(f"""
   <section class="day">
-    <h2>{day['weekday']} <span class="date">{day['date']}</span></h2>
+    <header class="day-head">
+      <h2>{day['weekday']}</h2><span class="date">{day['date']}</span>
+    </header>
+    {f'<div class="recs">{rec_html}</div>' if rec_html else ''}
+    <div class="table-wrap">
     <table>
-      <thead><tr><th>Gericht</th><th>Portion</th><th>kcal</th><th>Fett</th><th>KH</th>
-      <th>Zucker</th><th>Eiweiß</th><th>Salz</th><th>extern</th></tr></thead>
+      <thead><tr><th>Gericht</th><th>Portion</th><th>kcal</th><th>Fett</th><th>ges. FS</th>
+      <th>KH</th><th>Zucker</th><th>Eiweiß</th><th>Salz</th><th>extern</th></tr></thead>
       <tbody>{''.join(rows)}</tbody>
     </table>
+    </div>
     {f'<div class="combos">{combo_html}</div>' if combo_html else ''}
   </section>""")
 
@@ -85,46 +112,92 @@ def render_page(plan, meta):
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Kantinen-Wochenplan</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root {{ --leaf:#5a8f27; --leaf-dk:#33531a; --ink:#1d211a; --mut:#6d7266; --line:#e4e6df;
-        --bal:#e7f0da; --pro:#fde8d7; --veg:#ddeee4; --bg:#fbfbf8; }}
+:root {{
+  --leaf:#5a8f27; --leaf-dk:#33531a; --ink:#20241c; --mut:#71766a; --line:#e6e8e0;
+  --bal:#e7f0da; --bal-ink:#33531a; --pro:#fde8d7; --pro-ink:#8a4b12;
+  --veg:#ddeee4; --veg-ink:#1f5c3c; --bg:#f6f7f2; --card:#ffffff; --zebra:#fafbf7;
+  --shadow:0 1px 2px rgba(32,36,28,.05), 0 8px 24px -12px rgba(32,36,28,.12);
+}}
+@media (prefers-color-scheme: dark) {{
+  :root {{
+    --leaf:#8fc45a; --leaf-dk:#a9d47c; --ink:#e6e8e0; --mut:#9aa090; --line:#3a3f35;
+    --bal:#33531a; --bal-ink:#cde3b0; --pro:#5c3413; --pro-ink:#f5c9a2;
+    --veg:#1f4632; --veg-ink:#b9dcc8; --bg:#181b16; --card:#22261f; --zebra:#262a22;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -12px rgba(0,0,0,.5);
+  }}
+}}
 * {{ box-sizing:border-box }}
+html {{ scroll-behavior:smooth }}
 body {{ margin:0; background:var(--bg); color:var(--ink);
-       font:15px/1.5 Inter,system-ui,sans-serif; padding:0 16px 64px }}
-header {{ max-width:1080px; margin:0 auto; padding:40px 0 8px }}
-h1 {{ font-family:Fraunces,serif; font-size:clamp(28px,5vw,44px); margin:0; color:var(--leaf-dk) }}
+       font:15px/1.55 Inter,system-ui,sans-serif; padding:0 20px 72px }}
+header.page {{ max-width:1120px; margin:0 auto; padding:48px 0 6px }}
+h1 {{ font-family:Fraunces,serif; font-size:clamp(30px,5vw,46px); margin:0;
+     letter-spacing:-.01em; color:var(--ink) }}
 h1 em {{ font-style:normal; color:var(--leaf) }}
-.meta {{ color:var(--mut); font-size:13px; margin-top:4px }}
-.day {{ max-width:1080px; margin:36px auto 0; background:#fff; border:1px solid var(--line);
-        border-radius:14px; padding:20px 22px; overflow-x:auto }}
-h2 {{ font-family:Fraunces,serif; margin:0 0 12px; font-size:24px }}
-h2 .date {{ color:var(--mut); font-size:15px; font-family:Inter,sans-serif; font-weight:500 }}
-table {{ border-collapse:collapse; width:100%; min-width:760px }}
-th {{ text-align:right; font-size:11px; text-transform:uppercase; letter-spacing:.06em;
-     color:var(--mut); padding:6px 8px; border-bottom:2px solid var(--line) }}
+.meta {{ color:var(--mut); font-size:13px; margin-top:8px; max-width:70ch }}
+.day {{ max-width:1120px; margin:32px auto 0; background:var(--card);
+        border:1px solid var(--line); border-radius:18px; padding:22px 24px 18px;
+        box-shadow:var(--shadow) }}
+.day-head {{ display:flex; align-items:baseline; gap:12px; margin-bottom:14px }}
+h2 {{ font-family:Fraunces,serif; margin:0; font-size:26px; letter-spacing:-.01em }}
+.date {{ color:var(--mut); font-size:13px; font-weight:500; border:1px solid var(--line);
+        border-radius:99px; padding:2px 10px }}
+.recs {{ display:flex; flex-direction:column; gap:6px; margin:0 0 14px }}
+.rec {{ display:flex; flex-wrap:wrap; align-items:baseline; gap:2px 10px; font-size:13.5px }}
+.rec-label {{ color:var(--leaf-dk); font-weight:700; font-size:11px;
+             text-transform:uppercase; letter-spacing:.07em }}
+.rec-name {{ font-weight:600; flex:1; min-width:min(100%, 24ch) }}
+.table-wrap {{ overflow-x:auto; margin:0 -8px; padding:0 8px }}
+table {{ border-collapse:collapse; width:100%; min-width:880px }}
+th {{ text-align:right; font-size:10.5px; font-weight:700; text-transform:uppercase;
+     letter-spacing:.08em; color:var(--mut); padding:7px 9px;
+     border-bottom:2px solid var(--line) }}
 th:first-child {{ text-align:left }}
-td {{ padding:10px 8px; border-bottom:1px solid var(--line); vertical-align:middle }}
-td.dish {{ display:flex; gap:12px; align-items:center; min-width:280px }}
-.dish-img {{ width:52px; height:52px; object-fit:cover; border-radius:8px; flex:none }}
-.station {{ color:var(--mut); font-size:12px }}
+td {{ padding:10px 9px; border-bottom:1px solid var(--line); vertical-align:middle }}
+tbody tr:nth-child(even) {{ background:var(--zebra) }}
+tbody tr:last-child td {{ border-bottom:none }}
+tbody tr:hover {{ background:color-mix(in srgb, var(--bal) 45%, transparent) }}
+td.dish {{ min-width:300px }}
+.station {{ display:block; color:var(--mut); font-size:11.5px; margin-bottom:1px }}
 .num {{ text-align:right; font-variant-numeric:tabular-nums; white-space:nowrap }}
-.strong {{ font-weight:600 }}
-.price {{ color:var(--leaf-dk); font-weight:600 }}
-.chip {{ display:inline-block; font-size:11px; font-weight:600; border-radius:99px;
-        padding:2px 9px; margin-left:4px; vertical-align:middle }}
-.chip-bal {{ background:var(--bal); color:var(--leaf-dk) }}
-.chip-pro {{ background:var(--pro); color:#8a4b12 }}
-.chip-veg {{ background:var(--veg); color:#1f5c3c }}
+.strong {{ font-weight:650 }}
+.dim {{ color:var(--mut) }}
+.price {{ color:var(--leaf-dk); font-weight:650 }}
+.chip {{ display:inline-block; font-size:10.5px; font-weight:700; border-radius:99px;
+        padding:2.5px 10px; margin-left:8px; vertical-align:2px; letter-spacing:.02em }}
+.chip-bal {{ background:var(--bal); color:var(--bal-ink) }}
+.chip-pro {{ background:var(--pro); color:var(--pro-ink) }}
+.chip-veg {{ background:var(--veg); color:var(--veg-ink) }}
+.chip-multi {{ background:linear-gradient(100deg,var(--bal),var(--veg)); color:var(--bal-ink) }}
 .combos {{ margin-top:14px; display:grid; gap:8px }}
-.combo {{ background:var(--bg); border:1px dashed var(--line); border-radius:10px;
-         padding:10px 14px; display:flex; flex-wrap:wrap; gap:6px 16px; align-items:baseline }}
+.combo {{ background:var(--bg); border:1px dashed var(--line); border-radius:12px;
+         padding:10px 14px; display:flex; flex-wrap:wrap; gap:4px 16px; align-items:baseline }}
 .combo-target {{ font-family:Fraunces,serif; font-weight:700; color:var(--leaf-dk); font-size:17px }}
-.combo-items {{ flex:1; min-width:200px }}
-.combo-facts {{ color:var(--mut); font-size:13px; white-space:nowrap }}
-footer {{ max-width:1080px; margin:32px auto 0; color:var(--mut); font-size:12px }}
+.combo-items {{ flex:1; min-width:220px }}
+.combo-facts {{ color:var(--mut); font-size:12.5px; white-space:nowrap }}
+footer {{ max-width:1120px; margin:36px auto 0; color:var(--mut); font-size:12px; line-height:1.6 }}
+/* Schmale Screens: Tabellenzeilen werden zu Gericht-Karten mit umbrechenden
+   Nährwert-Fakten – kein horizontales Scrollen nötig. */
+@media (max-width: 760px) {{
+  body {{ padding:0 12px 56px }}
+  .day {{ padding:18px 16px 14px; border-radius:14px }}
+  .table-wrap {{ overflow:visible; margin:0; padding:0 }}
+  table {{ min-width:0 }}
+  thead {{ display:none }}
+  tbody tr {{ display:flex; flex-wrap:wrap; gap:3px 14px; padding:10px 8px;
+             border-bottom:1px solid var(--line); border-radius:10px }}
+  tbody tr:last-child {{ border-bottom:none }}
+  tbody tr td {{ display:block; border:none; padding:0 }}
+  td.dish {{ flex:1 1 100%; min-width:0; margin-bottom:3px }}
+  td.num {{ display:inline-flex; align-items:baseline; gap:5px; font-size:13px }}
+  td.num::before {{ content:attr(data-l); color:var(--mut); font-size:9.5px;
+                   font-weight:700; text-transform:uppercase; letter-spacing:.06em }}
+  .combo-facts {{ white-space:normal }}
+}}
 </style></head><body>
-<header>
+<header class="page">
   <h1>Kantinen-<em>Wochenplan</em></h1>
   <div class="meta">Stand {meta['generated'].replace('T', ' ')} Uhr · Preise = extern
   (× {meta['price_factor']} wo nicht ausgewiesen) · * = geschätzt · † = beste Annäherung ans kcal-Ziel</div>
@@ -136,16 +209,16 @@ Angaben ohne Gewähr; Datenfehler der Quelle werden plausibilisiert (* = Schätz
 
 
 def render_email(plan, meta):
-    """Vollständige Inline-Style-Mail: Empfehlungen + Kombis + alle Gerichte
-    pro Tag (damit die Mail auch ohne Pages-Seite komplett nutzbar ist)."""
+    """Vollständige Inline-Style-Mail: Empfehlungen (gruppiert) + Kombis +
+    alle Gerichte mit allen Makronährstoffen."""
     blocks = []
     for day in plan:
         rec = day["recommendations"]
         lines = "".join(
-            f'<tr><td style="padding:2px 10px 2px 0;color:#6d7266;font-size:13px">{label}</td>'
-            f'<td style="padding:2px 0;font-size:13px"><b>{html.escape(rec[key])}</b></td></tr>'
-            for key, label in (("ausgewogen", "Ausgewogen"), ("protein", "Protein"), ("vegetarisch", "Vegetarisch"))
-            if key in rec
+            f'<tr><td style="padding:3px 12px 3px 0;color:#33531a;font-size:11px;'
+            f'font-weight:700;text-transform:uppercase;letter-spacing:.06em;white-space:nowrap">{labels}</td>'
+            f'<td style="padding:3px 0;font-size:13px"><b>{html.escape(name)}</b></td></tr>'
+            for labels, name in _grouped_recs(rec)
         )
         combos = "".join(
             f'<div style="margin:6px 0;padding:8px 12px;background:#f4f6ef;border-radius:8px;font-size:13px">'
@@ -153,35 +226,39 @@ def render_email(plan, meta):
             f' <span style="color:#6d7266">({c["kcal"]} kcal · {c["protein"]} g EW · {c["price_extern"]:.2f} €)</span></div>'.replace(".", ",")
             for t, c in day["combos"].items()
         )
-        # Alle Gerichte des Tages als kompakte Tabelle
-        td_n = 'style="padding:4px 8px;font-size:12px;border-bottom:1px solid #e4e6df"'
-        td_r = 'style="padding:4px 8px;font-size:12px;border-bottom:1px solid #e4e6df;text-align:right;white-space:nowrap"'
-        th = 'style="padding:4px 8px;font-size:11px;color:#6d7266;text-align:right;border-bottom:2px solid #e4e6df"'
+        # Alle Gerichte mit allen Makronährstoffen
+        td_n = 'style="padding:5px 7px;font-size:12px;border-bottom:1px solid #e4e6df"'
+        td_r = 'style="padding:5px 7px;font-size:12px;border-bottom:1px solid #e4e6df;text-align:right;white-space:nowrap"'
+        th = 'style="padding:4px 7px;font-size:10px;color:#6d7266;text-transform:uppercase;letter-spacing:.05em;text-align:right;border-bottom:2px solid #e4e6df"'
         rows = "".join(
-            f'<tr><td {td_n}><span style="color:#6d7266;font-size:11px">{html.escape(d["station"])}</span><br>'
+            f'<tr><td {td_n}><span style="color:#6d7266;font-size:10.5px">{html.escape(d["station"])}</span><br>'
             f'<b>{html.escape(_dish_name(d))}</b></td>'
             f'<td {td_r}>{_fmt(d["weight_g"])}{"*" if d["weight_estimated"] else ""} g</td>'
             f'<td {td_r}><b>{_fmt(d["portion"]["kcal"])}</b></td>'
-            f'<td {td_r}>{_fmt(d["portion"].get("protein"), " g")}</td>'
+            f'<td {td_r}>{_fmt(d["portion"].get("fat"))}</td>'
+            f'<td {td_r}>{_fmt(d["portion"].get("carbs"))}</td>'
+            f'<td {td_r}>{_fmt(d["portion"].get("sugar"))}</td>'
+            f'<td {td_r}><b>{_fmt(d["portion"].get("protein"))}</b></td>'
             f'<td {td_r}><b style="color:#33531a">{_euro(d["price_extern"])}{"*" if d["price_extern_estimated"] else ""}</b></td></tr>'
             for d in day["dishes"]
         )
         dishes_tbl = (
             f'<table cellspacing="0" cellpadding="0" style="border-collapse:collapse;width:100%;margin-top:8px">'
-            f'<tr><th {th.replace("text-align:right","text-align:left")}>Gericht</th>'
-            f'<th {th}>Portion</th><th {th}>kcal</th><th {th}>Eiweiß</th><th {th}>extern</th></tr>{rows}</table>'
+            f'<tr><th {th.replace("text-align:right", "text-align:left")}>Gericht</th>'
+            f'<th {th}>Portion</th><th {th}>kcal</th><th {th}>Fett&nbsp;g</th><th {th}>KH&nbsp;g</th>'
+            f'<th {th}>Zucker&nbsp;g</th><th {th}>Eiweiß&nbsp;g</th><th {th}>extern</th></tr>{rows}</table>'
             if rows else ""
         )
         blocks.append(
-            f'<h3 style="font-family:Georgia,serif;margin:22px 0 6px;color:#1d211a">'
-            f'{day["weekday"]} <span style="color:#6d7266;font-size:14px">{day["date"]}</span></h3>'
+            f'<h3 style="font-family:Georgia,serif;margin:24px 0 6px;color:#1d211a;font-size:19px">'
+            f'{day["weekday"]} <span style="color:#6d7266;font-size:13px;font-family:Helvetica,Arial,sans-serif">{day["date"]}</span></h3>'
             f'<table cellspacing="0" cellpadding="0">{lines}</table>{combos}{dishes_tbl}'
         )
     return (
-        '<div style="max-width:640px;margin:auto;font-family:Helvetica,Arial,sans-serif;color:#1d211a">'
-        '<h2 style="font-family:Georgia,serif;color:#33531a">Kantinen-Wochenplan</h2>'
+        '<div style="max-width:680px;margin:auto;font-family:Helvetica,Arial,sans-serif;color:#1d211a">'
+        '<h2 style="font-family:Georgia,serif;color:#33531a;font-size:24px">🥗 Kantinen-Wochenplan</h2>'
         + "".join(blocks)
-        + f'<p style="color:#6d7266;font-size:12px;margin-top:24px">Stand {meta["generated"].replace("T", " ")} Uhr · '
-        'Preise extern (× Faktor wo nicht ausgewiesen) · * = geschätzt · † = beste Annäherung ans kcal-Ziel.<br>'
-        'Vollständige Ansicht: siehe angehängte HTML-Datei.</p></div>'
+        + f'<p style="color:#6d7266;font-size:11.5px;margin-top:26px;line-height:1.6">Stand {meta["generated"].replace("T", " ")} Uhr · '
+        'Nährwerte pro Portion · Preise extern (× Faktor wo nicht ausgewiesen) · * = geschätzt · † = beste Annäherung ans kcal-Ziel.<br>'
+        'Vollständige Ansicht inkl. ges. Fettsäuren &amp; Salz: siehe angehängte HTML-Datei.</p></div>'
     )
