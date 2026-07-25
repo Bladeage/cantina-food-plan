@@ -68,15 +68,15 @@ def render_page(plan, meta):
       <tr>
         <td class="dish"><span class="station">{html.escape(d['station'])}</span>
             <strong>{html.escape(_dish_name(d))}</strong>{chips}</td>
-        <td class="num">{_fmt(d['weight_g'])}{est} g</td>
-        <td class="num strong">{_fmt(p['kcal'])}</td>
-        <td class="num">{_fmt(p.get('fat'), ' g')}</td>
-        <td class="num dim">{_fmt(p.get('satfat'), ' g')}</td>
-        <td class="num">{_fmt(p.get('carbs'), ' g')}</td>
-        <td class="num dim">{_fmt(p.get('sugar'), ' g')}</td>
-        <td class="num strong">{_fmt(p.get('protein'), ' g')}</td>
-        <td class="num dim">{_fmt(p.get('salt'), ' g')}</td>
-        <td class="num price">{_euro(d['price_extern'])}{'*' if d['price_extern_estimated'] else ''}</td>
+        <td class="num" data-l="Portion">{_fmt(d['weight_g'])}{est} g</td>
+        <td class="num strong" data-l="kcal">{_fmt(p['kcal'])}</td>
+        <td class="num" data-l="Fett">{_fmt(p.get('fat'), ' g')}</td>
+        <td class="num dim" data-l="ges. FS">{_fmt(p.get('satfat'), ' g')}</td>
+        <td class="num" data-l="KH">{_fmt(p.get('carbs'), ' g')}</td>
+        <td class="num dim" data-l="Zucker">{_fmt(p.get('sugar'), ' g')}</td>
+        <td class="num strong" data-l="Eiweiß">{_fmt(p.get('protein'), ' g')}</td>
+        <td class="num dim" data-l="Salz">{_fmt(p.get('salt'), ' g')}</td>
+        <td class="num price" data-l="extern">{_euro(d['price_extern'])}{'*' if d['price_extern_estimated'] else ''}</td>
       </tr>""")
 
         rec_html = "".join(
@@ -144,11 +144,11 @@ h1 em {{ font-style:normal; color:var(--leaf) }}
 h2 {{ font-family:Fraunces,serif; margin:0; font-size:26px; letter-spacing:-.01em }}
 .date {{ color:var(--mut); font-size:13px; font-weight:500; border:1px solid var(--line);
         border-radius:99px; padding:2px 10px }}
-.recs {{ display:flex; flex-wrap:wrap; gap:8px 18px; margin:0 0 14px }}
-.rec {{ display:flex; align-items:baseline; gap:8px; font-size:13.5px }}
+.recs {{ display:flex; flex-direction:column; gap:6px; margin:0 0 14px }}
+.rec {{ display:flex; flex-wrap:wrap; align-items:baseline; gap:2px 10px; font-size:13.5px }}
 .rec-label {{ color:var(--leaf-dk); font-weight:700; font-size:11px;
-             text-transform:uppercase; letter-spacing:.07em; white-space:nowrap }}
-.rec-name {{ font-weight:600 }}
+             text-transform:uppercase; letter-spacing:.07em }}
+.rec-name {{ font-weight:600; flex:1; min-width:min(100%, 24ch) }}
 .table-wrap {{ overflow-x:auto; margin:0 -8px; padding:0 8px }}
 table {{ border-collapse:collapse; width:100%; min-width:880px }}
 th {{ text-align:right; font-size:10.5px; font-weight:700; text-transform:uppercase;
@@ -156,9 +156,9 @@ th {{ text-align:right; font-size:10.5px; font-weight:700; text-transform:upperc
      border-bottom:2px solid var(--line) }}
 th:first-child {{ text-align:left }}
 td {{ padding:10px 9px; border-bottom:1px solid var(--line); vertical-align:middle }}
-tbody tr:nth-child(even) td {{ background:var(--zebra) }}
+tbody tr:nth-child(even) {{ background:var(--zebra) }}
 tbody tr:last-child td {{ border-bottom:none }}
-tbody tr:hover td {{ background:color-mix(in srgb, var(--bal) 45%, transparent) }}
+tbody tr:hover {{ background:color-mix(in srgb, var(--bal) 45%, transparent) }}
 td.dish {{ min-width:300px }}
 .station {{ display:block; color:var(--mut); font-size:11.5px; margin-bottom:1px }}
 .num {{ text-align:right; font-variant-numeric:tabular-nums; white-space:nowrap }}
@@ -178,6 +178,24 @@ td.dish {{ min-width:300px }}
 .combo-items {{ flex:1; min-width:220px }}
 .combo-facts {{ color:var(--mut); font-size:12.5px; white-space:nowrap }}
 footer {{ max-width:1120px; margin:36px auto 0; color:var(--mut); font-size:12px; line-height:1.6 }}
+/* Schmale Screens: Tabellenzeilen werden zu Gericht-Karten mit umbrechenden
+   Nährwert-Fakten – kein horizontales Scrollen nötig. */
+@media (max-width: 760px) {{
+  body {{ padding:0 12px 56px }}
+  .day {{ padding:18px 16px 14px; border-radius:14px }}
+  .table-wrap {{ overflow:visible; margin:0; padding:0 }}
+  table {{ min-width:0 }}
+  thead {{ display:none }}
+  tbody tr {{ display:flex; flex-wrap:wrap; gap:3px 14px; padding:10px 8px;
+             border-bottom:1px solid var(--line); border-radius:10px }}
+  tbody tr:last-child {{ border-bottom:none }}
+  tbody tr td {{ display:block; border:none; padding:0 }}
+  td.dish {{ flex:1 1 100%; min-width:0; margin-bottom:3px }}
+  td.num {{ display:inline-flex; align-items:baseline; gap:5px; font-size:13px }}
+  td.num::before {{ content:attr(data-l); color:var(--mut); font-size:9.5px;
+                   font-weight:700; text-transform:uppercase; letter-spacing:.06em }}
+  .combo-facts {{ white-space:normal }}
+}}
 </style></head><body>
 <header class="page">
   <h1>Kantinen-<em>Wochenplan</em></h1>
