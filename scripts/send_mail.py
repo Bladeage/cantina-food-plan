@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """Versendet email_body.html per SMTP, mit der vollständigen Wochenplan-Seite
-(docs/index.html) als Anhang. Konfiguration über Umgebungsvariablen:
-SMTP_HOST, SMTP_PORT (587), SMTP_USER, SMTP_PASS, MAIL_FROM,
-MAIL_TO (kommagetrennt, erforderlich)."""
+(docs/index.html) als Anhang. Alle Empfänger werden per BCC angeschrieben
+(nur im SMTP-Umschlag, nicht in den Headern), damit sie einander nicht sehen.
+Konfiguration über Umgebungsvariablen: SMTP_HOST, SMTP_PORT (587), SMTP_USER,
+SMTP_PASS, MAIL_FROM, MAIL_TO (kommagetrennt, erforderlich)."""
 import os
 import smtplib
 import sys
@@ -42,10 +43,14 @@ monday = today + dt.timedelta(
 )
 kw = monday.isocalendar().week
 
+sender = os.environ.get("MAIL_FROM") or user
+
 msg = MIMEMultipart("mixed")
 msg["Subject"] = f"🥗 Kantinen-Wochenplan KW {kw}"
-msg["From"] = os.environ.get("MAIL_FROM") or user
-msg["To"] = to
+msg["From"] = sender
+# Empfänger stehen bewusst NICHT in den Headern (BCC-Versand): sie kommen nur
+# in den SMTP-Umschlag (sendmail unten), damit sie einander nicht sehen.
+msg["To"] = sender
 msg.attach(MIMEText(body, "html", "utf-8"))
 
 # Vollständige Wochenplan-Seite anhängen (falls vorhanden)
@@ -62,5 +67,5 @@ recipients = [a.strip() for a in to.split(",") if a.strip()]
 with smtplib.SMTP(host, int(os.environ.get("SMTP_PORT", "587")), timeout=30) as s:
     s.starttls()
     s.login(user, pw)
-    s.sendmail(msg["From"], recipients, msg.as_string())
-print(f"Mail an {len(recipients)} Empfänger versendet (KW {kw}).")
+    s.sendmail(sender, recipients, msg.as_string())
+print(f"Mail an {len(recipients)} Empfänger versendet (BCC, KW {kw}).")

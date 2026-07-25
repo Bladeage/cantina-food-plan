@@ -25,7 +25,7 @@ Repo → **Settings → Secrets and variables → Actions → New repository sec
 | `SMTP_USER`   | SMTP-Login                                                   |
 | `SMTP_PASS`   | App-Passwort (nicht das normale Login-Passwort!)             |
 | `MAIL_FROM`   | optional, Standard = `SMTP_USER`                             |
-| `MAIL_TO`     | **Erforderlich für Versand.** Empfänger (kommagetrennt für mehrere) |
+| `MAIL_TO`     | **Erforderlich für Versand.** Empfänger, kommagetrennt für mehrere (z. B. `a@x.de, b@y.de`). Versand erfolgt per **BCC** – Empfänger sehen einander nicht. |
 
 Gmail: App-Passwort unter *Google-Konto → Sicherheit → 2FA → App-Passwörter*.
 Ohne SMTP-Zugang oder `MAIL_TO` wird der Mailversand einfach übersprungen —
