@@ -1,0 +1,64 @@
+# CLAUDE.md – Projektkontext & Handover
+
+## Ziel
+Wöchentlicher Speiseplan-Scraper für eine Kantinen-Web-App. Berechnet Nährwerte
+pro Portion, empfiehlt pro Tag (ausgewogen/Protein/vegetarisch) und baut
+~600- & ~1000-kcal-Kombis mit Extern-Preisen. Läuft via GitHub Actions
+(**So 16:00 UTC = 18:00 MESZ**, Plan für die kommende Woche), Ausgabe:
+`docs/index.html`, `docs/plan.json`, vollständige E-Mail mit HTML-Anhang.
+
+## Vertraulichkeit (WICHTIG)
+Das Repo ist ggf. **öffentlich**. Deshalb stehen **weder der Name der
+Kantine/des Betreibers noch persönliche Daten (E-Mail-Adressen) im Code, in
+Commits, im PR oder in Logs**. Konkrete Werte leben ausschließlich in
+Actions-Secrets:
+- `EUREST_BASE` – Basis-URL der Web-App (erforderlich)
+- `MAIL_TO` – Empfänger (erforderlich für Versand)
+- `SMTP_HOST/PORT/USER/PASS`, `MAIL_FROM` – SMTP-Zugang
+Beim Weiterentwickeln darauf achten, dass keine dieser Informationen in
+Ausgaben, Kommentare, Commit-Messages oder Workflow-Logs gerät (send_mail.py
+loggt z. B. nur die Empfängeranzahl).
+
+## Status: Parser live verifiziert (Stand 25.07.2026)
+Gegen die echte Web-App via GitHub-Actions-Läufe bestätigt: 5 Tage (Mo–Fr),
+6–10 Gerichte/Tag, Portionswerte korrekt (Referenzgericht 740 kcal / 42,6 g
+Eiweiß). Entwicklung ohne Direktzugriff auf die Quelle (Egress im
+Entwicklungs-Sandkasten blockiert) → Verifikation läuft über den
+Actions-Runner: Workflow manuell mit **Debug**-Häkchen starten → Logs +
+Artefakt `debug-html` prüfen.
+
+## Verifizierte Fakten zur Quelle (aus echten Abrufen)
+- Struktur: `GET {BASE}/ajaxview/main` = Tagesübersicht (2 Wochen, Mo–Fr),
+  `GET {BASE}/ajaxpage_dailymenupage/<ID>` = Tagesseite, frei abrufbar.
+- Tages-IDs zählen +1 pro Tag; Fallback über `SEED_ID`/`SEED_DATE`
+  (Workflow-Env), falls die IDs nicht im HTML stehen.
+- Tagesseiten-Markup (Klassen): `.dishDescriptionInner` (Name, ggf. nur
+  „mit …"-Fortsetzung → Station wird vorangestellt), `.additives`
+  (Allergen-Codes), `.co2-rating-value` (Portionsgewicht „0,x kg"),
+  `.dishPriceInner` (Preis intern), `ul.nutrition-values > li` mit
+  `.title`/`.value-unit` (Nährwerte pro 100 g inkl. fehlerhafter
+  kJ-Angaben – werden ignoriert).
+- Keine Bilder und keine maschinenlesbaren vegan/vegetarisch-Labels im
+  Markup → Wortheuristik (`VEG_WORDS`/`MEAT_WORDS`).
+- Bekannte Datenfehler der Quelle: unplausible Portionsgewichte (0,9 kg
+  Salat), KH < Zucker, kJ-Werte falsch → Plausibilisierung existiert
+  (`WEIGHT_RULES`, `IMPLAUSIBLE_KCAL`, kJ ignoriert, Zucker⊆KH).
+- Transiente Leerantworten einzelner Tagesseiten kommen vor → `fetch()` mit
+  Retries + erneuter Tagesabruf bei 0 Gerichten (bereits eingebaut).
+
+## Architektur
+- `scripts/fetch_menu.py` – Discovery, Parser, Scoring, Kombinatorik (Kern)
+- `scripts/render.py` – HTML-Seite + vollständiger E-Mail-Body (inline styles)
+- `scripts/send_mail.py` – SMTP-Versand mit HTML-Anhang, no-op ohne Secrets
+- `.github/workflows/wochenplan.yml` – Cron So 16:00 UTC + manuell (Debug-
+  Option); committet `docs/` und versendet Mail
+
+## Nutzerpräferenzen (nicht wegoptimieren!)
+- Preise immer **extern** anzeigen (Untermieter-Konditionen, ~×1,5)
+- Drei Empfehlungsschienen pro Tag: ausgewogen / viel Protein / vegetarisch
+- Kombi-Ziele exakt 600 & 1000 kcal; wenn unerreichbar: beste Annäherung
+  mit `†` kennzeichnen (implementiert)
+- Geschätzte Werte transparent mit `*` markieren
+- E-Mail muss den vollständigen Plan enthalten (alle Gerichte + Kombis +
+  HTML-Anhang), da Pages optional ist
+- Sprache aller Ausgaben: Deutsch

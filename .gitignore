@@ -1,0 +1,16 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Laufzeit-Artefakte des Scrapers
+scripts/email_body.html
+email_body.html
+scripts/debug_*.html
+debug_*.html
+
+# Editor/OS
+.DS_Store
+.idea/
+.vscode/

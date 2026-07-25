@@ -1,0 +1,78 @@
+name: Kantinen-Wochenplan
+
+on:
+  schedule:
+    - cron: "0 16 * * 0"   # jeden Sonntag 16:00 UTC = 18:00 Uhr MESZ
+  workflow_dispatch:        # manueller Start über den Actions-Tab
+    inputs:
+      debug:
+        description: "Debug-Modus (rohe HTML-Struktur loggen + als Artefakt sichern)"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Abhängigkeiten
+        run: pip install requests beautifulsoup4
+
+      - name: Speiseplan holen & auswerten
+        working-directory: scripts
+        env:
+          OUT_DIR: ../docs
+          PRICE_FACTOR: "1.5"
+          # Basis-URL der Kantinen-Web-App – bewusst als Secret, damit sie
+          # nicht im (ggf. öffentlichen) Repo steht.
+          EUREST_BASE: ${{ secrets.EUREST_BASE }}
+          # DEBUG aus dem manuellen Trigger übernehmen (leer = aus)
+          DEBUG: ${{ inputs.debug && '1' || '' }}
+          # SEED_ID/SEED_DATE nur nötig, falls die IDs nicht im HTML stehen:
+          SEED_ID: "146465"
+          SEED_DATE: "27.07.2026"
+        run: python fetch_menu.py
+
+      - name: Debug-Artefakte sichern
+        if: ${{ inputs.debug }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: debug-html
+          path: |
+            scripts/debug_main.html
+            scripts/debug_day_*.html
+            docs/plan.json
+          if-no-files-found: warn
+          retention-days: 7
+
+      - name: Ergebnis committen (Pages aus /docs)
+        run: |
+          git config user.name "menu-bot"
+          git config user.email "actions@github.com"
+          git add docs/
+          git diff --cached --quiet || git commit -m "Wochenplan $(date +%d.%m.%Y)"
+          git push
+
+      - name: E-Mail versenden
+        if: always()
+        env:
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASS: ${{ secrets.SMTP_PASS }}
+          MAIL_FROM: ${{ secrets.MAIL_FROM }}
+          # Empfänger ausschließlich aus dem Secret (keine Adresse im Repo)
+          MAIL_TO: ${{ secrets.MAIL_TO }}
+        run: |
+          mv scripts/email_body.html . 2>/dev/null || true
+          python scripts/send_mail.py
