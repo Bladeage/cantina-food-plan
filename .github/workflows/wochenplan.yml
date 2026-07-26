@@ -36,6 +36,11 @@ jobs:
           # Basis-URL der Kantinen-Web-App – bewusst als Secret, damit sie
           # nicht im (ggf. öffentlichen) Repo steht.
           EUREST_BASE: ${{ secrets.EUREST_BASE }}
+          # Optional: Bezeichnung in der Kopfzeile + Quell-Link in der Fußzeile.
+          # PAGE_SHOW_DETAILS=0 hält Seite/plan.json neutral (nur Mail zeigt sie).
+          PLAN_TITLE: ${{ secrets.PLAN_TITLE }}
+          SOURCE_URL: ${{ secrets.SOURCE_URL }}
+          PAGE_SHOW_DETAILS: ${{ vars.PAGE_SHOW_DETAILS || '1' }}
           # DEBUG aus dem manuellen Trigger übernehmen (leer = aus)
           DEBUG: ${{ inputs.debug && '1' || '' }}
           # SEED_ID/SEED_DATE nur nötig, falls die IDs nicht im HTML stehen:

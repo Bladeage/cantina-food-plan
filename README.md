@@ -26,6 +26,14 @@ Repo → **Settings → Secrets and variables → Actions → New repository sec
 | `SMTP_PASS`   | App-Passwort (nicht das normale Login-Passwort!)             |
 | `MAIL_FROM`   | optional, Standard = `SMTP_USER`                             |
 | `MAIL_TO`     | **Erforderlich für Versand.** Empfänger, kommagetrennt für mehrere (z. B. `a@x.de, b@y.de`). Versand erfolgt per **BCC** – Empfänger sehen einander nicht. |
+| `PLAN_TITLE`  | optional. Bezeichnung in der Kopfzeile (z. B. `Betriebsrestaurant · Standort X`). Ohne Angabe: neutral „Kantinen-Wochenplan". |
+| `SOURCE_URL`  | optional. Link in der Fußzeile („Quelle"), meist identisch mit `EUREST_BASE`. |
+
+⚠️ **Bei öffentlichem Repo:** `PLAN_TITLE` und `SOURCE_URL` erscheinen in den
+committeten Dateien (`docs/index.html`, `docs/plan.json`) und sind damit
+öffentlich sichtbar. Wer sie nur in der (privaten) E-Mail haben will, setzt
+zusätzlich die Variable `PAGE_SHOW_DETAILS` auf `0` – dann bleiben Seite und
+`plan.json` neutral.
 
 Gmail: App-Passwort unter *Google-Konto → Sicherheit → 2FA → App-Passwörter*.
 Ohne SMTP-Zugang oder `MAIL_TO` wird der Mailversand einfach übersprungen —
