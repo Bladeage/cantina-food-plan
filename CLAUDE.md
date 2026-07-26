@@ -15,6 +15,9 @@ Actions-Secrets:
 - `EUREST_BASE` – Basis-URL der Web-App (erforderlich)
 - `MAIL_TO` – Empfänger (erforderlich für Versand)
 - `SMTP_HOST/PORT/USER/PASS`, `MAIL_FROM` – SMTP-Zugang
+- `PLAN_TITLE`, `SOURCE_URL` – optionale Bezeichnung/Quell-Link für Kopf- und
+  Fußzeile. Achtung: landen in `docs/` (öffentlich), sofern nicht
+  `PAGE_SHOW_DETAILS=0` gesetzt ist – dann zeigt sie nur die E-Mail.
 Beim Weiterentwickeln darauf achten, dass keine dieser Informationen in
 Ausgaben, Kommentare, Commit-Messages oder Workflow-Logs gerät (send_mail.py
 loggt z. B. nur die Empfängeranzahl).
