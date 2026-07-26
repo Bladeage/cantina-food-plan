@@ -1,7 +1,9 @@
 {
   "meta": {
-    "generated": "2026-07-25T22:09",
-    "price_factor": 1.5
+    "generated": "2026-07-26T16:51",
+    "price_factor": 1.5,
+    "title": "Kantinenplan - AXA Campus - Standort Köln",
+    "source": "https://axa.eurest.de/restaurant-wiesbaden/web-app/"
   },
   "days": [
     {
