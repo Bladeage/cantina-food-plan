@@ -2,7 +2,12 @@ name: Kantinen-Wochenplan
 
 on:
   schedule:
-    - cron: "0 16 * * 0"   # jeden Sonntag 16:00 UTC = 18:00 Uhr MESZ
+    # Krumme Minute: GitHub bedient Cron-Slots zur vollen Stunde deutlich
+    # unzuverlässiger (Verzögerungen von 30-60 Minuten sind dort normal).
+    - cron: "35 15 * * 0"   # Sonntag 15:35 UTC = 17:35 Uhr MESZ
+    # Sicherheitsnetz mit Puffer, falls der erste Slot ganz ausfällt.
+    # Überspringt sich selbst, wenn schon ein Plan von heute vorliegt.
+    - cron: "35 19 * * 0"   # Sonntag 19:35 UTC = 21:35 Uhr MESZ
   workflow_dispatch:        # manueller Start über den Actions-Tab
     inputs:
       debug:
@@ -21,14 +26,43 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Sicherheitsnetz – heute schon gelaufen?
+        id: guard
+        env:
+          # github.event.schedule enthält den Cron-Ausdruck, der ausgelöst hat
+          FALLBACK: ${{ github.event.schedule == '35 19 * * 0' }}
+        run: |
+          python3 - <<'PY'
+          import datetime as dt, json, os, pathlib
+
+          skip = False
+          if os.environ.get("FALLBACK") == "true":
+              plan = pathlib.Path("docs/plan.json")
+              generated = ""
+              if plan.exists():
+                  try:
+                      generated = json.loads(plan.read_text(encoding="utf-8"))["meta"]["generated"]
+                  except Exception:
+                      generated = ""
+              skip = generated.startswith(dt.date.today().isoformat())
+              print(f"Sicherheitsnetz-Lauf; Plan zuletzt erzeugt: {generated or 'unbekannt'}")
+          print("Übersprungen – der reguläre Lauf hat heute schon geliefert."
+                if skip else "Lauf wird ausgeführt.")
+          with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as fh:
+              fh.write(f"skip={'true' if skip else 'false'}\n")
+          PY
+
       - uses: actions/setup-python@v5
+        if: steps.guard.outputs.skip != 'true'
         with:
           python-version: "3.12"
 
       - name: Abhängigkeiten
+        if: steps.guard.outputs.skip != 'true'
         run: pip install requests beautifulsoup4
 
       - name: Speiseplan holen & auswerten
+        if: steps.guard.outputs.skip != 'true'
         working-directory: scripts
         env:
           OUT_DIR: ../docs
@@ -49,7 +83,7 @@ jobs:
         run: python fetch_menu.py
 
       - name: Debug-Artefakte sichern
-        if: ${{ inputs.debug }}
+        if: ${{ inputs.debug && steps.guard.outputs.skip != 'true' }}
         uses: actions/upload-artifact@v4
         with:
           name: debug-html
@@ -61,6 +95,7 @@ jobs:
           retention-days: 7
 
       - name: Ergebnis committen (Pages aus /docs)
+        if: steps.guard.outputs.skip != 'true'
         run: |
           git config user.name "menu-bot"
           git config user.email "actions@github.com"
@@ -69,7 +104,7 @@ jobs:
           git push
 
       - name: E-Mail versenden
-        if: always()
+        if: always() && steps.guard.outputs.skip != 'true'
         env:
           SMTP_HOST: ${{ secrets.SMTP_HOST }}
           SMTP_PORT: ${{ secrets.SMTP_PORT }}

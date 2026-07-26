@@ -4,7 +4,8 @@
 Wöchentlicher Speiseplan-Scraper für eine Kantinen-Web-App. Berechnet Nährwerte
 pro Portion, empfiehlt pro Tag (ausgewogen/Protein/vegetarisch) und baut
 ~600- & ~1000-kcal-Kombis mit Extern-Preisen. Läuft via GitHub Actions
-(**So 16:00 UTC = 18:00 MESZ**, Plan für die kommende Woche), Ausgabe:
+(**So 15:35 UTC = 17:35 MESZ**, plus Sicherheitsnetz 19:35 UTC, das sich bei
+schon vorhandenem Tagesplan selbst überspringt; Plan für die kommende Woche), Ausgabe:
 `docs/index.html`, `docs/plan.json`, vollständige E-Mail mit HTML-Anhang.
 
 ## Vertraulichkeit (WICHTIG)
@@ -53,7 +54,7 @@ Artefakt `debug-html` prüfen.
 - `scripts/fetch_menu.py` – Discovery, Parser, Scoring, Kombinatorik (Kern)
 - `scripts/render.py` – HTML-Seite + vollständiger E-Mail-Body (inline styles)
 - `scripts/send_mail.py` – SMTP-Versand mit HTML-Anhang, no-op ohne Secrets
-- `.github/workflows/wochenplan.yml` – Cron So 16:00 UTC + manuell (Debug-
+- `.github/workflows/wochenplan.yml` – Cron So 15:35 + 19:35 UTC + manuell (Debug-
   Option); committet `docs/` und versendet Mail
 
 ## Nutzerpräferenzen (nicht wegoptimieren!)

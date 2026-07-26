@@ -1,8 +1,8 @@
 # 🥗 Kantinen-Wochenplan
 
-Holt jeden Sonntag um 18 Uhr automatisch den Speiseplan einer Kantinen-Web-App
+Holt jeden Sonntag ab 17:35 Uhr automatisch den Speiseplan einer Kantinen-Web-App
 (für die kommende Woche), berechnet Nährwerte **pro Portion**, wählt pro Tag
-Empfehlungen (**ausgewogen / Protein / vegetarisch**) und baut Mahlzeit-Kombis
+Empfehlungen (**ausgewogen / proteinreich / vegetarisch**) und baut Mahlzeit-Kombis
 mit **~600 kcal** und **~1000 kcal** — inkl. **Extern-Preisen** (Faktor 1,5,
 wo die App keinen Extern-Preis ausweist).
 
@@ -56,7 +56,13 @@ In `wochenplan.yml` anpassbar:
 - `PRICE_FACTOR` — Extern-Aufschlag (Standard `1.5`)
 - `SEED_ID` / `SEED_DATE` — Fallback, falls die Tages-IDs nicht aus dem HTML
   lesbar sind: eine bekannte Tages-ID + zugehöriges Datum (IDs zählen +1/Tag)
-- Cron-Zeit: `0 16 * * 0` = Sonntag 18:00 MESZ (GitHub rechnet in UTC)
+- Cron-Zeiten (GitHub rechnet in UTC):
+  - `35 15 * * 0` = Sonntag 17:35 MESZ – Hauptlauf. Die krumme Minute ist
+    Absicht: Slots zur vollen Stunde werden bei GitHub regelmäßig 30–60 Minuten
+    verzögert bedient.
+  - `35 19 * * 0` = Sonntag 21:35 MESZ – Sicherheitsnetz, falls der erste Slot
+    ganz ausfällt. Es überspringt sich selbst (keine zweite Mail), wenn
+    `docs/plan.json` schon einen Plan vom selben Tag enthält.
 
 ## Fehlersuche
 
