@@ -8,6 +8,30 @@ import html
 
 DEFAULT_TITLE = "Kantinen-Wochenplan"
 
+# Theme-Umschalter: hell ist Default, die Wahl wird im Browser gemerkt.
+# Als normale Strings gehalten (nicht im f-String), damit die geschweiften
+# Klammern des JavaScripts nicht verdoppelt werden müssen.
+THEME_HEAD_JS = """<script>
+try { if (localStorage.getItem('theme') === 'dark') document.documentElement.dataset.theme = 'dark'; } catch (e) {}
+</script>"""
+
+THEME_JS = """<script>
+(function () {
+  var root = document.documentElement, btn = document.getElementById('theme-toggle');
+  if (!btn) return;
+  function apply(dark) {
+    root.dataset.theme = dark ? 'dark' : 'light';
+    btn.setAttribute('aria-pressed', dark ? 'true' : 'false');
+    btn.querySelector('.t-ico').textContent = dark ? '☀' : '☾';
+    btn.querySelector('.t-txt').textContent = dark ? 'Hell' : 'Dunkel';
+    btn.title = dark ? 'Zum hellen Design wechseln' : 'Zum dunklen Design wechseln';
+    try { localStorage.setItem('theme', dark ? 'dark' : 'light'); } catch (e) {}
+  }
+  apply(root.dataset.theme === 'dark');
+  btn.addEventListener('click', function () { apply(root.dataset.theme !== 'dark'); });
+})();
+</script>"""
+
 
 def _fmt(v, unit=""):
     if v is None:
@@ -161,6 +185,7 @@ def render_page(plan, meta):
 <html lang="de"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{html.escape(title)} · {kw}</title>
+{THEME_HEAD_JS}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -170,20 +195,28 @@ def render_page(plan, meta):
   --veg:#ddeee4; --veg-ink:#1f5c3c; --bg:#f6f7f2; --card:#ffffff; --zebra:#fafbf7;
   --shadow:0 1px 2px rgba(32,36,28,.05), 0 8px 24px -12px rgba(32,36,28,.12);
 }}
-@media (prefers-color-scheme: dark) {{
-  :root {{
-    --leaf:#8fc45a; --leaf-dk:#a9d47c; --ink:#e6e8e0; --mut:#9aa090; --line:#3a3f35;
-    --bal:#33531a; --bal-ink:#cde3b0; --pro:#5c3413; --pro-ink:#f5c9a2;
-    --veg:#1f4632; --veg-ink:#b9dcc8; --bg:#181b16; --card:#22261f; --zebra:#262a22;
-    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -12px rgba(0,0,0,.5);
-  }}
+:root[data-theme="dark"] {{
+  --leaf:#8fc45a; --leaf-dk:#a9d47c; --ink:#e6e8e0; --mut:#9aa090; --line:#3a3f35;
+  --bal:#33531a; --bal-ink:#cde3b0; --pro:#5c3413; --pro-ink:#f5c9a2;
+  --veg:#1f4632; --veg-ink:#b9dcc8; --bg:#181b16; --card:#22261f; --zebra:#262a22;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -12px rgba(0,0,0,.5);
 }}
 * {{ box-sizing:border-box }}
 body {{ margin:0; background:var(--bg); color:var(--ink);
        font:15px/1.55 Inter,system-ui,sans-serif; padding:0 20px 72px }}
 a {{ color:var(--leaf-dk) }}
 /* Kopfzeile */
-header.page {{ max-width:1120px; margin:0 auto; padding:48px 0 4px }}
+header.page {{ max-width:1120px; margin:0 auto; padding:48px 0 4px;
+              display:flex; align-items:flex-start; gap:16px; flex-wrap:wrap }}
+.head-main {{ flex:1; min-width:min(100%, 18rem) }}
+#theme-toggle {{ flex:none; display:inline-flex; align-items:center; gap:7px;
+                margin-top:4px; padding:8px 14px; font:inherit; font-size:12.5px;
+                font-weight:600; color:var(--ink); background:var(--card);
+                border:1px solid var(--line); border-radius:99px; cursor:pointer;
+                box-shadow:var(--shadow); transition:background .15s, border-color .15s }}
+#theme-toggle:hover {{ border-color:var(--leaf) }}
+#theme-toggle:focus-visible {{ outline:2px solid var(--leaf); outline-offset:2px }}
+#theme-toggle .t-ico {{ font-size:14px; line-height:1; color:var(--leaf-dk) }}
 .eyebrow {{ color:var(--leaf); font-size:11px; font-weight:700; text-transform:uppercase;
            letter-spacing:.14em; margin-bottom:8px }}
 h1 {{ font-family:Fraunces,serif; font-size:clamp(28px,5vw,44px); margin:0;
@@ -269,12 +302,16 @@ footer .src {{ font-size:12.5px }}
 }}
 </style></head><body>
 <header class="page">
-  <div class="eyebrow">Kantinenplan</div>
-  <h1>{html.escape(title)}</h1>
-  <div class="week"><span class="kw">{kw}</span><span class="span">{span}</span></div>
-  <div class="meta">Stand {meta['generated'].replace('T', ' ')} Uhr · Nährwerte pro Portion ·
-  Preise = extern (× {meta['price_factor']} wo nicht ausgewiesen) · * = geschätzt ·
-  † = beste Annäherung ans kcal-Ziel</div>
+  <div class="head-main">
+    <div class="eyebrow">Kantinenplan</div>
+    <h1>{html.escape(title)}</h1>
+    <div class="week"><span class="kw">{kw}</span><span class="span">{span}</span></div>
+    <div class="meta">Stand {meta['generated'].replace('T', ' ')} Uhr · Nährwerte pro Portion ·
+    Preise = extern (× {meta['price_factor']} wo nicht ausgewiesen) · * = geschätzt ·
+    † = beste Annäherung ans kcal-Ziel</div>
+  </div>
+  <button id="theme-toggle" type="button" aria-pressed="false"
+          title="Zum dunklen Design wechseln"><span class="t-ico">☾</span><span class="t-txt">Dunkel</span></button>
 </header>
 {''.join(days_html)}
 <footer>
@@ -282,6 +319,7 @@ footer .src {{ font-size:12.5px }}
   <p>Nährwerte pro Portion, berechnet aus den 100-g-Angaben der Quelle. Angaben ohne
   Gewähr; Datenfehler werden plausibilisiert (* = geschätzt).</p>
 </footer>
+{THEME_JS}
 </body></html>"""
 
 
