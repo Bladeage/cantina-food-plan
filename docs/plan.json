@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated": "2026-07-27T09:11",
+    "generated": "2026-07-27T15:18+02:00",
     "price_factor": 1.5,
     "title": "Kantinenplan - AXA Campus - Standort Köln",
     "source": "https://axa.eurest.de/restaurant-wiesbaden/web-app/"
@@ -449,35 +449,6 @@
             "sugar": 18.4,
             "protein": 1.0,
             "salt": 0.0
-          }
-        },
-        {
-          "station": "Hauptgericht 1",
-          "name": "Currwurst \"Rheinland\" mit gegrillter Spitzpaprika und Pommes Frites",
-          "labels": [],
-          "images": [],
-          "price_intern": 6.5,
-          "price_extern": 8.15,
-          "price_extern_estimated": false,
-          "weight_g": 400,
-          "weight_estimated": true,
-          "per100": {
-            "kcal": 181.0,
-            "fat": 11.22,
-            "satfat": 3.66,
-            "carbs": 15.35,
-            "sugar": 2.44,
-            "protein": 4.48,
-            "salt": 1.08
-          },
-          "portion": {
-            "kcal": 724,
-            "fat": 44.9,
-            "satfat": 14.6,
-            "carbs": 61.4,
-            "sugar": 9.8,
-            "protein": 17.9,
-            "salt": 4.3
           }
         },
         {
