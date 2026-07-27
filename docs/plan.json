@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated": "2026-07-26T16:51",
+    "generated": "2026-07-27T09:11",
     "price_factor": 1.5,
     "title": "Kantinenplan - AXA Campus - Standort Köln",
     "source": "https://axa.eurest.de/restaurant-wiesbaden/web-app/"
@@ -162,8 +162,8 @@
           "labels": [],
           "images": [],
           "price_intern": 5.9,
-          "price_extern": 8.85,
-          "price_extern_estimated": true,
+          "price_extern": 7.4,
+          "price_extern_estimated": false,
           "weight_g": 400,
           "weight_estimated": false,
           "per100": {
@@ -195,7 +195,7 @@
         "600": {
           "kcal": 740,
           "protein": 42.6,
-          "price_extern": 8.85,
+          "price_extern": 7.4,
           "items": [
             "Knusprige Gemüsefrikadelle mit Kartoffel-Paprika Püree, Letscho & Wildkräutersalat"
           ],

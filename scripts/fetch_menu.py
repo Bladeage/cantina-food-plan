@@ -273,8 +273,23 @@ def parse_day(html: str, day: dict) -> list[dict]:
             allp = re.findall(r"([\d.,]+)\s*€", txt)
             if allp:
                 p_int = _num(allp[-1])
-        em = re.search(r"extern\s*([\d.,]+)\s*€", txt, re.I)
-        p_ext = _num(em.group(1)) if em else None
+        # Extern-Preis: die Quelle stellt ihn als eigenes Element
+        # .dishPriceSmallInner voran („extern 7,40 €"), der interne Preis steht
+        # in .dishPriceInner. Strukturell lesen ist robuster als Textsuche –
+        # die Textvariante bleibt als Fallback.
+        p_ext = None
+        small = node.select_one(".dishPriceSmallInner")
+        if small:
+            stxt = small.get_text(" ", strip=True)
+            sm = re.search(r"([\d.,]+)\s*€", stxt)
+            # Nur übernehmen, wenn es als Extern-/Gastpreis gekennzeichnet ist
+            # oder plausibel über dem internen Preis liegt (kein Pfand o. Ä.).
+            if sm and (re.search(r"extern|gast|gäste", stxt, re.I)
+                       or p_int is None or _num(sm.group(1)) >= p_int):
+                p_ext = _num(sm.group(1))
+        if p_ext is None:  # Fallback: „extern X €" im Text (NBSP-tolerant)
+            em = re.search(r"extern[\s\xa0]*([\d.,]+)\s*€", txt, re.I)
+            p_ext = _num(em.group(1)) if em else None
         dish["price_intern"] = p_int
         dish["price_extern"] = p_ext if p_ext is not None else (round(p_int * PRICE_FACTOR, 2) if p_int else None)
         dish["price_extern_estimated"] = p_ext is None
