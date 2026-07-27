@@ -67,6 +67,15 @@ def _week_info(plan):
     return f"KW {a.isocalendar().week}", f"{span}{b.strftime('%Y')}"
 
 
+def _stamp(meta):
+    """Zeitstempel deutsch formatiert („27.07.2026, 17:35 Uhr")."""
+    raw = str(meta.get("generated", ""))
+    try:
+        return dt.datetime.fromisoformat(raw).strftime("%d.%m.%Y, %H:%M Uhr")
+    except ValueError:  # unerwartetes Format – unverändert durchreichen
+        return (raw.replace("T", " ") + " Uhr") if any(c.isdigit() for c in raw) else raw
+
+
 def _host(url):
     """Anzeigename für einen Link (Host ohne Schema/www)."""
     return url.split("//")[-1].split("/")[0].removeprefix("www.") or url
@@ -306,7 +315,7 @@ footer .src {{ font-size:12.5px }}
     <div class="eyebrow">Kantinenplan</div>
     <h1>{html.escape(title)}</h1>
     <div class="week"><span class="kw">{kw}</span><span class="span">{span}</span></div>
-    <div class="meta">Stand {meta['generated'].replace('T', ' ')} Uhr · Nährwerte pro Portion ·
+    <div class="meta">Stand {_stamp(meta)} · Nährwerte pro Portion ·
     Preise = extern (× {meta['price_factor']} wo nicht ausgewiesen) · * = geschätzt ·
     † = beste Annäherung ans kcal-Ziel</div>
   </div>
@@ -404,7 +413,7 @@ def render_email(plan, meta):
         + "".join(blocks)
         + f'<div style="margin-top:28px;padding-top:14px;border-top:1px solid {C_LINE};'
         f'color:{C_MUT};font-size:11.5px;line-height:1.6">{src}'
-        f'<p style="margin:0 0 6px">Stand {meta["generated"].replace("T", " ")} Uhr · Nährwerte pro '
+        f'<p style="margin:0 0 6px">Stand {_stamp(meta)} · Nährwerte pro '
         f'Portion · Preise extern (× Faktor wo nicht ausgewiesen) · * = geschätzt · '
         f'† = beste Annäherung ans kcal-Ziel.</p>'
         f'<p style="margin:0">Vollständige Ansicht inkl. ges. Fettsäuren &amp; Salz: '

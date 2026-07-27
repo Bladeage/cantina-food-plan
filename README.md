@@ -41,7 +41,8 @@ der Plan landet trotzdem in `docs/`.
 
 ### 2. Erster Testlauf
 Repo → **Actions → Kantinen-Wochenplan → Run workflow**
-(Häkchen bei **Debug** für einen ausführlichen Lauf mit Artefakt `debug-html`).
+(Häkchen bei **Debug** für einen ausführlichen Lauf mit Artefakt `debug-html`;
+Häkchen bei **skip_mail**, wenn dabei keine E-Mail versendet werden soll).
 Danach im Log prüfen, wie viele Tage/Gerichte gefunden wurden.
 
 ### 3. GitHub Pages (optional)
@@ -56,13 +57,26 @@ In `wochenplan.yml` anpassbar:
 - `PRICE_FACTOR` — Extern-Aufschlag (Standard `1.5`)
 - `SEED_ID` / `SEED_DATE` — Fallback, falls die Tages-IDs nicht aus dem HTML
   lesbar sind: eine bekannte Tages-ID + zugehöriges Datum (IDs zählen +1/Tag)
-- Cron-Zeiten (GitHub rechnet in UTC):
-  - `35 15 * * 0` = Sonntag 17:35 MESZ – Hauptlauf. Die krumme Minute ist
-    Absicht: Slots zur vollen Stunde werden bei GitHub regelmäßig 30–60 Minuten
-    verzögert bedient.
-  - `35 19 * * 0` = Sonntag 21:35 MESZ – Sicherheitsnetz, falls der erste Slot
-    ganz ausfällt. Es überspringt sich selbst (keine zweite Mail), wenn
-    `docs/plan.json` schon einen Plan vom selben Tag enthält.
+- Zeitzone: Variable `PLAN_TZ` (Standard `Europe/Berlin`). Sie bestimmt
+  Zeitstempel, Kalenderwoche und Commit-Datum; Sommer-/Winterzeit erkennt die
+  Zeitzonendatenbank automatisch.
+- Cron-Zeiten: GitHub rechnet ausschließlich in UTC, kennt also keine
+  Zeitumstellung. Deshalb gibt es je Slot einen Sommer- und einen
+  Winter-Ausdruck, und der erste Job-Schritt lässt nur den passenden durch:
+
+  | Cron (UTC) | gilt bei | Ortszeit | Zweck |
+  |---|---|---|---|
+  | `35 15 * * 0` | UTC+2 (Sommer) | So 17:35 | Hauptlauf |
+  | `35 16 * * 0` | UTC+1 (Winter) | So 17:35 | Hauptlauf |
+  | `35 19 * * 0` | UTC+2 (Sommer) | So 21:35 | Sicherheitsnetz |
+  | `35 20 * * 0` | UTC+1 (Winter) | So 21:35 | Sicherheitsnetz |
+
+  Die krumme Minute ist Absicht: Slots zur vollen Stunde werden bei GitHub
+  regelmäßig 30–60 Minuten verzögert bedient. Das Sicherheitsnetz überspringt
+  sich selbst (keine zweite Mail), wenn `docs/plan.json` schon einen Plan vom
+  selben Tag enthält.
+- Bei anderer Zeitzone als UTC±1/±2 die Cron-Ausdrücke und die Zuordnung im
+  Guard-Schritt entsprechend anpassen.
 
 ## Fehlersuche
 

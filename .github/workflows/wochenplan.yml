@@ -2,16 +2,24 @@ name: Kantinen-Wochenplan
 
 on:
   schedule:
-    # Krumme Minute: GitHub bedient Cron-Slots zur vollen Stunde deutlich
-    # unzuverlässiger (Verzögerungen von 30-60 Minuten sind dort normal).
-    - cron: "35 15 * * 0"   # Sonntag 15:35 UTC = 17:35 Uhr MESZ
-    # Sicherheitsnetz mit Puffer, falls der erste Slot ganz ausfällt.
+    # GitHub-Cron kennt nur UTC. Damit der Versand ganzjährig 17:35 Ortszeit
+    # trifft, gibt es je Slot einen Sommer- und einen Winter-Ausdruck; der
+    # Guard-Schritt lässt nur den durch, der zur aktuellen Zeitzone passt.
+    # Krumme Minute, weil Slots zur vollen Stunde 30-60 Minuten Verzug haben.
+    - cron: "35 15 * * 0"   # So 15:35 UTC = 17:35 Ortszeit bei UTC+2 (Sommer)
+    - cron: "35 16 * * 0"   # So 16:35 UTC = 17:35 Ortszeit bei UTC+1 (Winter)
+    # Sicherheitsnetz (21:35 Ortszeit), falls der erste Slot ganz ausfällt.
     # Überspringt sich selbst, wenn schon ein Plan von heute vorliegt.
-    - cron: "35 19 * * 0"   # Sonntag 19:35 UTC = 21:35 Uhr MESZ
+    - cron: "35 19 * * 0"   # So 19:35 UTC = 21:35 Ortszeit bei UTC+2 (Sommer)
+    - cron: "35 20 * * 0"   # So 20:35 UTC = 21:35 Ortszeit bei UTC+1 (Winter)
   workflow_dispatch:        # manueller Start über den Actions-Tab
     inputs:
       debug:
         description: "Debug-Modus (rohe HTML-Struktur loggen + als Artefakt sichern)"
+        type: boolean
+        default: false
+      skip_mail:
+        description: "Nur Plan erzeugen, keine E-Mail versenden (Testlauf)"
         type: boolean
         default: false
 
@@ -23,31 +31,64 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      # Zeitzone für alle Schritte (Zeitstempel, Commit-Datum, KW-Berechnung).
+      # Sommer-/Winterzeit wird über die Zeitzonendatenbank automatisch erkannt.
+      PLAN_TZ: ${{ vars.PLAN_TZ || 'Europe/Berlin' }}
+      TZ: ${{ vars.PLAN_TZ || 'Europe/Berlin' }}
     steps:
       - uses: actions/checkout@v4
 
-      - name: Sicherheitsnetz – heute schon gelaufen?
+      - name: Zeitzone prüfen & Sicherheitsnetz
         id: guard
         env:
           # github.event.schedule enthält den Cron-Ausdruck, der ausgelöst hat
-          FALLBACK: ${{ github.event.schedule == '35 19 * * 0' }}
+          # (leer bei manuellem Start).
+          SCHEDULE: ${{ github.event.schedule }}
         run: |
           python3 - <<'PY'
           import datetime as dt, json, os, pathlib
+          from zoneinfo import ZoneInfo
 
-          skip = False
-          if os.environ.get("FALLBACK") == "true":
-              plan = pathlib.Path("docs/plan.json")
-              generated = ""
-              if plan.exists():
-                  try:
-                      generated = json.loads(plan.read_text(encoding="utf-8"))["meta"]["generated"]
-                  except Exception:
-                      generated = ""
-              skip = generated.startswith(dt.date.today().isoformat())
-              print(f"Sicherheitsnetz-Lauf; Plan zuletzt erzeugt: {generated or 'unbekannt'}")
-          print("Übersprungen – der reguläre Lauf hat heute schon geliefert."
-                if skip else "Lauf wird ausgeführt.")
+          # Erwarteter UTC-Versatz je Cron-Ausdruck: +2 = Sommerzeit, +1 = Winterzeit
+          SUMMER, WINTER = 2, 1
+          CRON_OFFSET = {"35 15 * * 0": SUMMER, "35 16 * * 0": WINTER,
+                         "35 19 * * 0": SUMMER, "35 20 * * 0": WINTER}
+          FALLBACK_CRONS = {"35 19 * * 0", "35 20 * * 0"}
+
+          tz_name = os.environ.get("PLAN_TZ") or "Europe/Berlin"
+          try:
+              now = dt.datetime.now(ZoneInfo(tz_name))
+          except Exception:
+              now = dt.datetime.now(dt.timezone.utc)
+              tz_name = "UTC"
+          offset = round(now.utcoffset().total_seconds() / 3600)
+
+          schedule = (os.environ.get("SCHEDULE") or "").strip()
+          skip, why = False, "Lauf wird ausgeführt."
+
+          if schedule:
+              print(f"Ausgelöst von Cron {schedule!r}; {tz_name} liegt aktuell bei "
+                    f"UTC{offset:+d} ({'Sommerzeit' if offset == SUMMER else 'Winterzeit'}).")
+              wanted = CRON_OFFSET.get(schedule)
+              if wanted is not None and wanted != offset:
+                  skip = True
+                  why = ("Übersprungen – dieser Slot gilt für den anderen "
+                         "Zeitzonen-Versatz (Sommer-/Winterzeit).")
+              elif schedule in FALLBACK_CRONS:
+                  plan = pathlib.Path("docs/plan.json")
+                  generated = ""
+                  if plan.exists():
+                      try:
+                          generated = json.loads(plan.read_text(encoding="utf-8"))["meta"]["generated"]
+                      except Exception:
+                          generated = ""
+                  print(f"Sicherheitsnetz-Lauf; Plan zuletzt erzeugt: {generated or 'unbekannt'}")
+                  if generated.startswith(now.date().isoformat()):
+                      skip = True
+                      why = "Übersprungen – der reguläre Lauf hat heute schon geliefert."
+
+          print(why)
           with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as fh:
               fh.write(f"skip={'true' if skip else 'false'}\n")
           PY
@@ -104,7 +145,7 @@ jobs:
           git push
 
       - name: E-Mail versenden
-        if: always() && steps.guard.outputs.skip != 'true'
+        if: always() && steps.guard.outputs.skip != 'true' && !inputs.skip_mail
         env:
           SMTP_HOST: ${{ secrets.SMTP_HOST }}
           SMTP_PORT: ${{ secrets.SMTP_PORT }}

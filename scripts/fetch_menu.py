@@ -15,6 +15,8 @@ import itertools
 import datetime as dt
 from pathlib import Path
 
+from zoneinfo import ZoneInfo
+
 import requests
 from bs4 import BeautifulSoup
 
@@ -28,6 +30,9 @@ if not BASE:
 MAIN_URL = f"{BASE}/ajaxview/main"
 DAY_URL = BASE + "/ajaxpage_dailymenupage/{id}"
 PRICE_FACTOR = float(os.environ.get("PRICE_FACTOR", "1.5"))
+# Zeitzone für Zeitstempel und Wochenberechnung. ZoneInfo kennt die
+# Umstellungstermine, Sommer-/Winterzeit wird also automatisch berücksichtigt.
+PLAN_TZ = os.environ.get("PLAN_TZ", "Europe/Berlin")
 TARGETS = (600, 1000)
 TOLERANCE = {600: 90, 1000: 130}
 OUT_DIR = Path(os.environ.get("OUT_DIR", "docs"))
@@ -55,6 +60,15 @@ WEIGHT_RULES = [  # (Regex, prüft: 'both'|'name'|'station', Gramm) – Reihenfo
 ]
 FALLBACK_WEIGHT = 400  # Hauptgericht
 IMPLAUSIBLE_KCAL = 1400  # darüber: Portionsgewicht vermutlich Datenfehler
+
+
+def local_now() -> dt.datetime:
+    """Jetzt in der konfigurierten Zeitzone (Fallback: UTC)."""
+    try:
+        return dt.datetime.now(ZoneInfo(PLAN_TZ))
+    except Exception:  # noqa: BLE001 – z. B. fehlende tzdata
+        log(f"Hinweis: Zeitzone {PLAN_TZ!r} nicht verfügbar – nutze UTC.")
+        return dt.datetime.now(dt.timezone.utc)
 
 
 def log(*a):
@@ -115,7 +129,7 @@ def discover_days() -> list[dict]:
             log("Hinweis: IDs nicht im HTML gefunden – sequentieller Fallback ab SEED_ID aktiv.")
 
     # Nur aktuelle Woche (Mo–Fr ab heute bzw. kommender Montag)
-    today = dt.date.today()
+    today = local_now().date()
     monday = today + dt.timedelta(days=(7 - today.weekday()) % 7 if today.weekday() >= 5 else -today.weekday())
     week = []
     for d in days:
@@ -451,7 +465,7 @@ def main():
         log(f"  {day['weekday']} {day['date']}: {len(dishes)} Gerichte")
 
     OUT_DIR.mkdir(parents=True, exist_ok=True)
-    base_meta = {"generated": dt.datetime.now().isoformat(timespec="minutes"),
+    base_meta = {"generated": local_now().isoformat(timespec="minutes"),
                  "price_factor": PRICE_FACTOR}
     # Bezeichnung + Quell-Link sind optional und kommen aus der Umgebung
     # (Secrets), damit sie nicht im Code stehen. Die E-Mail bekommt sie immer;
