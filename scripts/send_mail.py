@@ -21,6 +21,7 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.utils import formataddr, formatdate, make_msgid, parseaddr
 from pathlib import Path
+from zoneinfo import ZoneInfo
 
 
 def resolve_sender(raw_from: str, user: str) -> tuple[str, str]:
@@ -46,9 +47,18 @@ def parse_recipients(raw_to: str) -> list[str]:
     return out
 
 
+def local_today() -> dt.date:
+    """Heutiges Datum in der konfigurierten Zeitzone (Fallback: UTC).
+    ZoneInfo berücksichtigt Sommer-/Winterzeit automatisch."""
+    try:
+        return dt.datetime.now(ZoneInfo(os.environ.get("PLAN_TZ", "Europe/Berlin"))).date()
+    except Exception:  # noqa: BLE001 – z. B. fehlende tzdata
+        return dt.datetime.now(dt.timezone.utc).date()
+
+
 def week_number(today: dt.date | None = None) -> int:
     """KW des geplanten Wochenmontags – sonntags die *kommende* Woche."""
-    today = today or dt.date.today()
+    today = today or local_today()
     monday = today + dt.timedelta(
         days=(7 - today.weekday()) % 7 if today.weekday() >= 5 else -today.weekday()
     )

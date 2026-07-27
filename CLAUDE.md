@@ -4,8 +4,8 @@
 Wöchentlicher Speiseplan-Scraper für eine Kantinen-Web-App. Berechnet Nährwerte
 pro Portion, empfiehlt pro Tag (ausgewogen/Protein/vegetarisch) und baut
 ~600- & ~1000-kcal-Kombis mit Extern-Preisen. Läuft via GitHub Actions
-(**So 15:35 UTC = 17:35 MESZ**, plus Sicherheitsnetz 19:35 UTC, das sich bei
-schon vorhandenem Tagesplan selbst überspringt; Plan für die kommende Woche), Ausgabe:
+(**sonntags 17:35 Ortszeit**, plus Sicherheitsnetz 21:35, das sich bei schon
+vorhandenem Tagesplan selbst überspringt; Plan für die kommende Woche), Ausgabe:
 `docs/index.html`, `docs/plan.json`, vollständige E-Mail mit HTML-Anhang.
 
 ## Vertraulichkeit (WICHTIG)
@@ -54,8 +54,13 @@ Artefakt `debug-html` prüfen.
 - `scripts/fetch_menu.py` – Discovery, Parser, Scoring, Kombinatorik (Kern)
 - `scripts/render.py` – HTML-Seite + vollständiger E-Mail-Body (inline styles)
 - `scripts/send_mail.py` – SMTP-Versand mit HTML-Anhang, no-op ohne Secrets
-- `.github/workflows/wochenplan.yml` – Cron So 15:35 + 19:35 UTC + manuell (Debug-
-  Option); committet `docs/` und versendet Mail
+- `.github/workflows/wochenplan.yml` – je Slot ein Sommer-/Winter-Cron
+  (15:35+19:35 UTC bei UTC+2, 16:35+20:35 UTC bei UTC+1); der Guard-Schritt
+  lässt nur den zur aktuellen Zeitzone passenden durch und überspringt das
+  Sicherheitsnetz bei vorhandenem Tagesplan. Manueller Start mit Optionen
+  Debug und skip_mail; committet `docs/` und versendet Mail.
+- Zeitzone überall über `PLAN_TZ` (Standard `Europe/Berlin`), zusätzlich als
+  `TZ` job-weit gesetzt; Sommer-/Winterzeit kommt aus der Zeitzonendatenbank.
 
 ## Nutzerpräferenzen (nicht wegoptimieren!)
 - Preise immer **extern** anzeigen (Untermieter-Konditionen, ~×1,5)
