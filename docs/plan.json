@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated": "2026-08-23T17:51+02:00",
+    "generated": "2026-08-30T20:46+02:00",
     "price_factor": 1.5,
     "title": "Kantinenplan - AXA Campus - Standort Köln",
     "source": "https://axa.eurest.de/restaurant-wiesbaden/web-app/"
@@ -8,9 +8,38 @@
   "days": [
     {
       "weekday": "Montag",
-      "date": "24.08.2026",
-      "id": "147368",
+      "date": "31.08.2026",
+      "id": "147525",
       "dishes": [
+        {
+          "station": "Suppe 1 im DELI",
+          "name": "Tomatencremesuppe mit Crème fraîche & Croutons",
+          "labels": [],
+          "images": [],
+          "price_intern": 2.3,
+          "price_extern": 3.45,
+          "price_extern_estimated": true,
+          "weight_g": 300,
+          "weight_estimated": false,
+          "per100": {
+            "kcal": 34.0,
+            "fat": 2.54,
+            "satfat": 1.4,
+            "carbs": 2.2,
+            "sugar": 0.73,
+            "protein": 0.56,
+            "salt": 0.45
+          },
+          "portion": {
+            "kcal": 102,
+            "fat": 7.6,
+            "satfat": 4.2,
+            "carbs": 6.6,
+            "sugar": 2.2,
+            "protein": 1.7,
+            "salt": 1.4
+          }
+        },
         {
           "station": "Bowl Basic",
           "name": "Tossed Salat M inkl. 2 Toppings",
@@ -42,31 +71,31 @@
         },
         {
           "station": "Topping Veggi",
-          "name": "Weiße Schokoladenmousse mit Kirschen",
+          "name": "Pfirsisch-Maracuja Joghurt",
           "labels": [],
           "images": [],
           "price_intern": 1.5,
           "price_extern": 2.25,
           "price_extern_estimated": true,
-          "weight_g": 200,
+          "weight_g": 300,
           "weight_estimated": false,
           "per100": {
-            "kcal": 171.0,
-            "fat": 10.27,
-            "satfat": 6.76,
-            "carbs": 15.89,
-            "sugar": 14.02,
-            "protein": 3.13,
-            "salt": 0.08
+            "kcal": 83.0,
+            "fat": 2.4,
+            "satfat": 2.1,
+            "carbs": 14.5,
+            "sugar": 9.2,
+            "protein": 0.5,
+            "salt": 0.05
           },
           "portion": {
-            "kcal": 342,
-            "fat": 20.5,
-            "satfat": 13.5,
-            "carbs": 31.8,
-            "sugar": 28.0,
-            "protein": 6.3,
-            "salt": 0.2
+            "kcal": 249,
+            "fat": 7.2,
+            "satfat": 6.3,
+            "carbs": 43.5,
+            "sugar": 27.6,
+            "protein": 1.5,
+            "salt": 0.1
           }
         },
         {
@@ -128,57 +157,85 @@
           }
         },
         {
-          "station": "Pop up Pesch",
-          "name": "Zweierlei Kartoffel mit Babyspinat, Cashewkerne, Granatapfel & körniger Frischkäse",
+          "station": "Hauptgericht 1",
+          "name": "Marokkanisch marinierte Hähnchenkeule mit Tajine-Gemüse, Goldhirse & Harissajoghurt",
           "labels": [],
           "images": [],
-          "price_intern": 6.2,
-          "price_extern": 7.75,
-          "price_extern_estimated": false,
-          "weight_g": 700,
-          "weight_estimated": false,
+          "price_intern": 7.2,
+          "price_extern": 10.8,
+          "price_extern_estimated": true,
+          "weight_g": 400,
+          "weight_estimated": true,
           "per100": {
-            "kcal": 100.0,
-            "fat": 3.34,
-            "satfat": 1.32,
-            "carbs": 13.19,
-            "sugar": 2.83,
-            "protein": 3.06,
-            "salt": 0.42
+            "kcal": 155.0,
+            "fat": 7.29,
+            "satfat": 2.77,
+            "carbs": 11.29,
+            "sugar": 3.91,
+            "protein": 9.91,
+            "salt": 0.76
           },
           "portion": {
-            "kcal": 700,
-            "fat": 23.4,
-            "satfat": 9.2,
-            "carbs": 92.3,
-            "sugar": 19.8,
-            "protein": 21.4,
-            "salt": 2.9
+            "kcal": 620,
+            "fat": 29.2,
+            "satfat": 11.1,
+            "carbs": 45.2,
+            "sugar": 15.6,
+            "protein": 39.6,
+            "salt": 3.0
+          }
+        },
+        {
+          "station": "Hauptgericht 2",
+          "name": "Spinat & Ei Rahmspinat mit Salzkartoffeln & Rührei",
+          "labels": [],
+          "images": [],
+          "price_intern": 5.0,
+          "price_extern": 6.3,
+          "price_extern_estimated": false,
+          "weight_g": 800,
+          "weight_estimated": false,
+          "per100": {
+            "kcal": 116.0,
+            "fat": 6.36,
+            "satfat": 1.97,
+            "carbs": 8.43,
+            "sugar": 2.0,
+            "protein": 5.23,
+            "salt": 0.69
+          },
+          "portion": {
+            "kcal": 928,
+            "fat": 50.9,
+            "satfat": 15.8,
+            "carbs": 67.4,
+            "sugar": 16.0,
+            "protein": 41.8,
+            "salt": 5.5
           }
         }
       ],
       "recommendations": {
-        "ausgewogen": "Tossed Salat M inkl. 2 Toppings",
-        "protein": "Tossed Salat M inkl. 2 Toppings"
+        "ausgewogen": "Marokkanisch marinierte Hähnchenkeule mit Tajine-Gemüse, Goldhirse & Harissajoghurt",
+        "protein": "Spinat & Ei Rahmspinat mit Salzkartoffeln & Rührei"
       },
       "combos": {
         "600": {
-          "kcal": 700,
-          "protein": 21.4,
-          "price_extern": 7.75,
+          "kcal": 620,
+          "protein": 39.6,
+          "price_extern": 10.8,
           "items": [
-            "Zweierlei Kartoffel mit Babyspinat, Cashewkerne, Granatapfel & körniger Frischkäse"
+            "Marokkanisch marinierte Hähnchenkeule mit Tajine-Gemüse, Goldhirse & Harissajoghurt"
           ],
-          "approx": true
+          "approx": false
         },
         "1000": {
-          "kcal": 1002,
-          "protein": 24.6,
-          "price_extern": 11.85,
+          "kcal": 998,
+          "protein": 42.8,
+          "price_extern": 9.3,
           "items": [
-            "Frischer bunter Obstsalat",
-            "Beilagensalat",
-            "Zweierlei Kartoffel mit Babyspinat, Cashewkerne, Granatapfel & körniger Frischkäse"
+            "Tossed Salat M inkl. 2 Toppings",
+            "Pfirsisch-Maracuja Joghurt"
           ],
           "approx": false
         }
@@ -186,123 +243,123 @@
     },
     {
       "weekday": "Dienstag",
-      "date": "25.08.2026",
-      "id": "147369",
+      "date": "01.09.2026",
+      "id": "147526",
       "dishes": [
         {
           "station": "Suppe 1 im DELI",
-          "name": "Käse-Lauch Suppe",
+          "name": "Ähzezupp Erbseneintopf mit Mettenden",
           "labels": [],
           "images": [],
           "price_intern": 2.3,
           "price_extern": 3.45,
           "price_extern_estimated": true,
-          "weight_g": 300,
-          "weight_estimated": true,
+          "weight_g": 700,
+          "weight_estimated": false,
           "per100": {
             "kcal": 178.0,
-            "fat": 13.52,
-            "satfat": 7.91,
-            "carbs": 6.38,
-            "sugar": 3.18,
-            "protein": 6.99,
-            "salt": 0.23
+            "fat": 5.69,
+            "satfat": 2.36,
+            "carbs": 17.86,
+            "sugar": 3.93,
+            "protein": 11.37,
+            "salt": 1.91
           },
           "portion": {
-            "kcal": 534,
-            "fat": 40.6,
-            "satfat": 23.7,
-            "carbs": 19.1,
-            "sugar": 9.5,
-            "protein": 21.0,
-            "salt": 0.7
+            "kcal": 1246,
+            "fat": 39.8,
+            "satfat": 16.5,
+            "carbs": 125.0,
+            "sugar": 27.5,
+            "protein": 79.6,
+            "salt": 13.4
           }
         },
         {
           "station": "XL-Salat im DELI",
-          "name": "Green Bowl mit Erdnussdressing, Sushireis, Babyspinat, Gurke, Zucchini, Bohnenkerne & Karottenstiften",
+          "name": "Nimm 2 oder 3 Nikkei Bowls mit Reis & Quinoa , Teriyaki, Maiscreme & Koriander",
           "labels": [],
           "images": [],
-          "price_intern": 5.0,
-          "price_extern": 7.5,
+          "price_intern": 1.2,
+          "price_extern": 1.8,
           "price_extern_estimated": true,
-          "weight_g": 500,
+          "weight_g": 200,
           "weight_estimated": false,
           "per100": {
-            "kcal": 174.0,
-            "fat": 7.01,
-            "satfat": 2.12,
-            "carbs": 21.64,
-            "sugar": 3.67,
-            "protein": 5.23,
-            "salt": 0.32
+            "kcal": 303.0,
+            "fat": 6.94,
+            "satfat": 2.17,
+            "carbs": 52.32,
+            "sugar": 4.78,
+            "protein": 7.01,
+            "salt": 0.75
           },
           "portion": {
-            "kcal": 870,
-            "fat": 35.0,
-            "satfat": 10.6,
-            "carbs": 108.2,
-            "sugar": 18.4,
-            "protein": 26.1,
-            "salt": 1.6
+            "kcal": 606,
+            "fat": 13.9,
+            "satfat": 4.3,
+            "carbs": 104.6,
+            "sugar": 9.6,
+            "protein": 14.0,
+            "salt": 1.5
           }
         },
         {
           "station": "Pasta Originale",
-          "name": "Pasta Originale mit Rotebete Falafel",
+          "name": "Pasta Originale mit geschmorter Miso Aubergine",
           "labels": [],
           "images": [],
-          "price_intern": 6.7,
-          "price_extern": 10.05,
-          "price_extern_estimated": true,
-          "weight_g": 100,
-          "weight_estimated": false,
-          "per100": {
-            "kcal": 191.0,
-            "fat": 5.5,
-            "satfat": 0.6,
-            "carbs": 26.0,
-            "sugar": 3.7,
-            "protein": 7.0,
-            "salt": 1.6
-          },
-          "portion": {
-            "kcal": 191,
-            "fat": 5.5,
-            "satfat": 0.6,
-            "carbs": 26.0,
-            "sugar": 3.7,
-            "protein": 7.0,
-            "salt": 1.6
-          }
-        },
-        {
-          "station": "Pasta Speciale",
-          "name": "Pasta Speciale mit Frühlingsrolle",
-          "labels": [],
-          "images": [],
-          "price_intern": 7.5,
-          "price_extern": 11.25,
+          "price_intern": 4.6,
+          "price_extern": 6.9,
           "price_extern_estimated": true,
           "weight_g": 400,
           "weight_estimated": true,
           "per100": {
-            "kcal": 155.0,
-            "fat": 5.2,
-            "satfat": 1.0,
-            "carbs": 22.8,
-            "sugar": 5.2,
-            "protein": 0.31,
-            "salt": 1.3
+            "kcal": 72.0,
+            "fat": 3.87,
+            "satfat": 0.39,
+            "carbs": 5.78,
+            "sugar": 4.09,
+            "protein": 2.83,
+            "salt": 1.42
           },
           "portion": {
-            "kcal": 620,
-            "fat": 20.8,
-            "satfat": 4.0,
-            "carbs": 91.2,
-            "sugar": 20.8,
-            "protein": 1.2,
-            "salt": 5.2
+            "kcal": 288,
+            "fat": 15.5,
+            "satfat": 1.6,
+            "carbs": 23.1,
+            "sugar": 16.4,
+            "protein": 11.3,
+            "salt": 5.7
+          }
+        },
+        {
+          "station": "Pasta Speciale",
+          "name": "Pasta Speciale mit Meeresfrüchte Ceviche",
+          "labels": [],
+          "images": [],
+          "price_intern": 4.6,
+          "price_extern": 6.9,
+          "price_extern_estimated": true,
+          "weight_g": 500,
+          "weight_estimated": false,
+          "per100": {
+            "kcal": 100.0,
+            "fat": 2.23,
+            "satfat": 0.87,
+            "carbs": 4.03,
+            "sugar": 0.45,
+            "protein": 15.74,
+            "salt": 1.39
+          },
+          "portion": {
+            "kcal": 500,
+            "fat": 11.2,
+            "satfat": 4.3,
+            "carbs": 20.2,
+            "sugar": 2.2,
+            "protein": 78.7,
+            "salt": 7.0
           }
         },
         {
@@ -336,31 +393,31 @@
         },
         {
           "station": "Topping Veggi",
-          "name": "Stachelbeer-Schichtdessert",
+          "name": "Erdbeer-Tiramisu",
           "labels": [],
           "images": [],
           "price_intern": 1.5,
           "price_extern": 2.25,
           "price_extern_estimated": true,
-          "weight_g": 200,
+          "weight_g": 300,
           "weight_estimated": false,
           "per100": {
-            "kcal": 149.0,
-            "fat": 1.72,
-            "satfat": 1.06,
-            "carbs": 25.66,
-            "sugar": 21.48,
-            "protein": 6.84,
-            "salt": 0.11
+            "kcal": 292.0,
+            "fat": 22.54,
+            "satfat": 13.44,
+            "carbs": 20.29,
+            "sugar": 17.58,
+            "protein": 2.53,
+            "salt": 0.09
           },
           "portion": {
-            "kcal": 298,
-            "fat": 3.4,
-            "satfat": 2.1,
-            "carbs": 51.3,
-            "sugar": 43.0,
-            "protein": 13.7,
-            "salt": 0.2
+            "kcal": 876,
+            "fat": 67.6,
+            "satfat": 40.3,
+            "carbs": 60.9,
+            "sugar": 52.7,
+            "protein": 7.6,
+            "salt": 0.3
           }
         },
         {
@@ -423,86 +480,87 @@
         },
         {
           "station": "Hauptgericht 1",
-          "name": "Frutchtiges Puten Curry mit Zucchini & Paprika dazu Basmatireis",
+          "name": "Alinazik Rinderhackfleisch, Auberginencreme und Türkischer Reis",
           "labels": [],
           "images": [],
-          "price_intern": 5.0,
-          "price_extern": 7.5,
-          "price_extern_estimated": false,
-          "weight_g": 900,
-          "weight_estimated": false,
+          "price_intern": 6.5,
+          "price_extern": 9.75,
+          "price_extern_estimated": true,
+          "weight_g": 400,
+          "weight_estimated": true,
           "per100": {
-            "kcal": 104.0,
-            "fat": 1.77,
-            "satfat": 0.59,
-            "carbs": 12.5,
-            "sugar": 3.02,
-            "protein": 8.92,
-            "salt": 0.27
+            "kcal": 217.0,
+            "fat": 12.62,
+            "satfat": 5.07,
+            "carbs": 19.39,
+            "sugar": 3.36,
+            "protein": 5.9,
+            "salt": 1.32
           },
           "portion": {
-            "kcal": 936,
-            "fat": 15.9,
-            "satfat": 5.3,
-            "carbs": 112.5,
-            "sugar": 27.2,
-            "protein": 80.3,
-            "salt": 2.4
+            "kcal": 868,
+            "fat": 50.5,
+            "satfat": 20.3,
+            "carbs": 77.6,
+            "sugar": 13.4,
+            "protein": 23.6,
+            "salt": 5.3
           }
         },
         {
           "station": "Hauptgericht 2",
-          "name": "Gemüsespieß mit Mandelpesto dazu Quinoasalat, verschiedene Dips & Hausbrot",
+          "name": "Gegrillte Karotte mit Kräuter-Ebly dazu Tahin-Zitronensauce & gebackene Kichererbsen",
           "labels": [],
           "images": [],
-          "price_intern": 5.5,
-          "price_extern": 7.4,
+          "price_intern": 4.6,
+          "price_extern": 6.9,
           "price_extern_estimated": false,
-          "weight_g": 700,
+          "weight_g": 300,
           "weight_estimated": false,
           "per100": {
-            "kcal": 148.0,
-            "fat": 8.71,
-            "satfat": 2.45,
-            "carbs": 12.14,
-            "sugar": 2.77,
-            "protein": 4.85,
-            "salt": 0.29
+            "kcal": 108.0,
+            "fat": 1.83,
+            "satfat": 0.26,
+            "carbs": 18.04,
+            "sugar": 3.39,
+            "protein": 3.61,
+            "salt": 1.43
           },
           "portion": {
-            "kcal": 1036,
-            "fat": 61.0,
-            "satfat": 17.2,
-            "carbs": 85.0,
-            "sugar": 19.4,
-            "protein": 33.9,
-            "salt": 2.0
+            "kcal": 324,
+            "fat": 5.5,
+            "satfat": 0.8,
+            "carbs": 54.1,
+            "sugar": 10.2,
+            "protein": 10.8,
+            "salt": 4.3
           }
         }
       ],
       "recommendations": {
-        "ausgewogen": "Tossed Salat M inkl. 2 Toppings",
-        "protein": "Frutchtiges Puten Curry mit Zucchini & Paprika dazu Basmatireis",
-        "vegetarisch": "Gemüsespieß mit Mandelpesto dazu Quinoasalat, verschiedene Dips & Hausbrot"
+        "ausgewogen": "Pasta Speciale mit Meeresfrüchte Ceviche",
+        "protein": "Pasta Speciale mit Meeresfrüchte Ceviche",
+        "vegetarisch": "Gegrillte Karotte mit Kräuter-Ebly dazu Tahin-Zitronensauce & gebackene Kichererbsen"
       },
       "combos": {
         "600": {
-          "kcal": 620,
-          "protein": 1.2,
-          "price_extern": 11.25,
+          "kcal": 596,
+          "protein": 79.7,
+          "price_extern": 9.75,
           "items": [
-            "Pasta Speciale mit Frühlingsrolle"
+            "Pasta Speciale mit Meeresfrüchte Ceviche",
+            "Frischer bunter Obstsalat"
           ],
           "approx": false
         },
         "1000": {
-          "kcal": 1014,
-          "protein": 15.9,
-          "price_extern": 16.35,
+          "kcal": 994,
+          "protein": 92.2,
+          "price_extern": 15.05,
           "items": [
-            "Pasta Speciale mit Frühlingsrolle",
-            "Stachelbeer-Schichtdessert",
-            "Frischer bunter Obstsalat"
+            "Pasta Originale mit geschmorter Miso Aubergine",
+            "Pasta Speciale mit Meeresfrüchte Ceviche",
+            "Beilagensalat"
           ],
           "approx": false
         }
@@ -510,94 +568,94 @@
     },
     {
       "weekday": "Mittwoch",
-      "date": "26.08.2026",
-      "id": "147370",
+      "date": "02.09.2026",
+      "id": "147527",
       "dishes": [
         {
           "station": "XL-Salat im DELI",
-          "name": "Green Bowl mit Erdnussdressing, Sushireis, Babyspinat, Gurke, Zucchini, Bohnenkerne & Karottenstiften",
+          "name": "Nimm 2 oder 3 Nikkei Bowls mit Reis & Quinoa , Teriyaki, Maiscreme & Koriander",
           "labels": [],
           "images": [],
-          "price_intern": 5.0,
-          "price_extern": 7.5,
+          "price_intern": 1.2,
+          "price_extern": 1.8,
           "price_extern_estimated": true,
-          "weight_g": 500,
+          "weight_g": 200,
           "weight_estimated": false,
           "per100": {
-            "kcal": 174.0,
-            "fat": 7.01,
-            "satfat": 2.12,
-            "carbs": 21.64,
-            "sugar": 3.67,
-            "protein": 5.23,
-            "salt": 0.32
+            "kcal": 303.0,
+            "fat": 6.94,
+            "satfat": 2.17,
+            "carbs": 52.32,
+            "sugar": 4.78,
+            "protein": 7.01,
+            "salt": 0.75
           },
           "portion": {
-            "kcal": 870,
-            "fat": 35.0,
-            "satfat": 10.6,
-            "carbs": 108.2,
-            "sugar": 18.4,
-            "protein": 26.1,
-            "salt": 1.6
+            "kcal": 606,
+            "fat": 13.9,
+            "satfat": 4.3,
+            "carbs": 104.6,
+            "sugar": 9.6,
+            "protein": 14.0,
+            "salt": 1.5
           }
         },
         {
           "station": "Pasta Originale",
-          "name": "Pasta Originale mit Rotebete Falafel",
+          "name": "Pasta Originale mit geschmorter Miso Aubergine",
           "labels": [],
           "images": [],
-          "price_intern": 6.7,
-          "price_extern": 10.05,
-          "price_extern_estimated": true,
-          "weight_g": 100,
-          "weight_estimated": false,
-          "per100": {
-            "kcal": 191.0,
-            "fat": 5.5,
-            "satfat": 0.6,
-            "carbs": 26.0,
-            "sugar": 3.7,
-            "protein": 7.0,
-            "salt": 1.6
-          },
-          "portion": {
-            "kcal": 191,
-            "fat": 5.5,
-            "satfat": 0.6,
-            "carbs": 26.0,
-            "sugar": 3.7,
-            "protein": 7.0,
-            "salt": 1.6
-          }
-        },
-        {
-          "station": "Pasta Speciale",
-          "name": "Pasta Speciale mit Frühlingsrolle",
-          "labels": [],
-          "images": [],
-          "price_intern": 7.5,
-          "price_extern": 11.25,
+          "price_intern": 4.6,
+          "price_extern": 6.9,
           "price_extern_estimated": true,
           "weight_g": 400,
           "weight_estimated": true,
           "per100": {
-            "kcal": 155.0,
-            "fat": 5.2,
-            "satfat": 1.0,
-            "carbs": 22.8,
-            "sugar": 5.2,
-            "protein": 0.31,
-            "salt": 1.3
+            "kcal": 72.0,
+            "fat": 3.87,
+            "satfat": 0.39,
+            "carbs": 5.78,
+            "sugar": 4.09,
+            "protein": 2.83,
+            "salt": 1.42
           },
           "portion": {
-            "kcal": 620,
-            "fat": 20.8,
-            "satfat": 4.0,
-            "carbs": 91.2,
-            "sugar": 20.8,
-            "protein": 1.2,
-            "salt": 5.2
+            "kcal": 288,
+            "fat": 15.5,
+            "satfat": 1.6,
+            "carbs": 23.1,
+            "sugar": 16.4,
+            "protein": 11.3,
+            "salt": 5.7
+          }
+        },
+        {
+          "station": "Pasta Speciale",
+          "name": "Pasta Speciale mit Meeresfrüchte Ceviche",
+          "labels": [],
+          "images": [],
+          "price_intern": 4.6,
+          "price_extern": 6.9,
+          "price_extern_estimated": true,
+          "weight_g": 500,
+          "weight_estimated": false,
+          "per100": {
+            "kcal": 100.0,
+            "fat": 2.23,
+            "satfat": 0.87,
+            "carbs": 4.03,
+            "sugar": 0.45,
+            "protein": 15.74,
+            "salt": 1.39
+          },
+          "portion": {
+            "kcal": 500,
+            "fat": 11.2,
+            "satfat": 4.3,
+            "carbs": 20.2,
+            "sugar": 2.2,
+            "protein": 78.7,
+            "salt": 7.0
           }
         },
         {
@@ -631,31 +689,31 @@
         },
         {
           "station": "Topping Veggi",
-          "name": "Schoko-Himbeer Trifle",
+          "name": "Götterspeise mit Vanillesauce",
           "labels": [],
           "images": [],
           "price_intern": 1.5,
           "price_extern": 2.25,
           "price_extern_estimated": true,
-          "weight_g": 100,
+          "weight_g": 200,
           "weight_estimated": false,
           "per100": {
             "kcal": 254.0,
-            "fat": 14.76,
-            "satfat": 8.62,
-            "carbs": 26.13,
-            "sugar": 12.72,
-            "protein": 2.69,
-            "salt": 1.7
+            "fat": 5.9,
+            "satfat": 3.86,
+            "carbs": 45.11,
+            "sugar": 24.38,
+            "protein": 4.04,
+            "salt": 0.39
           },
           "portion": {
-            "kcal": 254,
-            "fat": 14.8,
-            "satfat": 8.6,
-            "carbs": 26.1,
-            "sugar": 12.7,
-            "protein": 2.7,
-            "salt": 1.7
+            "kcal": 508,
+            "fat": 11.8,
+            "satfat": 7.7,
+            "carbs": 90.2,
+            "sugar": 48.8,
+            "protein": 8.1,
+            "salt": 0.8
           }
         },
         {
@@ -718,60 +776,592 @@
         },
         {
           "station": "Hauptgericht 1",
-          "name": "Gegrillte Karakauer mit Nudelsalat verschiedenen Dips & Hausbrot",
+          "name": "Hähnchenbrust \"Saltimbocca\" mit Rosmarinkartoffeln & Tomaten-Paprika Salsa",
           "labels": [],
           "images": [],
-          "price_intern": 5.5,
-          "price_extern": 8.25,
-          "price_extern_estimated": true,
-          "weight_g": 350,
+          "price_intern": 8.5,
+          "price_extern": 9.8,
+          "price_extern_estimated": false,
+          "weight_g": 400,
           "weight_estimated": true,
           "per100": {
-            "kcal": 251.0,
-            "fat": 20.36,
-            "satfat": 3.87,
-            "carbs": 9.82,
-            "sugar": 0.43,
-            "protein": 7.29,
-            "salt": 0.73
+            "kcal": 143.0,
+            "fat": 6.51,
+            "satfat": 0.85,
+            "carbs": 9.56,
+            "sugar": 2.66,
+            "protein": 10.63,
+            "salt": 0.42
           },
           "portion": {
-            "kcal": 878,
-            "fat": 71.3,
-            "satfat": 13.5,
-            "carbs": 34.4,
-            "sugar": 1.5,
-            "protein": 25.5,
-            "salt": 2.6
+            "kcal": 572,
+            "fat": 26.0,
+            "satfat": 3.4,
+            "carbs": 38.2,
+            "sugar": 10.6,
+            "protein": 42.5,
+            "salt": 1.7
           }
         },
         {
           "station": "Hauptgericht 2",
-          "name": "Korean Fried Filetstreifen aus Erbsenprotein \"süß-sauer\" mit Chili Weißkohl & Sesam Reis",
+          "name": "Gebackene Süßkartoffel mit Bohnen-Mais Ragout dazu Limette, Sour Cream Nachos",
           "labels": [],
           "images": [],
-          "price_intern": 6.5,
-          "price_extern": 8.15,
-          "price_extern_estimated": false,
-          "weight_g": 600,
+          "price_intern": 7.9,
+          "price_extern": 11.85,
+          "price_extern_estimated": true,
+          "weight_g": 400,
           "weight_estimated": false,
           "per100": {
-            "kcal": 203.0,
-            "fat": 9.52,
-            "satfat": 1.09,
-            "carbs": 22.86,
-            "sugar": 6.29,
-            "protein": 4.86,
-            "salt": 0.59
+            "kcal": 129.0,
+            "fat": 3.76,
+            "satfat": 1.75,
+            "carbs": 17.48,
+            "sugar": 4.63,
+            "protein": 4.12,
+            "salt": 0.5
           },
           "portion": {
-            "kcal": 1218,
-            "fat": 57.1,
-            "satfat": 6.5,
-            "carbs": 137.2,
-            "sugar": 37.7,
-            "protein": 29.2,
-            "salt": 3.5
+            "kcal": 516,
+            "fat": 15.0,
+            "satfat": 7.0,
+            "carbs": 69.9,
+            "sugar": 18.5,
+            "protein": 16.5,
+            "salt": 2.0
+          }
+        }
+      ],
+      "recommendations": {
+        "ausgewogen": "Pasta Speciale mit Meeresfrüchte Ceviche",
+        "protein": "Pasta Speciale mit Meeresfrüchte Ceviche"
+      },
+      "combos": {
+        "600": {
+          "kcal": 596,
+          "protein": 79.7,
+          "price_extern": 9.75,
+          "items": [
+            "Pasta Speciale mit Meeresfrüchte Ceviche",
+            "Frischer bunter Obstsalat"
+          ],
+          "approx": false
+        },
+        "1000": {
+          "kcal": 994,
+          "protein": 92.2,
+          "price_extern": 15.05,
+          "items": [
+            "Pasta Originale mit geschmorter Miso Aubergine",
+            "Pasta Speciale mit Meeresfrüchte Ceviche",
+            "Beilagensalat"
+          ],
+          "approx": false
+        }
+      }
+    },
+    {
+      "weekday": "Donnerstag",
+      "date": "03.09.2026",
+      "id": "147528",
+      "dishes": [
+        {
+          "station": "Suppe 1 im DELI",
+          "name": "Gazpacho mit Schmand",
+          "labels": [],
+          "images": [],
+          "price_intern": 2.3,
+          "price_extern": 3.45,
+          "price_extern_estimated": true,
+          "weight_g": 400,
+          "weight_estimated": false,
+          "per100": {
+            "kcal": 55.0,
+            "fat": 4.45,
+            "satfat": 1.48,
+            "carbs": 2.91,
+            "sugar": 1.45,
+            "protein": 0.73,
+            "salt": 0.42
+          },
+          "portion": {
+            "kcal": 220,
+            "fat": 17.8,
+            "satfat": 5.9,
+            "carbs": 11.6,
+            "sugar": 5.8,
+            "protein": 2.9,
+            "salt": 1.7
+          }
+        },
+        {
+          "station": "XL-Salat im DELI",
+          "name": "Nimm 2 oder 3 Nikkei Bowls mit Reis & Quinoa , Teriyaki, Maiscreme & Koriander",
+          "labels": [],
+          "images": [],
+          "price_intern": 1.2,
+          "price_extern": 1.8,
+          "price_extern_estimated": true,
+          "weight_g": 200,
+          "weight_estimated": false,
+          "per100": {
+            "kcal": 303.0,
+            "fat": 6.94,
+            "satfat": 2.17,
+            "carbs": 52.32,
+            "sugar": 4.78,
+            "protein": 7.01,
+            "salt": 0.75
+          },
+          "portion": {
+            "kcal": 606,
+            "fat": 13.9,
+            "satfat": 4.3,
+            "carbs": 104.6,
+            "sugar": 9.6,
+            "protein": 14.0,
+            "salt": 1.5
+          }
+        },
+        {
+          "station": "Pasta Originale",
+          "name": "Pasta Originale mit geschmorter Miso Aubergine",
+          "labels": [],
+          "images": [],
+          "price_intern": 4.6,
+          "price_extern": 6.9,
+          "price_extern_estimated": true,
+          "weight_g": 400,
+          "weight_estimated": true,
+          "per100": {
+            "kcal": 72.0,
+            "fat": 3.87,
+            "satfat": 0.39,
+            "carbs": 5.78,
+            "sugar": 4.09,
+            "protein": 2.83,
+            "salt": 1.42
+          },
+          "portion": {
+            "kcal": 288,
+            "fat": 15.5,
+            "satfat": 1.6,
+            "carbs": 23.1,
+            "sugar": 16.4,
+            "protein": 11.3,
+            "salt": 5.7
+          }
+        },
+        {
+          "station": "Pasta Speciale",
+          "name": "Pasta Speciale mit Meeresfrüchte Ceviche",
+          "labels": [],
+          "images": [],
+          "price_intern": 4.6,
+          "price_extern": 6.9,
+          "price_extern_estimated": true,
+          "weight_g": 500,
+          "weight_estimated": false,
+          "per100": {
+            "kcal": 100.0,
+            "fat": 2.23,
+            "satfat": 0.87,
+            "carbs": 4.03,
+            "sugar": 0.45,
+            "protein": 15.74,
+            "salt": 1.39
+          },
+          "portion": {
+            "kcal": 500,
+            "fat": 11.2,
+            "satfat": 4.3,
+            "carbs": 20.2,
+            "sugar": 2.2,
+            "protein": 78.7,
+            "salt": 7.0
+          }
+        },
+        {
+          "station": "Bowl Basic",
+          "name": "Tossed Salat M inkl. 2 Toppings",
+          "labels": [],
+          "images": [],
+          "price_intern": 4.7,
+          "price_extern": 7.05,
+          "price_extern_estimated": false,
+          "weight_g": 350,
+          "weight_estimated": true,
+          "per100": {
+            "kcal": 214.0,
+            "fat": 15.43,
+            "satfat": 3.45,
+            "carbs": 5.88,
+            "sugar": 3.02,
+            "protein": 11.81,
+            "salt": 0.77
+          },
+          "portion": {
+            "kcal": 749,
+            "fat": 54.0,
+            "satfat": 12.1,
+            "carbs": 20.6,
+            "sugar": 10.6,
+            "protein": 41.3,
+            "salt": 2.7
+          }
+        },
+        {
+          "station": "Topping Veggi",
+          "name": "Schokocookie-Mousse",
+          "labels": [],
+          "images": [],
+          "price_intern": 1.5,
+          "price_extern": 2.25,
+          "price_extern_estimated": true,
+          "weight_g": 400,
+          "weight_estimated": false,
+          "per100": {
+            "kcal": 258.0,
+            "fat": 16.63,
+            "satfat": 10.88,
+            "carbs": 21.47,
+            "sugar": 19.83,
+            "protein": 4.97,
+            "salt": 0.15
+          },
+          "portion": {
+            "kcal": 1032,
+            "fat": 66.5,
+            "satfat": 43.5,
+            "carbs": 85.9,
+            "sugar": 79.3,
+            "protein": 19.9,
+            "salt": 0.6
+          }
+        },
+        {
+          "station": "Topping Land",
+          "name": "Frischer bunter Obstsalat",
+          "labels": [],
+          "images": [],
+          "price_intern": 1.9,
+          "price_extern": 2.85,
+          "price_extern_estimated": true,
+          "weight_g": 150,
+          "weight_estimated": true,
+          "per100": {
+            "kcal": 64.0,
+            "fat": 0.14,
+            "satfat": 0.1,
+            "carbs": 12.3,
+            "sugar": 12.3,
+            "protein": 0.64,
+            "salt": 0.02
+          },
+          "portion": {
+            "kcal": 96,
+            "fat": 0.2,
+            "satfat": 0.1,
+            "carbs": 18.4,
+            "sugar": 18.4,
+            "protein": 1.0,
+            "salt": 0.0
+          }
+        },
+        {
+          "station": "Pop up Pesch",
+          "name": "Beilagensalat",
+          "labels": [],
+          "images": [],
+          "price_intern": 0.9,
+          "price_extern": 1.25,
+          "price_extern_estimated": false,
+          "weight_g": 150,
+          "weight_estimated": true,
+          "per100": {
+            "kcal": 137.0,
+            "fat": 12.94,
+            "satfat": 1.3,
+            "carbs": 3.61,
+            "sugar": 2.71,
+            "protein": 1.46,
+            "salt": 0.32
+          },
+          "portion": {
+            "kcal": 206,
+            "fat": 19.4,
+            "satfat": 1.9,
+            "carbs": 5.4,
+            "sugar": 4.1,
+            "protein": 2.2,
+            "salt": 0.5
+          }
+        },
+        {
+          "station": "Hauptgericht 1",
+          "name": "Schweinefilet mit Nudelsalat wie von Oma dazu verschiedene Dips & Hausbrot",
+          "labels": [],
+          "images": [],
+          "price_intern": 5.9,
+          "price_extern": 8.85,
+          "price_extern_estimated": true,
+          "weight_g": 350,
+          "weight_estimated": true,
+          "per100": {
+            "kcal": 153.0,
+            "fat": 3.88,
+            "satfat": 0.7,
+            "carbs": 17.61,
+            "sugar": 1.16,
+            "protein": 11.09,
+            "salt": 0.87
+          },
+          "portion": {
+            "kcal": 536,
+            "fat": 13.6,
+            "satfat": 2.4,
+            "carbs": 61.6,
+            "sugar": 4.1,
+            "protein": 38.8,
+            "salt": 3.0
+          }
+        },
+        {
+          "station": "Hauptgericht 2",
+          "name": "Loaded Fries mit Kebab aus Erbsenprotein, Champignons, karamellisierte Zwiebeln, geräucherter Paprika-Tomatensalsa & Che",
+          "labels": [],
+          "images": [],
+          "price_intern": 6.2,
+          "price_extern": 8.15,
+          "price_extern_estimated": false,
+          "weight_g": 400,
+          "weight_estimated": true,
+          "per100": {
+            "kcal": 282.0,
+            "fat": 17.47,
+            "satfat": 4.32,
+            "carbs": 21.07,
+            "sugar": 3.89,
+            "protein": 8.83,
+            "salt": 1.58
+          },
+          "portion": {
+            "kcal": 1128,
+            "fat": 69.9,
+            "satfat": 17.3,
+            "carbs": 84.3,
+            "sugar": 15.6,
+            "protein": 35.3,
+            "salt": 6.3
+          }
+        }
+      ],
+      "recommendations": {
+        "ausgewogen": "Schweinefilet mit Nudelsalat wie von Oma dazu verschiedene Dips & Hausbrot",
+        "protein": "Pasta Speciale mit Meeresfrüchte Ceviche"
+      },
+      "combos": {
+        "600": {
+          "kcal": 596,
+          "protein": 79.7,
+          "price_extern": 9.75,
+          "items": [
+            "Pasta Speciale mit Meeresfrüchte Ceviche",
+            "Frischer bunter Obstsalat"
+          ],
+          "approx": false
+        },
+        "1000": {
+          "kcal": 994,
+          "protein": 92.2,
+          "price_extern": 15.05,
+          "items": [
+            "Pasta Originale mit geschmorter Miso Aubergine",
+            "Pasta Speciale mit Meeresfrüchte Ceviche",
+            "Beilagensalat"
+          ],
+          "approx": false
+        }
+      }
+    },
+    {
+      "weekday": "Freitag",
+      "date": "04.09.2026",
+      "id": "147529",
+      "dishes": [
+        {
+          "station": "Bowl Basic",
+          "name": "Tossed Salat M inkl. 2 Toppings",
+          "labels": [],
+          "images": [],
+          "price_intern": 4.7,
+          "price_extern": 7.05,
+          "price_extern_estimated": false,
+          "weight_g": 350,
+          "weight_estimated": true,
+          "per100": {
+            "kcal": 214.0,
+            "fat": 15.43,
+            "satfat": 3.45,
+            "carbs": 5.88,
+            "sugar": 3.02,
+            "protein": 11.81,
+            "salt": 0.77
+          },
+          "portion": {
+            "kcal": 749,
+            "fat": 54.0,
+            "satfat": 12.1,
+            "carbs": 20.6,
+            "sugar": 10.6,
+            "protein": 41.3,
+            "salt": 2.7
+          }
+        },
+        {
+          "station": "Topping Veggi",
+          "name": "Melonen Salat mit Minze",
+          "labels": [],
+          "images": [],
+          "price_intern": 1.5,
+          "price_extern": 2.25,
+          "price_extern_estimated": true,
+          "weight_g": 150,
+          "weight_estimated": true,
+          "per100": {
+            "kcal": 68.0,
+            "fat": 3.29,
+            "satfat": 0.5,
+            "carbs": 8.2,
+            "sugar": 8.16,
+            "protein": 0.8,
+            "salt": 0.01
+          },
+          "portion": {
+            "kcal": 102,
+            "fat": 4.9,
+            "satfat": 0.8,
+            "carbs": 12.3,
+            "sugar": 12.2,
+            "protein": 1.2,
+            "salt": 0.0
+          }
+        },
+        {
+          "station": "Topping Land",
+          "name": "Frischer bunter Obstsalat",
+          "labels": [],
+          "images": [],
+          "price_intern": 1.9,
+          "price_extern": 2.85,
+          "price_extern_estimated": true,
+          "weight_g": 150,
+          "weight_estimated": true,
+          "per100": {
+            "kcal": 64.0,
+            "fat": 0.14,
+            "satfat": 0.1,
+            "carbs": 12.3,
+            "sugar": 12.3,
+            "protein": 0.64,
+            "salt": 0.02
+          },
+          "portion": {
+            "kcal": 96,
+            "fat": 0.2,
+            "satfat": 0.1,
+            "carbs": 18.4,
+            "sugar": 18.4,
+            "protein": 1.0,
+            "salt": 0.0
+          }
+        },
+        {
+          "station": "Pop up Pesch",
+          "name": "Beilagensalat",
+          "labels": [],
+          "images": [],
+          "price_intern": 0.9,
+          "price_extern": 1.25,
+          "price_extern_estimated": false,
+          "weight_g": 150,
+          "weight_estimated": true,
+          "per100": {
+            "kcal": 137.0,
+            "fat": 12.94,
+            "satfat": 1.3,
+            "carbs": 3.61,
+            "sugar": 2.71,
+            "protein": 1.46,
+            "salt": 0.32
+          },
+          "portion": {
+            "kcal": 206,
+            "fat": 19.4,
+            "satfat": 1.9,
+            "carbs": 5.4,
+            "sugar": 4.1,
+            "protein": 2.2,
+            "salt": 0.5
+          }
+        },
+        {
+          "station": "Hauptgericht 1",
+          "name": "Beef Burger mit Cheddar, Smokey Onion Mayo, Tomate und Lollo Bionda dazu dazu Pommes Frites Alternativ mit Patty aus Süß",
+          "labels": [],
+          "images": [],
+          "price_intern": 7.9,
+          "price_extern": 9.1,
+          "price_extern_estimated": false,
+          "weight_g": 400,
+          "weight_estimated": true,
+          "per100": {
+            "kcal": 266.0,
+            "fat": 15.77,
+            "satfat": 5.13,
+            "carbs": 21.04,
+            "sugar": 4.55,
+            "protein": 8.8,
+            "salt": 1.04
+          },
+          "portion": {
+            "kcal": 1064,
+            "fat": 63.1,
+            "satfat": 20.5,
+            "carbs": 84.2,
+            "sugar": 18.2,
+            "protein": 35.2,
+            "salt": 4.2
+          }
+        },
+        {
+          "station": "Hauptgericht 2",
+          "name": "Wurzelgemüseeintopf mit Kartoffeln & Maultaschen oder Tagessuppe",
+          "labels": [],
+          "images": [],
+          "price_intern": 4.6,
+          "price_extern": 6.9,
+          "price_extern_estimated": true,
+          "weight_g": 300,
+          "weight_estimated": false,
+          "per100": {
+            "kcal": 28.0,
+            "fat": 0.74,
+            "satfat": 0.33,
+            "carbs": 3.83,
+            "sugar": 1.79,
+            "protein": 0.99,
+            "salt": 0.71
+          },
+          "portion": {
+            "kcal": 84,
+            "fat": 2.2,
+            "satfat": 1.0,
+            "carbs": 11.5,
+            "sugar": 5.4,
+            "protein": 3.0,
+            "salt": 2.1
           }
         }
       ],
@@ -781,550 +1371,22 @@
       },
       "combos": {
         "600": {
-          "kcal": 620,
-          "protein": 1.2,
-          "price_extern": 11.25,
+          "kcal": 749,
+          "protein": 41.3,
+          "price_extern": 7.05,
           "items": [
-            "Pasta Speciale mit Frühlingsrolle"
+            "Tossed Salat M inkl. 2 Toppings"
           ],
-          "approx": false
+          "approx": true
         },
         "1000": {
-          "kcal": 1003,
-          "protein": 44.0,
-          "price_extern": 9.3,
+          "kcal": 1039,
+          "protein": 46.5,
+          "price_extern": 15.2,
           "items": [
             "Tossed Salat M inkl. 2 Toppings",
-            "Schoko-Himbeer Trifle"
-          ],
-          "approx": false
-        }
-      }
-    },
-    {
-      "weekday": "Donnerstag",
-      "date": "27.08.2026",
-      "id": "147371",
-      "dishes": [
-        {
-          "station": "Suppe 1 im DELI",
-          "name": "Zitronengras-Curry Suppe mit Limette, Koriander & Tofu",
-          "labels": [],
-          "images": [],
-          "price_intern": 2.3,
-          "price_extern": 3.45,
-          "price_extern_estimated": true,
-          "weight_g": 400,
-          "weight_estimated": false,
-          "per100": {
-            "kcal": 141.0,
-            "fat": 7.34,
-            "satfat": 3.83,
-            "carbs": 10.34,
-            "sugar": 2.73,
-            "protein": 6.59,
-            "salt": 1.43
-          },
-          "portion": {
-            "kcal": 564,
-            "fat": 29.4,
-            "satfat": 15.3,
-            "carbs": 41.4,
-            "sugar": 10.9,
-            "protein": 26.4,
-            "salt": 5.7
-          }
-        },
-        {
-          "station": "XL-Salat im DELI",
-          "name": "Green Bowl mit Erdnussdressing, Sushireis, Babyspinat, Gurke, Zucchini, Bohnenkerne & Karottenstiften",
-          "labels": [],
-          "images": [],
-          "price_intern": 5.0,
-          "price_extern": 7.5,
-          "price_extern_estimated": true,
-          "weight_g": 500,
-          "weight_estimated": false,
-          "per100": {
-            "kcal": 174.0,
-            "fat": 7.01,
-            "satfat": 2.12,
-            "carbs": 21.64,
-            "sugar": 3.67,
-            "protein": 5.23,
-            "salt": 0.32
-          },
-          "portion": {
-            "kcal": 870,
-            "fat": 35.0,
-            "satfat": 10.6,
-            "carbs": 108.2,
-            "sugar": 18.4,
-            "protein": 26.1,
-            "salt": 1.6
-          }
-        },
-        {
-          "station": "Pasta Originale",
-          "name": "Pasta Originale mit Rotebete Falafel",
-          "labels": [],
-          "images": [],
-          "price_intern": 6.7,
-          "price_extern": 10.05,
-          "price_extern_estimated": true,
-          "weight_g": 100,
-          "weight_estimated": false,
-          "per100": {
-            "kcal": 191.0,
-            "fat": 5.5,
-            "satfat": 0.6,
-            "carbs": 26.0,
-            "sugar": 3.7,
-            "protein": 7.0,
-            "salt": 1.6
-          },
-          "portion": {
-            "kcal": 191,
-            "fat": 5.5,
-            "satfat": 0.6,
-            "carbs": 26.0,
-            "sugar": 3.7,
-            "protein": 7.0,
-            "salt": 1.6
-          }
-        },
-        {
-          "station": "Pasta Speciale",
-          "name": "Pasta Speciale mit Frühlingsrolle",
-          "labels": [],
-          "images": [],
-          "price_intern": 7.5,
-          "price_extern": 11.25,
-          "price_extern_estimated": true,
-          "weight_g": 400,
-          "weight_estimated": true,
-          "per100": {
-            "kcal": 155.0,
-            "fat": 5.2,
-            "satfat": 1.0,
-            "carbs": 22.8,
-            "sugar": 5.2,
-            "protein": 0.31,
-            "salt": 1.3
-          },
-          "portion": {
-            "kcal": 620,
-            "fat": 20.8,
-            "satfat": 4.0,
-            "carbs": 91.2,
-            "sugar": 20.8,
-            "protein": 1.2,
-            "salt": 5.2
-          }
-        },
-        {
-          "station": "Bowl Basic",
-          "name": "Tossed Salat M inkl. 2 Toppings",
-          "labels": [],
-          "images": [],
-          "price_intern": 4.7,
-          "price_extern": 7.05,
-          "price_extern_estimated": false,
-          "weight_g": 350,
-          "weight_estimated": true,
-          "per100": {
-            "kcal": 214.0,
-            "fat": 15.43,
-            "satfat": 3.45,
-            "carbs": 5.88,
-            "sugar": 3.02,
-            "protein": 11.81,
-            "salt": 0.77
-          },
-          "portion": {
-            "kcal": 749,
-            "fat": 54.0,
-            "satfat": 12.1,
-            "carbs": 20.6,
-            "sugar": 10.6,
-            "protein": 41.3,
-            "salt": 2.7
-          }
-        },
-        {
-          "station": "Topping Veggi",
-          "name": "Zitronen-Mousse",
-          "labels": [],
-          "images": [],
-          "price_intern": 1.5,
-          "price_extern": 2.25,
-          "price_extern_estimated": true,
-          "weight_g": 300,
-          "weight_estimated": false,
-          "per100": {
-            "kcal": 251.0,
-            "fat": 13.48,
-            "satfat": 8.06,
-            "carbs": 28.95,
-            "sugar": 19.14,
-            "protein": 2.54,
-            "salt": 0.18
-          },
-          "portion": {
-            "kcal": 753,
-            "fat": 40.4,
-            "satfat": 24.2,
-            "carbs": 86.8,
-            "sugar": 57.4,
-            "protein": 7.6,
-            "salt": 0.5
-          }
-        },
-        {
-          "station": "Topping Land",
-          "name": "Frischer bunter Obstsalat",
-          "labels": [],
-          "images": [],
-          "price_intern": 1.9,
-          "price_extern": 2.85,
-          "price_extern_estimated": true,
-          "weight_g": 150,
-          "weight_estimated": true,
-          "per100": {
-            "kcal": 64.0,
-            "fat": 0.14,
-            "satfat": 0.1,
-            "carbs": 12.3,
-            "sugar": 12.3,
-            "protein": 0.64,
-            "salt": 0.02
-          },
-          "portion": {
-            "kcal": 96,
-            "fat": 0.2,
-            "satfat": 0.1,
-            "carbs": 18.4,
-            "sugar": 18.4,
-            "protein": 1.0,
-            "salt": 0.0
-          }
-        },
-        {
-          "station": "Pop up Pesch",
-          "name": "Beilagensalat",
-          "labels": [],
-          "images": [],
-          "price_intern": 0.9,
-          "price_extern": 1.25,
-          "price_extern_estimated": false,
-          "weight_g": 150,
-          "weight_estimated": true,
-          "per100": {
-            "kcal": 137.0,
-            "fat": 12.94,
-            "satfat": 1.3,
-            "carbs": 3.61,
-            "sugar": 2.71,
-            "protein": 1.46,
-            "salt": 0.32
-          },
-          "portion": {
-            "kcal": 206,
-            "fat": 19.4,
-            "satfat": 1.9,
-            "carbs": 5.4,
-            "sugar": 4.1,
-            "protein": 2.2,
-            "salt": 0.5
-          }
-        },
-        {
-          "station": "Hauptgericht 1",
-          "name": "Hähnchenspieß mit Zwiebel & Paprika dazu Tomaten-Reissalat mit verschiedenen Dips",
-          "labels": [],
-          "images": [],
-          "price_intern": 6.9,
-          "price_extern": 8.4,
-          "price_extern_estimated": false,
-          "weight_g": 350,
-          "weight_estimated": true,
-          "per100": {
-            "kcal": 213.0,
-            "fat": 6.81,
-            "satfat": 2.64,
-            "carbs": 29.33,
-            "sugar": 3.38,
-            "protein": 8.1,
-            "salt": 1.32
-          },
-          "portion": {
-            "kcal": 746,
-            "fat": 23.8,
-            "satfat": 9.2,
-            "carbs": 102.7,
-            "sugar": 11.8,
-            "protein": 28.4,
-            "salt": 4.6
-          }
-        },
-        {
-          "station": "Hauptgericht 2",
-          "name": "Süßkartoffel Kumpir mit Gouda, Tomate, Gurke, Mais & Balkankäse Add on Ayran 0,90€",
-          "labels": [],
-          "images": [],
-          "price_intern": 4.6,
-          "price_extern": 6.9,
-          "price_extern_estimated": true,
-          "weight_g": 400,
-          "weight_estimated": true,
-          "per100": {
-            "kcal": 109.0,
-            "fat": 6.3,
-            "satfat": 2.21,
-            "carbs": 8.21,
-            "sugar": 2.68,
-            "protein": 4.29,
-            "salt": 0.4
-          },
-          "portion": {
-            "kcal": 436,
-            "fat": 25.2,
-            "satfat": 8.8,
-            "carbs": 32.8,
-            "sugar": 10.7,
-            "protein": 17.2,
-            "salt": 1.6
-          }
-        }
-      ],
-      "recommendations": {
-        "ausgewogen": "Hähnchenspieß mit Zwiebel & Paprika dazu Tomaten-Reissalat mit verschiedenen Dips",
-        "protein": "Tossed Salat M inkl. 2 Toppings"
-      },
-      "combos": {
-        "600": {
-          "kcal": 620,
-          "protein": 1.2,
-          "price_extern": 11.25,
-          "items": [
-            "Pasta Speciale mit Frühlingsrolle"
-          ],
-          "approx": false
-        },
-        "1000": {
-          "kcal": 1000,
-          "protein": 43.6,
-          "price_extern": 10.35,
-          "items": [
-            "Zitronengras-Curry Suppe mit Limette, Koriander & Tofu",
-            "Süßkartoffel Kumpir mit Gouda, Tomate, Gurke, Mais & Balkankäse Add on Ayran 0,90€"
-          ],
-          "approx": false
-        }
-      }
-    },
-    {
-      "weekday": "Freitag",
-      "date": "28.08.2026",
-      "id": "147372",
-      "dishes": [
-        {
-          "station": "Bowl Basic",
-          "name": "Tossed Salat M inkl. 2 Toppings",
-          "labels": [],
-          "images": [],
-          "price_intern": 4.7,
-          "price_extern": 7.05,
-          "price_extern_estimated": false,
-          "weight_g": 350,
-          "weight_estimated": true,
-          "per100": {
-            "kcal": 214.0,
-            "fat": 15.43,
-            "satfat": 3.45,
-            "carbs": 5.88,
-            "sugar": 3.02,
-            "protein": 11.81,
-            "salt": 0.77
-          },
-          "portion": {
-            "kcal": 749,
-            "fat": 54.0,
-            "satfat": 12.1,
-            "carbs": 20.6,
-            "sugar": 10.6,
-            "protein": 41.3,
-            "salt": 2.7
-          }
-        },
-        {
-          "station": "Topping Veggi",
-          "name": "Creme Caramel",
-          "labels": [],
-          "images": [],
-          "price_intern": 1.5,
-          "price_extern": 2.25,
-          "price_extern_estimated": true,
-          "weight_g": 200,
-          "weight_estimated": false,
-          "per100": {
-            "kcal": 109.0,
-            "fat": 1.43,
-            "satfat": 1.01,
-            "carbs": 20.83,
-            "sugar": 11.83,
-            "protein": 3.18,
-            "salt": 0.19
-          },
-          "portion": {
-            "kcal": 218,
-            "fat": 2.9,
-            "satfat": 2.0,
-            "carbs": 41.7,
-            "sugar": 23.7,
-            "protein": 6.4,
-            "salt": 0.4
-          }
-        },
-        {
-          "station": "Topping Land",
-          "name": "Frischer bunter Obstsalat",
-          "labels": [],
-          "images": [],
-          "price_intern": 1.9,
-          "price_extern": 2.85,
-          "price_extern_estimated": true,
-          "weight_g": 150,
-          "weight_estimated": true,
-          "per100": {
-            "kcal": 64.0,
-            "fat": 0.14,
-            "satfat": 0.1,
-            "carbs": 12.3,
-            "sugar": 12.3,
-            "protein": 0.64,
-            "salt": 0.02
-          },
-          "portion": {
-            "kcal": 96,
-            "fat": 0.2,
-            "satfat": 0.1,
-            "carbs": 18.4,
-            "sugar": 18.4,
-            "protein": 1.0,
-            "salt": 0.0
-          }
-        },
-        {
-          "station": "Pop up Pesch",
-          "name": "Beilagensalat",
-          "labels": [],
-          "images": [],
-          "price_intern": 0.9,
-          "price_extern": 1.25,
-          "price_extern_estimated": false,
-          "weight_g": 150,
-          "weight_estimated": true,
-          "per100": {
-            "kcal": 137.0,
-            "fat": 12.94,
-            "satfat": 1.3,
-            "carbs": 3.61,
-            "sugar": 2.71,
-            "protein": 1.46,
-            "salt": 0.32
-          },
-          "portion": {
-            "kcal": 206,
-            "fat": 19.4,
-            "satfat": 1.9,
-            "carbs": 5.4,
-            "sugar": 4.1,
-            "protein": 2.2,
-            "salt": 0.5
-          }
-        },
-        {
-          "station": "Hauptgericht 1",
-          "name": "Rinder Köfte vom Grill mit Tomaten-Bulgur, Salat, Minzjoghurt Add on Ayran 0,90€",
-          "labels": [],
-          "images": [],
-          "price_intern": 5.8,
-          "price_extern": 8.7,
-          "price_extern_estimated": true,
-          "weight_g": 350,
-          "weight_estimated": true,
-          "per100": {
-            "kcal": 183.0,
-            "fat": 6.68,
-            "satfat": 2.84,
-            "carbs": 21.31,
-            "sugar": 2.69,
-            "protein": 8.27,
-            "salt": 1.11
-          },
-          "portion": {
-            "kcal": 640,
-            "fat": 23.4,
-            "satfat": 9.9,
-            "carbs": 74.6,
-            "sugar": 9.4,
-            "protein": 28.9,
-            "salt": 3.9
-          }
-        },
-        {
-          "station": "Hauptgericht 2",
-          "name": "Gulaschsuppe mit Kartoffel, Paprika & Schmand oder Tagessuppe",
-          "labels": [],
-          "images": [],
-          "price_intern": 4.6,
-          "price_extern": 6.9,
-          "price_extern_estimated": false,
-          "weight_g": 300,
-          "weight_estimated": true,
-          "per100": {
-            "kcal": 46.0,
-            "fat": 2.08,
-            "satfat": 1.08,
-            "carbs": 2.72,
-            "sugar": 1.22,
-            "protein": 3.22,
-            "salt": 0.11
-          },
-          "portion": {
-            "kcal": 138,
-            "fat": 6.2,
-            "satfat": 3.2,
-            "carbs": 8.2,
-            "sugar": 3.7,
-            "protein": 9.7,
-            "salt": 0.3
-          }
-        }
-      ],
-      "recommendations": {
-        "ausgewogen": "Rinder Köfte vom Grill mit Tomaten-Bulgur, Salat, Minzjoghurt Add on Ayran 0,90€",
-        "protein": "Tossed Salat M inkl. 2 Toppings"
-      },
-      "combos": {
-        "600": {
-          "kcal": 640,
-          "protein": 28.9,
-          "price_extern": 8.7,
-          "items": [
-            "Rinder Köfte vom Grill mit Tomaten-Bulgur, Salat, Minzjoghurt Add on Ayran 0,90€"
-          ],
-          "approx": false
-        },
-        "1000": {
-          "kcal": 996,
-          "protein": 45.0,
-          "price_extern": 17.85,
-          "items": [
-            "Creme Caramel",
-            "Rinder Köfte vom Grill mit Tomaten-Bulgur, Salat, Minzjoghurt Add on Ayran 0,90€",
-            "Gulaschsuppe mit Kartoffel, Paprika & Schmand oder Tagessuppe"
+            "Beilagensalat",
+            "Wurzelgemüseeintopf mit Kartoffeln & Maultaschen oder Tagessuppe"
           ],
           "approx": false
         }
