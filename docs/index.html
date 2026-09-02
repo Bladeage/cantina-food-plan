@@ -1,848 +1,309 @@
 <!doctype html>
 <html lang="de"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light dark">
 <title>Kantinenplan - AXA Campus - Standort Köln · KW 36</title>
 <script>
-try { if (localStorage.getItem('theme') === 'dark') document.documentElement.dataset.theme = 'dark'; } catch (e) {}
+(function () {
+  var d = document.documentElement, t = null;
+  d.classList.add('js');
+  try { t = localStorage.getItem('theme'); } catch (e) {}
+  if (t === 'dark' || (!t && window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches)) d.dataset.theme = 'dark';
+  else if (t === 'light') d.dataset.theme = 'light';
+})();
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
-  --leaf:#5a8f27; --leaf-dk:#33531a; --ink:#20241c; --mut:#71766a; --line:#e6e8e0;
-  --bal:#e7f0da; --bal-ink:#33531a; --pro:#fde8d7; --pro-ink:#8a4b12;
-  --veg:#ddeee4; --veg-ink:#1f5c3c; --bg:#f6f7f2; --card:#ffffff; --zebra:#fafbf7;
-  --shadow:0 1px 2px rgba(32,36,28,.05), 0 8px 24px -12px rgba(32,36,28,.12);
+  --bg:#f5f6f1; --card:#ffffff; --card-2:#f9faf5; --ink:#1f2319; --mut:#5d635a;
+  --line:#e2e5dc; --line-2:#cfd3c7; --acc:#5a8f27; --acc-ink:#2f4d16; --acc-soft:#e9f1dc;
+  --bal:#e4efd3; --bal-ink:#2f4d16; --pro:#fce4d0; --pro-ink:#84430c;
+  --veg:#d9ece1; --veg-ink:#1a5236;
+  --shadow:0 1px 2px rgba(31,35,25,.05), 0 10px 28px -14px rgba(31,35,25,.14);
+  color-scheme:light;
 }
-:root[data-theme="dark"] {
-  --leaf:#8fc45a; --leaf-dk:#a9d47c; --ink:#e6e8e0; --mut:#9aa090; --line:#3a3f35;
-  --bal:#33531a; --bal-ink:#cde3b0; --pro:#5c3413; --pro-ink:#f5c9a2;
-  --veg:#1f4632; --veg-ink:#b9dcc8; --bg:#181b16; --card:#22261f; --zebra:#262a22;
-  --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -12px rgba(0,0,0,.5);
-}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { color-scheme:dark; --bg:#171a15; --card:#21251e; --card-2:#282d24; --ink:#e8eae2; --mut:#a3a998;
+  --line:#363b31; --line-2:#444a3e; --acc:#8fc45a; --acc-ink:#b5dc8a; --acc-soft:#2b3d1c;
+  --bal:#33531a; --bal-ink:#d2e6b8; --pro:#5c3413; --pro-ink:#f7cfa8;
+  --veg:#1f4632; --veg-ink:#bfe0cd;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 28px -14px rgba(0,0,0,.6); } }
+:root[data-theme="dark"] { color-scheme:dark; --bg:#171a15; --card:#21251e; --card-2:#282d24; --ink:#e8eae2; --mut:#a3a998;
+  --line:#363b31; --line-2:#444a3e; --acc:#8fc45a; --acc-ink:#b5dc8a; --acc-soft:#2b3d1c;
+  --bal:#33531a; --bal-ink:#d2e6b8; --pro:#5c3413; --pro-ink:#f7cfa8;
+  --veg:#1f4632; --veg-ink:#bfe0cd;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 28px -14px rgba(0,0,0,.6); }
+
 * { box-sizing:border-box }
+html { scroll-padding-top:12px }
+@media (min-width: 761px) { .js { scroll-padding-top:118px } } /* sticky Wochenleiste */
 body { margin:0; background:var(--bg); color:var(--ink);
-       font:15px/1.55 Inter,system-ui,sans-serif; padding:0 20px 72px }
-a { color:var(--leaf-dk) }
+       font:15px/1.5 Inter,"Segoe UI",Roboto,Helvetica,Arial,system-ui,sans-serif;
+       padding:0 20px 72px; -webkit-text-size-adjust:100% }
+a { color:var(--acc-ink) }
+h1,h2,h3,h4 { font-family:Fraunces,Georgia,"Times New Roman",serif; font-weight:700;
+              letter-spacing:-.01em; margin:0 }
+button { font:inherit; color:inherit }
+button:focus-visible, a:focus-visible { outline:3px solid var(--acc); outline-offset:2px }
+.wrap { max-width:1120px; margin:0 auto }
+[hidden] { display:none !important }
+.sr { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap }
+
 /* Kopfzeile */
-header.page { max-width:1120px; margin:0 auto; padding:48px 0 4px;
-              display:flex; align-items:flex-start; gap:16px; flex-wrap:wrap }
+header.page { padding:44px 0 18px; display:flex; align-items:flex-start; gap:16px; flex-wrap:wrap }
 .head-main { flex:1; min-width:min(100%, 18rem) }
-#theme-toggle { flex:none; display:inline-flex; align-items:center; gap:7px;
-                margin-top:4px; padding:8px 14px; font:inherit; font-size:12.5px;
-                font-weight:600; color:var(--ink); background:var(--card);
-                border:1px solid var(--line); border-radius:99px; cursor:pointer;
-                box-shadow:var(--shadow); transition:background .15s, border-color .15s }
-#theme-toggle:hover { border-color:var(--leaf) }
-#theme-toggle:focus-visible { outline:2px solid var(--leaf); outline-offset:2px }
-#theme-toggle .t-ico { font-size:14px; line-height:1; color:var(--leaf-dk) }
-.eyebrow { color:var(--leaf); font-size:11px; font-weight:700; text-transform:uppercase;
+.eyebrow { color:var(--acc-ink); font-size:11px; font-weight:700; text-transform:uppercase;
            letter-spacing:.14em; margin-bottom:8px }
-h1 { font-family:Fraunces,serif; font-size:clamp(28px,5vw,44px); margin:0;
-     letter-spacing:-.01em; line-height:1.1 }
-.week { display:flex; flex-wrap:wrap; align-items:baseline; gap:8px 12px; margin-top:12px }
-.week .kw { font-family:Fraunces,serif; font-weight:700; font-size:19px; color:var(--leaf-dk) }
+h1 { font-size:clamp(28px,5vw,42px); line-height:1.1 }
+.week { display:flex; flex-wrap:wrap; align-items:baseline; gap:6px 12px; margin-top:12px }
+.week .kw { font-family:Fraunces,Georgia,serif; font-weight:700; font-size:20px; color:var(--acc-ink) }
 .week .span { color:var(--mut); font-size:14px; font-weight:500 }
-.meta { color:var(--mut); font-size:12.5px; margin-top:10px; max-width:72ch }
+.stand { color:var(--mut); font-size:12.5px; margin-top:8px }
+.pill-btn { flex:none; display:inline-flex; align-items:center; gap:7px; padding:8px 14px;
+            font-size:12.5px; font-weight:600; background:var(--card); border:1px solid var(--line-2);
+            border-radius:99px; cursor:pointer; box-shadow:var(--shadow);
+            transition:border-color .15s, background .15s }
+.pill-btn:hover { border-color:var(--acc) }
+.pill-btn .t-ico { font-size:14px; line-height:1; color:var(--acc-ink) }
+.pill-btn[aria-pressed="true"] { background:var(--acc-soft); border-color:var(--acc) }
+/* Theme-Schalter braucht JavaScript, ohne JS bleibt er weg */
+#theme-toggle { display:none }
+.js #theme-toggle { display:inline-flex; margin-top:4px }
+
+/* Wochenleiste (nur mit JavaScript sichtbar) */
+.weekbar { display:none }
+.js .weekbar { display:flex; flex-wrap:wrap; align-items:stretch; gap:10px 12px;
+               position:sticky; top:0; z-index:5; padding:10px 0 12px; background:var(--bg) }
+.tablist { flex:1 1 560px; display:grid; grid-template-columns:repeat(5, minmax(0,1fr)); gap:6px;
+           padding:5px; background:var(--card); border:1px solid var(--line); border-radius:16px;
+           box-shadow:var(--shadow) }
+.tab { min-width:0; display:flex; flex-direction:column; align-items:flex-start; gap:2px;
+       padding:9px 12px; border:1px solid transparent; border-radius:11px; background:transparent;
+       cursor:pointer; text-align:left; line-height:1.3; transition:background .15s }
+.tab:hover { background:var(--card-2) }
+.tab[aria-selected="true"] { background:var(--acc-soft); border-color:var(--acc) }
+.tab-wd { font-weight:700; font-size:14px }
+.tab-date { color:var(--mut); font-size:12px; font-weight:500 }
+.tab-hint { color:var(--mut); font-size:11.5px; max-width:100%; overflow:hidden;
+            text-overflow:ellipsis; white-space:nowrap; margin-top:2px }
+.tab[aria-selected="true"] .tab-hint, .tab[aria-selected="true"] .tab-date { color:var(--acc-ink) }
+.wd-short { display:none }
+#week-toggle { align-self:center }
+
 /* Tageskarte */
-.day { max-width:1120px; margin:28px auto 0; background:var(--card);
-        border:1px solid var(--line); border-radius:18px; padding:20px 24px 20px;
-        box-shadow:var(--shadow) }
-.day-head { display:flex; align-items:baseline; gap:12px;
-            padding-bottom:12px; border-bottom:2px solid var(--line) }
-h2 { font-family:Fraunces,serif; margin:0; font-size:25px; letter-spacing:-.01em }
-.date { color:var(--mut); font-size:13px; font-weight:500; border:1px solid var(--line);
+.day { margin:14px 0 0; background:var(--card); border:1px solid var(--line); border-radius:18px;
+       padding:20px 24px 22px; box-shadow:var(--shadow) }
+.day + .day { margin-top:22px }
+.day-head { display:flex; align-items:baseline; flex-wrap:wrap; gap:6px 12px; padding-bottom:12px;
+            border-bottom:2px solid var(--line) }
+h2 { font-size:26px }
+.date { color:var(--mut); font-size:13px; font-weight:500; border:1px solid var(--line-2);
         border-radius:99px; padding:2px 10px }
-.block { margin-top:16px }
-.block-title { margin:0 0 8px; font-size:10.5px; font-weight:700; text-transform:uppercase;
-               letter-spacing:.1em; color:var(--mut) }
-.block-title .count { font-weight:500; letter-spacing:.04em; text-transform:none;
-                      opacity:.75; margin-left:6px }
+.count { color:var(--mut); font-size:13px; margin-left:auto }
+.block { margin-top:18px; min-width:0 }
+.block-title { font-family:inherit; font-size:10.5px; font-weight:700; text-transform:uppercase;
+               letter-spacing:.1em; color:var(--mut); margin:0 0 10px }
 .empty { margin:0; color:var(--mut); font-size:13.5px; font-style:italic }
-/* Menü-Tabelle */
-.table-wrap { overflow-x:auto; margin:0 -8px; padding:0 8px }
-table { border-collapse:collapse; width:100%; min-width:880px }
-th { text-align:right; font-size:10.5px; font-weight:700; text-transform:uppercase;
-     letter-spacing:.08em; color:var(--mut); padding:0 9px 7px;
-     border-bottom:1px solid var(--line) }
-th:first-child { text-align:left }
-td { padding:10px 9px; border-bottom:1px solid var(--line); vertical-align:middle }
-tbody tr:nth-child(even) { background:var(--zebra) }
-tbody tr:last-child td { border-bottom:none }
-tbody tr:hover { background:color-mix(in srgb, var(--bal) 45%, transparent) }
-td.dish { min-width:300px }
-.station { display:block; color:var(--mut); font-size:11.5px; margin-bottom:1px }
-.num { text-align:right; font-variant-numeric:tabular-nums; white-space:nowrap }
-.strong { font-weight:650 }
-.dim { color:var(--mut) }
-.price { color:var(--leaf-dk); font-weight:650 }
+
+/* Kennzahlen (kcal, Eiweiß, Preis) */
+.figs { display:flex; flex-wrap:wrap; gap:6px 18px; margin-top:10px; font-size:12.5px; color:var(--mut) }
+.fig b { font-family:Fraunces,Georgia,serif; font-weight:700; font-size:18px; color:var(--ink);
+         font-variant-numeric:tabular-nums; margin-right:3px }
+.fig.price b { color:var(--acc-ink) }
+
+/* Empfehlungen */
+.recs { display:grid; gap:10px; grid-template-columns:repeat(auto-fit, minmax(min(100%, 280px), 1fr)) }
+.rec-card { border:1px solid var(--line); border-left:4px solid var(--acc); border-radius:12px;
+            padding:12px 16px 14px; background:var(--card-2) }
+.chips { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:6px }
 .chip { display:inline-block; font-size:10.5px; font-weight:700; border-radius:99px;
-        padding:2.5px 10px; margin-left:8px; vertical-align:2px; letter-spacing:.02em }
+        padding:2.5px 9px; letter-spacing:.02em; white-space:nowrap }
 .chip-bal { background:var(--bal); color:var(--bal-ink) }
 .chip-pro { background:var(--pro); color:var(--pro-ink) }
 .chip-veg { background:var(--veg); color:var(--veg-ink) }
-.chip-multi { background:linear-gradient(100deg,var(--bal),var(--veg)); color:var(--bal-ink) }
-/* Empfehlungen */
-.recs { display:flex; flex-direction:column; gap:7px }
-.rec { display:flex; flex-wrap:wrap; align-items:baseline; gap:2px 10px; font-size:14px;
-       background:color-mix(in srgb, var(--bal) 55%, transparent);
-       border-radius:10px; padding:9px 12px }
-.rec-label { color:var(--bal-ink); font-weight:700; font-size:10.5px;
-             text-transform:uppercase; letter-spacing:.08em }
-.rec-name { font-weight:600; flex:1; min-width:min(100%, 24ch) }
-/* kcal-Vorschläge */
-.combos { display:grid; gap:8px }
-.combo { background:var(--bg); border:1px dashed var(--line); border-radius:12px;
-         padding:10px 14px; display:flex; flex-wrap:wrap; gap:4px 16px; align-items:baseline }
-.combo-target { font-family:Fraunces,serif; font-weight:700; color:var(--leaf-dk); font-size:17px }
-.combo-items { flex:1; min-width:220px }
-.combo-facts { color:var(--mut); font-size:12.5px; white-space:nowrap }
+.rec-name { font-family:inherit; font-size:16px; font-weight:650; line-height:1.35 }
+.station { display:block; color:var(--mut); font-size:11.5px; margin-top:2px }
+
+/* kcal-Kombis */
+.combos { display:grid; gap:10px; grid-template-columns:repeat(auto-fit, minmax(min(100%, 300px), 1fr)) }
+.combo-card { border:1px dashed var(--line-2); border-radius:12px; padding:12px 16px 14px; background:var(--card-2) }
+.combo-head { display:flex; align-items:baseline; justify-content:space-between; gap:10px; flex-wrap:wrap }
+.combo-target { font-size:10.5px; font-weight:700; text-transform:uppercase; letter-spacing:.1em; color:var(--mut) }
+.combo-kcal { font-family:Fraunces,Georgia,serif; font-weight:700; font-size:24px; color:var(--acc-ink);
+              font-variant-numeric:tabular-nums }
+.combo-kcal small { font-size:13px; font-weight:500; color:var(--mut); font-family:Inter,system-ui,sans-serif; margin-left:3px }
+.combo-items { list-style:none; margin:8px 0 0; padding:0; font-size:14px }
+.combo-items li { display:flex; justify-content:space-between; gap:12px; padding:5px 0;
+                  border-top:1px solid var(--line) }
+.combo-items li span { color:var(--mut); font-size:12.5px; white-space:nowrap; font-variant-numeric:tabular-nums }
+.combo-note { margin:8px 0 0; font-size:12px; color:var(--mut) }
+.combo-card .figs { margin-top:6px }
+
+/* Gerichteliste: Desktop = Tabelle */
+.table-wrap { overflow-x:auto; margin:0 -8px; padding:0 8px }
+table { border-collapse:collapse; width:100%; min-width:860px }
+th { text-align:right; font-size:10.5px; font-weight:700; text-transform:uppercase; letter-spacing:.08em;
+     color:var(--mut); padding:0 9px 8px; border-bottom:1px solid var(--line); white-space:nowrap }
+th:first-child { text-align:left }
+th.key { color:var(--ink) }
+td { padding:10px 9px; border-bottom:1px solid var(--line); vertical-align:middle }
+tbody tr:last-child td { border-bottom:none }
+tbody tr:hover td { background:color-mix(in srgb, var(--acc-soft) 55%, transparent) }
+tr.is-rec td:first-child { box-shadow:inset 3px 0 0 var(--acc) }
+td.dish { min-width:280px }
+td.dish strong { font-weight:650 }
+td.dish .chips { display:inline-flex; margin:0 0 0 8px; vertical-align:2px }
+.num { text-align:right; font-variant-numeric:tabular-nums; white-space:nowrap }
+td.key { font-weight:700; font-size:15.5px }
+td.key.price { color:var(--acc-ink) }
+td.aux { color:var(--mut); font-size:13.5px }
+td.aux:first-of-type { border-left:1px solid var(--line) }
+.l { display:none }
+
 /* Fußzeile */
-footer { max-width:1120px; margin:36px auto 0; padding-top:18px;
-         border-top:1px solid var(--line); color:var(--mut); font-size:12px; line-height:1.65 }
+footer { margin:36px 0 0; padding-top:18px; border-top:1px solid var(--line); color:var(--mut);
+         font-size:12.5px; line-height:1.65 }
 footer p { margin:0 0 6px }
-footer .src { font-size:12.5px }
-/* Schmale Screens: Tabellenzeilen werden zu Gericht-Karten */
+footer dl { margin:8px 0 0; display:grid; grid-template-columns:auto 1fr; gap:2px 10px }
+footer dt { font-weight:700; color:var(--ink) }
+footer dd { margin:0 }
+
+/* Schmale Screens: Tabs kompakt, Gerichte als Karten mit 3er-Kennzahlraster */
 @media (max-width: 760px) {
   body { padding:0 12px 56px }
-  .day { padding:18px 16px 16px; border-radius:14px }
+  header.page { padding-top:28px }
+  .js .weekbar { position:static }
+  .tablist { gap:3px; padding:4px; border-radius:13px }
+  .tab { padding:8px 4px; align-items:center; border-radius:9px }
+  .tab-hint { display:none }
+  .wd-long { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0) }
+  .wd-short { display:inline }
+  .tab-date { font-size:11px }
+  .day { padding:16px 14px 16px; border-radius:14px }
+  h2 { font-size:23px }
+  .count { margin-left:0; flex-basis:100% }
   .table-wrap { overflow:visible; margin:0; padding:0 }
-  table { min-width:0 }
+  table, tbody { display:block; min-width:0 }
   thead { display:none }
-  tbody tr { display:flex; flex-wrap:wrap; gap:3px 14px; padding:10px 8px;
-             border-bottom:1px solid var(--line); border-radius:10px }
+  tbody tr { display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:6px 8px;
+             padding:12px 2px; border-bottom:1px solid var(--line) }
   tbody tr:last-child { border-bottom:none }
-  tbody tr td { display:block; border:none; padding:0 }
-  td.dish { flex:1 1 100%; min-width:0; margin-bottom:3px }
-  td.num { display:inline-flex; align-items:baseline; gap:5px; font-size:13px }
-  td.num::before { content:attr(data-l); color:var(--mut); font-size:9.5px;
-                   font-weight:700; text-transform:uppercase; letter-spacing:.06em }
-  .combo-facts { white-space:normal }
+  tbody tr:hover td { background:transparent }
+  tr.is-rec td:first-child { box-shadow:none }
+  tr.is-rec { box-shadow:inset 3px 0 0 var(--acc); padding-left:10px }
+  td { display:block; border:none; padding:0; text-align:left; white-space:normal }
+  td.dish { grid-column:1 / -1; min-width:0; margin-bottom:2px }
+  td.dish .chips { display:flex; margin:4px 0 0 }
+  td.aux:first-of-type { border-left:none }
+  .l { display:block; font-size:9.5px; font-weight:700; text-transform:uppercase;
+       letter-spacing:.06em; color:var(--mut); line-height:1.2; margin-bottom:1px }
+  td.key { font-family:Fraunces,Georgia,serif; font-size:19px; line-height:1.15;
+           padding:6px 8px; background:var(--card-2); border-radius:8px }
+  td.key .l { font-family:Inter,system-ui,sans-serif }
+  td.aux { font-size:12.5px; padding:0 8px; color:var(--ink) }
+  .fig b { font-size:17px }
+}
+@media print {
+  body { padding:0; background:#fff }
+  .weekbar, #theme-toggle { display:none !important }
+  .day { box-shadow:none; break-inside:avoid }
+  .day[hidden] { display:block !important }
 }
 </style></head><body>
+<div class="wrap">
 <header class="page">
   <div class="head-main">
     <div class="eyebrow">Kantinenplan</div>
     <h1>Kantinenplan - AXA Campus - Standort Köln</h1>
     <div class="week"><span class="kw">KW 36</span><span class="span">31.08. – 04.09.2026</span></div>
-    <div class="meta">Stand 31.08.2026, 00:01 Uhr · Nährwerte pro Portion ·
-    Preise = extern (× 1.5 wo nicht ausgewiesen) · * = geschätzt ·
-    † = beste Annäherung ans kcal-Ziel</div>
+    <div class="stand">Stand 31.08.2026, 00:01 Uhr · Nährwerte pro Portion · Preise extern</div>
   </div>
-  <button id="theme-toggle" type="button" aria-pressed="false"
-          title="Zum dunklen Design wechseln"><span class="t-ico">☾</span><span class="t-txt">Dunkel</span></button>
+  <button id="theme-toggle" class="pill-btn" type="button" aria-pressed="false"
+          title="Zum dunklen Design wechseln"><span class="t-ico" aria-hidden="true">☾</span><span class="t-txt">Dunkel</span></button>
 </header>
-
-  <section class="day">
-    <header class="day-head">
-      <h2>Montag</h2><span class="date">31.08.2026</span>
-    </header>
-    <div class="block">
-      <h3 class="block-title">Menü <span class="count">7 Gerichte</span></h3>
-      <div class="table-wrap">
-      <table>
-        <thead><tr><th>Gericht</th><th>Portion</th><th>kcal</th><th>Fett</th><th>ges. FS</th>
-        <th>KH</th><th>Zucker</th><th>Eiweiß</th><th>Salz</th><th>extern</th></tr></thead>
-        <tbody>
-        <tr>
-          <td class="dish"><span class="station">Suppe 1 im DELI</span>
-              <strong>Tomatencremesuppe mit Crème fraîche &amp; Croutons</strong></td>
-          <td class="num" data-l="Portion">300 g</td>
-          <td class="num strong" data-l="kcal">102</td>
-          <td class="num" data-l="Fett">7,6 g</td>
-          <td class="num dim" data-l="ges. FS">4,2 g</td>
-          <td class="num" data-l="KH">6,6 g</td>
-          <td class="num dim" data-l="Zucker">2,2 g</td>
-          <td class="num strong" data-l="Eiweiß">1,7 g</td>
-          <td class="num dim" data-l="Salz">1,4 g</td>
-          <td class="num price" data-l="extern">3,45 €*</td>
-        </tr>
-        <tr>
-          <td class="dish"><span class="station">Bowl Basic</span>
-              <strong>Tossed Salat M inkl. 2 Toppings</strong></td>
-          <td class="num" data-l="Portion">350* g</td>
-          <td class="num strong" data-l="kcal">749</td>
-          <td class="num" data-l="Fett">54 g</td>
-          <td class="num dim" data-l="ges. FS">12,1 g</td>
-          <td class="num" data-l="KH">20,6 g</td>
-          <td class="num dim" data-l="Zucker">10,6 g</td>
-          <td class="num strong" data-l="Eiweiß">41,3 g</td>
-          <td class="num dim" data-l="Salz">2,7 g</td>
-          <td class="num price" data-l="extern">7,05 €</td>
-        </tr>
-        <tr>
-          <td class="dish"><span class="station">Topping Veggi</span>
-              <strong>Pfirsisch-Maracuja Joghurt</strong></td>
-          <td class="num" data-l="Portion">300 g</td>
-          <td class="num strong" data-l="kcal">249</td>
-          <td class="num" data-l="Fett">7,2 g</td>
-          <td class="num dim" data-l="ges. FS">6,3 g</td>
-          <td class="num" data-l="KH">43,5 g</td>
-          <td class="num dim" data-l="Zucker">27,6 g</td>
-          <td class="num strong" data-l="Eiweiß">1,5 g</td>
-          <td class="num dim" data-l="Salz">0,1 g</td>
-          <td class="num price" data-l="extern">2,25 €*</td>
-        </tr>
-        <tr>
-          <td class="dish"><span class="station">Topping Land</span>
-              <strong>Frischer bunter Obstsalat</strong></td>
-          <td class="num" data-l="Portion">150* g</td>
-          <td class="num strong" data-l="kcal">96</td>
-          <td class="num" data-l="Fett">0,2 g</td>
-          <td class="num dim" data-l="ges. FS">0,1 g</td>
-          <td class="num" data-l="KH">18,4 g</td>
-          <td class="num dim" data-l="Zucker">18,4 g</td>
-          <td class="num strong" data-l="Eiweiß">1 g</td>
-          <td class="num dim" data-l="Salz">0 g</td>
-          <td class="num price" data-l="extern">2,85 €*</td>
-        </tr>
-        <tr>
-          <td class="dish"><span class="station">Pop up Pesch</span>
-              <strong>Beilagensalat</strong></td>
-          <td class="num" data-l="Portion">150* g</td>
-          <td class="num strong" data-l="kcal">206</td>
-          <td class="num" data-l="Fett">19,4 g</td>
-          <td class="num dim" data-l="ges. FS">1,9 g</td>
-          <td class="num" data-l="KH">5,4 g</td>
-          <td class="num dim" data-l="Zucker">4,1 g</td>
-          <td class="num strong" data-l="Eiweiß">2,2 g</td>
-          <td class="num dim" data-l="Salz">0,5 g</td>
-          <td class="num price" data-l="extern">1,25 €</td>
-        </tr>
-        <tr>
-          <td class="dish"><span class="station">Hauptgericht 1</span>
-              <strong>Marokkanisch marinierte Hähnchenkeule mit Tajine-Gemüse, Goldhirse &amp; Harissajoghurt</strong><span class="chip chip-bal">ausgewogen</span></td>
-          <td class="num" data-l="Portion">400* g</td>
-          <td class="num strong" data-l="kcal">620</td>
-          <td class="num" data-l="Fett">29,2 g</td>
-          <td class="num dim" data-l="ges. FS">11,1 g</td>
-          <td class="num" data-l="KH">45,2 g</td>
-          <td class="num dim" data-l="Zucker">15,6 g</td>
-          <td class="num strong" data-l="Eiweiß">39,6 g</td>
-          <td class="num dim" data-l="Salz">3 g</td>
-          <td class="num price" data-l="extern">10,80 €*</td>
-        </tr>
-        <tr>
-          <td class="dish"><span class="station">Hauptgericht 2</span>
-              <strong>Spinat &amp; Ei Rahmspinat mit Salzkartoffeln &amp; Rührei</strong><span class="chip chip-pro">proteinreich</span></td>
-          <td class="num" data-l="Portion">800 g</td>
-          <td class="num strong" data-l="kcal">928</td>
-          <td class="num" data-l="Fett">50,9 g</td>
-          <td class="num dim" data-l="ges. FS">15,8 g</td>
-          <td class="num" data-l="KH">67,4 g</td>
-          <td class="num dim" data-l="Zucker">16 g</td>
-          <td class="num strong" data-l="Eiweiß">41,8 g</td>
-          <td class="num dim" data-l="Salz">5,5 g</td>
-          <td class="num price" data-l="extern">6,30 €</td>
-        </tr></tbody>
-      </table>
-      </div>
-    </div>
-    <div class="block">
-      <h3 class="block-title">Empfehlung</h3>
-      <div class="recs"><div class="rec"><span class="rec-label">ausgewogen</span><span class="rec-name">Marokkanisch marinierte Hähnchenkeule mit Tajine-Gemüse, Goldhirse &amp; Harissajoghurt</span></div><div class="rec"><span class="rec-label">proteinreich</span><span class="rec-name">Spinat &amp; Ei Rahmspinat mit Salzkartoffeln &amp; Rührei</span></div></div>
-    </div>
-    <div class="block">
-      <h3 class="block-title">kcal-Vorschläge</h3>
-      <div class="combos">
-        <div class="combo"><span class="combo-target">~600 kcal</span>
-          <span class="combo-items">Marokkanisch marinierte Hähnchenkeule mit Tajine-Gemüse, Goldhirse &amp; Harissajoghurt</span>
-          <span class="combo-facts">620 kcal · 39,6 g Eiweiß · 10,80 €</span></div>
-        <div class="combo"><span class="combo-target">~1000 kcal</span>
-          <span class="combo-items">Tossed Salat M inkl. 2 Toppings + Pfirsisch-Maracuja Joghurt</span>
-          <span class="combo-facts">998 kcal · 42,8 g Eiweiß · 9,30 €</span></div></div>
-    </div>
-  </section>
-  <section class="day">
-    <header class="day-head">
-      <h2>Dienstag</h2><span class="date">01.09.2026</span>
-    </header>
-    <div class="block">
-      <h3 class="block-title">Menü <span class="count">10 Gerichte</span></h3>
-      <div class="table-wrap">
-      <table>
-        <thead><tr><th>Gericht</th><th>Portion</th><th>kcal</th><th>Fett</th><th>ges. FS</th>
-        <th>KH</th><th>Zucker</th><th>Eiweiß</th><th>Salz</th><th>extern</th></tr></thead>
-        <tbody>
-        <tr>
-          <td class="dish"><span class="station">Suppe 1 im DELI</span>
-              <strong>Ähzezupp Erbseneintopf mit Mettenden</strong></td>
-          <td class="num" data-l="Portion">700 g</td>
-          <td class="num strong" data-l="kcal">1246</td>
-          <td class="num" data-l="Fett">39,8 g</td>
-          <td class="num dim" data-l="ges. FS">16,5 g</td>
-          <td class="num" data-l="KH">125 g</td>
-          <td class="num dim" data-l="Zucker">27,5 g</td>
-          <td class="num strong" data-l="Eiweiß">79,6 g</td>
-          <td class="num dim" data-l="Salz">13,4 g</td>
-          <td class="num price" data-l="extern">3,45 €*</td>
-        </tr>
-        <tr>
-          <td class="dish"><span class="station">XL-Salat im DELI</span>
-              <strong>Nimm 2 oder 3 Nikkei Bowls mit Reis &amp; Quinoa , Teriyaki, Maiscreme &amp; Koriander</strong></td>
-          <td class="num" data-l="Portion">200 g</td>
-          <td class="num strong" data-l="kcal">606</td>
-          <td class="num" data-l="Fett">13,9 g</td>
-          <td class="num dim" data-l="ges. FS">4,3 g</td>
-          <td class="num" data-l="KH">104,6 g</td>
-          <td class="num dim" data-l="Zucker">9,6 g</td>
-          <td class="num strong" data-l="Eiweiß">14 g</td>
-          <td class="num dim" data-l="Salz">1,5 g</td>
-          <td class="num price" data-l="extern">1,80 €*</td>
-        </tr>
-        <tr>
-          <td class="dish"><span class="station">Pasta Originale</span>
-              <strong>mit geschmorter Miso Aubergine</strong></td>
-          <td class="num" data-l="Portion">400* g</td>
-          <td class="num strong" data-l="kcal">288</td>
-          <td class="num" data-l="Fett">15,5 g</td>
-          <td class="num dim" data-l="ges. FS">1,6 g</td>
-          <td class="num" data-l="KH">23,1 g</td>
-          <td class="num dim" data-l="Zucker">16,4 g</td>
-          <td class="num strong" data-l="Eiweiß">11,3 g</td>
-          <td class="num dim" data-l="Salz">5,7 g</td>
-          <td class="num price" data-l="extern">6,90 €*</td>
-        </tr>
-        <tr>
-          <td class="dish"><span class="station">Pasta Speciale</span>
-              <strong>mit Meeresfrüchte Ceviche</strong><span class="chip chip-multi">ausgewogen / proteinreich</span></td>
-          <td class="num" data-l="Portion">500 g</td>
-          <td class="num strong" data-l="kcal">500</td>
-          <td class="num" data-l="Fett">11,2 g</td>
-          <td class="num dim" data-l="ges. FS">4,3 g</td>
-          <td class="num" data-l="KH">20,2 g</td>
-          <td class="num dim" data-l="Zucker">2,2 g</td>
-          <td class="num strong" data-l="Eiweiß">78,7 g</td>
-          <td class="num dim" data-l="Salz">7 g</td>
-          <td class="num price" data-l="extern">6,90 €*</td>
-        </tr>
-        <tr>
-          <td class="dish"><span class="station">Bowl Basic</span>
-              <strong>Tossed Salat M inkl. 2 Toppings</strong></td>
-          <td class="num" data-l="Portion">350* g</td>
-          <td class="num strong" data-l="kcal">749</td>
-          <td class="num" data-l="Fett">54 g</td>
-          <td class="num dim" data-l="ges. FS">12,1 g</td>
-          <td class="num" data-l="KH">20,6 g</td>
-          <td class="num dim" data-l="Zucker">10,6 g</td>
-          <td class="num strong" data-l="Eiweiß">41,3 g</td>
-          <td class="num dim" data-l="Salz">2,7 g</td>
-          <td class="num price" data-l="extern">7,05 €</td>
-        </tr>
-        <tr>
-          <td class="dish"><span class="station">Topping Veggi</span>
-              <strong>Erdbeer-Tiramisu</strong></td>
-          <td class="num" data-l="Portion">300 g</td>
-          <td class="num strong" data-l="kcal">876</td>
-          <td class="num" data-l="Fett">67,6 g</td>
-          <td class="num dim" data-l="ges. FS">40,3 g</td>
-          <td class="num" data-l="KH">60,9 g</td>
-          <td class="num dim" data-l="Zucker">52,7 g</td>
-          <td class="num strong" data-l="Eiweiß">7,6 g</td>
-          <td class="num dim" data-l="Salz">0,3 g</td>
-          <td class="num price" data-l="extern">2,25 €*</td>
-        </tr>
-        <tr>
-          <td class="dish"><span class="station">Topping Land</span>
-              <strong>Frischer bunter Obstsalat</strong></td>
-          <td class="num" data-l="Portion">150* g</td>
-          <td class="num strong" data-l="kcal">96</td>
-          <td class="num" data-l="Fett">0,2 g</td>
-          <td class="num dim" data-l="ges. FS">0,1 g</td>
-          <td class="num" data-l="KH">18,4 g</td>
-          <td class="num dim" data-l="Zucker">18,4 g</td>
-          <td class="num strong" data-l="Eiweiß">1 g</td>
-          <td class="num dim" data-l="Salz">0 g</td>
-          <td class="num price" data-l="extern">2,85 €*</td>
-        </tr>
-        <tr>
-          <td class="dish"><span class="station">Pop up Pesch</span>
-              <strong>Beilagensalat</strong></td>
-          <td class="num" data-l="Portion">150* g</td>
-          <td class="num strong" data-l="kcal">206</td>
-          <td class="num" data-l="Fett">19,4 g</td>
-          <td class="num dim" data-l="ges. FS">1,9 g</td>
-          <td class="num" data-l="KH">5,4 g</td>
-          <td class="num dim" data-l="Zucker">4,1 g</td>
-          <td class="num strong" data-l="Eiweiß">2,2 g</td>
-          <td class="num dim" data-l="Salz">0,5 g</td>
-          <td class="num price" data-l="extern">1,25 €</td>
-        </tr>
-        <tr>
-          <td class="dish"><span class="station">Hauptgericht 1</span>
-              <strong>Alinazik Rinderhackfleisch, Auberginencreme und Türkischer Reis</strong></td>
-          <td class="num" data-l="Portion">400* g</td>
-          <td class="num strong" data-l="kcal">868</td>
-          <td class="num" data-l="Fett">50,5 g</td>
-          <td class="num dim" data-l="ges. FS">20,3 g</td>
-          <td class="num" data-l="KH">77,6 g</td>
-          <td class="num dim" data-l="Zucker">13,4 g</td>
-          <td class="num strong" data-l="Eiweiß">23,6 g</td>
-          <td class="num dim" data-l="Salz">5,3 g</td>
-          <td class="num price" data-l="extern">9,75 €*</td>
-        </tr>
-        <tr>
-          <td class="dish"><span class="station">Hauptgericht 2</span>
-              <strong>Gegrillte Karotte mit Kräuter-Ebly dazu Tahin-Zitronensauce &amp; gebackene Kichererbsen</strong><span class="chip chip-veg">vegetarisch</span></td>
-          <td class="num" data-l="Portion">300 g</td>
-          <td class="num strong" data-l="kcal">324</td>
-          <td class="num" data-l="Fett">5,5 g</td>
-          <td class="num dim" data-l="ges. FS">0,8 g</td>
-          <td class="num" data-l="KH">54,1 g</td>
-          <td class="num dim" data-l="Zucker">10,2 g</td>
-          <td class="num strong" data-l="Eiweiß">10,8 g</td>
-          <td class="num dim" data-l="Salz">4,3 g</td>
-          <td class="num price" data-l="extern">6,90 €</td>
-        </tr></tbody>
-      </table>
-      </div>
-    </div>
-    <div class="block">
-      <h3 class="block-title">Empfehlung</h3>
-      <div class="recs"><div class="rec"><span class="rec-label">ausgewogen / proteinreich</span><span class="rec-name">Pasta Speciale mit Meeresfrüchte Ceviche</span></div><div class="rec"><span class="rec-label">vegetarisch</span><span class="rec-name">Gegrillte Karotte mit Kräuter-Ebly dazu Tahin-Zitronensauce &amp; gebackene Kichererbsen</span></div></div>
-    </div>
-    <div class="block">
-      <h3 class="block-title">kcal-Vorschläge</h3>
-      <div class="combos">
-        <div class="combo"><span class="combo-target">~600 kcal</span>
-          <span class="combo-items">Pasta Speciale mit Meeresfrüchte Ceviche + Frischer bunter Obstsalat</span>
-          <span class="combo-facts">596 kcal · 79,7 g Eiweiß · 9,75 €</span></div>
-        <div class="combo"><span class="combo-target">~1000 kcal</span>
-          <span class="combo-items">Pasta Originale mit geschmorter Miso Aubergine + Pasta Speciale mit Meeresfrüchte Ceviche + Beilagensalat</span>
-          <span class="combo-facts">994 kcal · 92,2 g Eiweiß · 15,05 €</span></div></div>
-    </div>
-  </section>
-  <section class="day">
-    <header class="day-head">
-      <h2>Mittwoch</h2><span class="date">02.09.2026</span>
-    </header>
-    <div class="block">
-      <h3 class="block-title">Menü <span class="count">9 Gerichte</span></h3>
-      <div class="table-wrap">
-      <table>
-        <thead><tr><th>Gericht</th><th>Portion</th><th>kcal</th><th>Fett</th><th>ges. FS</th>
-        <th>KH</th><th>Zucker</th><th>Eiweiß</th><th>Salz</th><th>extern</th></tr></thead>
-        <tbody>
-        <tr>
-          <td class="dish"><span class="station">XL-Salat im DELI</span>
-              <strong>Nimm 2 oder 3 Nikkei Bowls mit Reis &amp; Quinoa , Teriyaki, Maiscreme &amp; Koriander</strong></td>
-          <td class="num" data-l="Portion">200 g</td>
-          <td class="num strong" data-l="kcal">606</td>
-          <td class="num" data-l="Fett">13,9 g</td>
-          <td class="num dim" data-l="ges. FS">4,3 g</td>
-          <td class="num" data-l="KH">104,6 g</td>
-          <td class="num dim" data-l="Zucker">9,6 g</td>
-          <td class="num strong" data-l="Eiweiß">14 g</td>
-          <td class="num dim" data-l="Salz">1,5 g</td>
-          <td class="num price" data-l="extern">1,80 €*</td>
-        </tr>
-        <tr>
-          <td class="dish"><span class="station">Pasta Originale</span>
-              <strong>mit geschmorter Miso Aubergine</strong></td>
-          <td class="num" data-l="Portion">400* g</td>
-          <td class="num strong" data-l="kcal">288</td>
-          <td class="num" data-l="Fett">15,5 g</td>
-          <td class="num dim" data-l="ges. FS">1,6 g</td>
-          <td class="num" data-l="KH">23,1 g</td>
-          <td class="num dim" data-l="Zucker">16,4 g</td>
-          <td class="num strong" data-l="Eiweiß">11,3 g</td>
-          <td class="num dim" data-l="Salz">5,7 g</td>
-          <td class="num price" data-l="extern">6,90 €*</td>
-        </tr>
-        <tr>
-          <td class="dish"><span class="station">Pasta Speciale</span>
-              <strong>mit Meeresfrüchte Ceviche</strong><span class="chip chip-multi">ausgewogen / proteinreich</span></td>
-          <td class="num" data-l="Portion">500 g</td>
-          <td class="num strong" data-l="kcal">500</td>
-          <td class="num" data-l="Fett">11,2 g</td>
-          <td class="num dim" data-l="ges. FS">4,3 g</td>
-          <td class="num" data-l="KH">20,2 g</td>
-          <td class="num dim" data-l="Zucker">2,2 g</td>
-          <td class="num strong" data-l="Eiweiß">78,7 g</td>
-          <td class="num dim" data-l="Salz">7 g</td>
-          <td class="num price" data-l="extern">6,90 €*</td>
-        </tr>
-        <tr>
-          <td class="dish"><span class="station">Bowl Basic</span>
-              <strong>Tossed Salat M inkl. 2 Toppings</strong></td>
-          <td class="num" data-l="Portion">350* g</td>
-          <td class="num strong" data-l="kcal">749</td>
-          <td class="num" data-l="Fett">54 g</td>
-          <td class="num dim" data-l="ges. FS">12,1 g</td>
-          <td class="num" data-l="KH">20,6 g</td>
-          <td class="num dim" data-l="Zucker">10,6 g</td>
-          <td class="num strong" data-l="Eiweiß">41,3 g</td>
-          <td class="num dim" data-l="Salz">2,7 g</td>
-          <td class="num price" data-l="extern">7,05 €</td>
-        </tr>
-        <tr>
-          <td class="dish"><span class="station">Topping Veggi</span>
-              <strong>Götterspeise mit Vanillesauce</strong></td>
-          <td class="num" data-l="Portion">200 g</td>
-          <td class="num strong" data-l="kcal">508</td>
-          <td class="num" data-l="Fett">11,8 g</td>
-          <td class="num dim" data-l="ges. FS">7,7 g</td>
-          <td class="num" data-l="KH">90,2 g</td>
-          <td class="num dim" data-l="Zucker">48,8 g</td>
-          <td class="num strong" data-l="Eiweiß">8,1 g</td>
-          <td class="num dim" data-l="Salz">0,8 g</td>
-          <td class="num price" data-l="extern">2,25 €*</td>
-        </tr>
-        <tr>
-          <td class="dish"><span class="station">Topping Land</span>
-              <strong>Frischer bunter Obstsalat</strong></td>
-          <td class="num" data-l="Portion">150* g</td>
-          <td class="num strong" data-l="kcal">96</td>
-          <td class="num" data-l="Fett">0,2 g</td>
-          <td class="num dim" data-l="ges. FS">0,1 g</td>
-          <td class="num" data-l="KH">18,4 g</td>
-          <td class="num dim" data-l="Zucker">18,4 g</td>
-          <td class="num strong" data-l="Eiweiß">1 g</td>
-          <td class="num dim" data-l="Salz">0 g</td>
-          <td class="num price" data-l="extern">2,85 €*</td>
-        </tr>
-        <tr>
-          <td class="dish"><span class="station">Pop up Pesch</span>
-              <strong>Beilagensalat</strong></td>
-          <td class="num" data-l="Portion">150* g</td>
-          <td class="num strong" data-l="kcal">206</td>
-          <td class="num" data-l="Fett">19,4 g</td>
-          <td class="num dim" data-l="ges. FS">1,9 g</td>
-          <td class="num" data-l="KH">5,4 g</td>
-          <td class="num dim" data-l="Zucker">4,1 g</td>
-          <td class="num strong" data-l="Eiweiß">2,2 g</td>
-          <td class="num dim" data-l="Salz">0,5 g</td>
-          <td class="num price" data-l="extern">1,25 €</td>
-        </tr>
-        <tr>
-          <td class="dish"><span class="station">Hauptgericht 1</span>
-              <strong>Hähnchenbrust &quot;Saltimbocca&quot; mit Rosmarinkartoffeln &amp; Tomaten-Paprika Salsa</strong></td>
-          <td class="num" data-l="Portion">400* g</td>
-          <td class="num strong" data-l="kcal">572</td>
-          <td class="num" data-l="Fett">26 g</td>
-          <td class="num dim" data-l="ges. FS">3,4 g</td>
-          <td class="num" data-l="KH">38,2 g</td>
-          <td class="num dim" data-l="Zucker">10,6 g</td>
-          <td class="num strong" data-l="Eiweiß">42,5 g</td>
-          <td class="num dim" data-l="Salz">1,7 g</td>
-          <td class="num price" data-l="extern">9,80 €</td>
-        </tr>
-        <tr>
-          <td class="dish"><span class="station">Hauptgericht 2</span>
-              <strong>Gebackene Süßkartoffel mit Bohnen-Mais Ragout dazu Limette, Sour Cream Nachos</strong></td>
-          <td class="num" data-l="Portion">400 g</td>
-          <td class="num strong" data-l="kcal">516</td>
-          <td class="num" data-l="Fett">15 g</td>
-          <td class="num dim" data-l="ges. FS">7 g</td>
-          <td class="num" data-l="KH">69,9 g</td>
-          <td class="num dim" data-l="Zucker">18,5 g</td>
-          <td class="num strong" data-l="Eiweiß">16,5 g</td>
-          <td class="num dim" data-l="Salz">2 g</td>
-          <td class="num price" data-l="extern">11,85 €*</td>
-        </tr></tbody>
-      </table>
-      </div>
-    </div>
-    <div class="block">
-      <h3 class="block-title">Empfehlung</h3>
-      <div class="recs"><div class="rec"><span class="rec-label">ausgewogen / proteinreich</span><span class="rec-name">Pasta Speciale mit Meeresfrüchte Ceviche</span></div></div>
-    </div>
-    <div class="block">
-      <h3 class="block-title">kcal-Vorschläge</h3>
-      <div class="combos">
-        <div class="combo"><span class="combo-target">~600 kcal</span>
-          <span class="combo-items">Pasta Speciale mit Meeresfrüchte Ceviche + Frischer bunter Obstsalat</span>
-          <span class="combo-facts">596 kcal · 79,7 g Eiweiß · 9,75 €</span></div>
-        <div class="combo"><span class="combo-target">~1000 kcal</span>
-          <span class="combo-items">Pasta Originale mit geschmorter Miso Aubergine + Pasta Speciale mit Meeresfrüchte Ceviche + Beilagensalat</span>
-          <span class="combo-facts">994 kcal · 92,2 g Eiweiß · 15,05 €</span></div></div>
-    </div>
-  </section>
-  <section class="day">
-    <header class="day-head">
-      <h2>Donnerstag</h2><span class="date">03.09.2026</span>
-    </header>
-    <div class="block">
-      <h3 class="block-title">Menü <span class="count">10 Gerichte</span></h3>
-      <div class="table-wrap">
-      <table>
-        <thead><tr><th>Gericht</th><th>Portion</th><th>kcal</th><th>Fett</th><th>ges. FS</th>
-        <th>KH</th><th>Zucker</th><th>Eiweiß</th><th>Salz</th><th>extern</th></tr></thead>
-        <tbody>
-        <tr>
-          <td class="dish"><span class="station">Suppe 1 im DELI</span>
-              <strong>Gazpacho mit Schmand</strong></td>
-          <td class="num" data-l="Portion">400 g</td>
-          <td class="num strong" data-l="kcal">220</td>
-          <td class="num" data-l="Fett">17,8 g</td>
-          <td class="num dim" data-l="ges. FS">5,9 g</td>
-          <td class="num" data-l="KH">11,6 g</td>
-          <td class="num dim" data-l="Zucker">5,8 g</td>
-          <td class="num strong" data-l="Eiweiß">2,9 g</td>
-          <td class="num dim" data-l="Salz">1,7 g</td>
-          <td class="num price" data-l="extern">3,45 €*</td>
-        </tr>
-        <tr>
-          <td class="dish"><span class="station">XL-Salat im DELI</span>
-              <strong>Nimm 2 oder 3 Nikkei Bowls mit Reis &amp; Quinoa , Teriyaki, Maiscreme &amp; Koriander</strong></td>
-          <td class="num" data-l="Portion">200 g</td>
-          <td class="num strong" data-l="kcal">606</td>
-          <td class="num" data-l="Fett">13,9 g</td>
-          <td class="num dim" data-l="ges. FS">4,3 g</td>
-          <td class="num" data-l="KH">104,6 g</td>
-          <td class="num dim" data-l="Zucker">9,6 g</td>
-          <td class="num strong" data-l="Eiweiß">14 g</td>
-          <td class="num dim" data-l="Salz">1,5 g</td>
-          <td class="num price" data-l="extern">1,80 €*</td>
-        </tr>
-        <tr>
-          <td class="dish"><span class="station">Pasta Originale</span>
-              <strong>mit geschmorter Miso Aubergine</strong></td>
-          <td class="num" data-l="Portion">400* g</td>
-          <td class="num strong" data-l="kcal">288</td>
-          <td class="num" data-l="Fett">15,5 g</td>
-          <td class="num dim" data-l="ges. FS">1,6 g</td>
-          <td class="num" data-l="KH">23,1 g</td>
-          <td class="num dim" data-l="Zucker">16,4 g</td>
-          <td class="num strong" data-l="Eiweiß">11,3 g</td>
-          <td class="num dim" data-l="Salz">5,7 g</td>
-          <td class="num price" data-l="extern">6,90 €*</td>
-        </tr>
-        <tr>
-          <td class="dish"><span class="station">Pasta Speciale</span>
-              <strong>mit Meeresfrüchte Ceviche</strong><span class="chip chip-pro">proteinreich</span></td>
-          <td class="num" data-l="Portion">500 g</td>
-          <td class="num strong" data-l="kcal">500</td>
-          <td class="num" data-l="Fett">11,2 g</td>
-          <td class="num dim" data-l="ges. FS">4,3 g</td>
-          <td class="num" data-l="KH">20,2 g</td>
-          <td class="num dim" data-l="Zucker">2,2 g</td>
-          <td class="num strong" data-l="Eiweiß">78,7 g</td>
-          <td class="num dim" data-l="Salz">7 g</td>
-          <td class="num price" data-l="extern">6,90 €*</td>
-        </tr>
-        <tr>
-          <td class="dish"><span class="station">Bowl Basic</span>
-              <strong>Tossed Salat M inkl. 2 Toppings</strong></td>
-          <td class="num" data-l="Portion">350* g</td>
-          <td class="num strong" data-l="kcal">749</td>
-          <td class="num" data-l="Fett">54 g</td>
-          <td class="num dim" data-l="ges. FS">12,1 g</td>
-          <td class="num" data-l="KH">20,6 g</td>
-          <td class="num dim" data-l="Zucker">10,6 g</td>
-          <td class="num strong" data-l="Eiweiß">41,3 g</td>
-          <td class="num dim" data-l="Salz">2,7 g</td>
-          <td class="num price" data-l="extern">7,05 €</td>
-        </tr>
-        <tr>
-          <td class="dish"><span class="station">Topping Veggi</span>
-              <strong>Schokocookie-Mousse</strong></td>
-          <td class="num" data-l="Portion">400 g</td>
-          <td class="num strong" data-l="kcal">1032</td>
-          <td class="num" data-l="Fett">66,5 g</td>
-          <td class="num dim" data-l="ges. FS">43,5 g</td>
-          <td class="num" data-l="KH">85,9 g</td>
-          <td class="num dim" data-l="Zucker">79,3 g</td>
-          <td class="num strong" data-l="Eiweiß">19,9 g</td>
-          <td class="num dim" data-l="Salz">0,6 g</td>
-          <td class="num price" data-l="extern">2,25 €*</td>
-        </tr>
-        <tr>
-          <td class="dish"><span class="station">Topping Land</span>
-              <strong>Frischer bunter Obstsalat</strong></td>
-          <td class="num" data-l="Portion">150* g</td>
-          <td class="num strong" data-l="kcal">96</td>
-          <td class="num" data-l="Fett">0,2 g</td>
-          <td class="num dim" data-l="ges. FS">0,1 g</td>
-          <td class="num" data-l="KH">18,4 g</td>
-          <td class="num dim" data-l="Zucker">18,4 g</td>
-          <td class="num strong" data-l="Eiweiß">1 g</td>
-          <td class="num dim" data-l="Salz">0 g</td>
-          <td class="num price" data-l="extern">2,85 €*</td>
-        </tr>
-        <tr>
-          <td class="dish"><span class="station">Pop up Pesch</span>
-              <strong>Beilagensalat</strong></td>
-          <td class="num" data-l="Portion">150* g</td>
-          <td class="num strong" data-l="kcal">206</td>
-          <td class="num" data-l="Fett">19,4 g</td>
-          <td class="num dim" data-l="ges. FS">1,9 g</td>
-          <td class="num" data-l="KH">5,4 g</td>
-          <td class="num dim" data-l="Zucker">4,1 g</td>
-          <td class="num strong" data-l="Eiweiß">2,2 g</td>
-          <td class="num dim" data-l="Salz">0,5 g</td>
-          <td class="num price" data-l="extern">1,25 €</td>
-        </tr>
-        <tr>
-          <td class="dish"><span class="station">Hauptgericht 1</span>
-              <strong>Schweinefilet mit Nudelsalat wie von Oma dazu verschiedene Dips &amp; Hausbrot</strong><span class="chip chip-bal">ausgewogen</span></td>
-          <td class="num" data-l="Portion">350* g</td>
-          <td class="num strong" data-l="kcal">536</td>
-          <td class="num" data-l="Fett">13,6 g</td>
-          <td class="num dim" data-l="ges. FS">2,4 g</td>
-          <td class="num" data-l="KH">61,6 g</td>
-          <td class="num dim" data-l="Zucker">4,1 g</td>
-          <td class="num strong" data-l="Eiweiß">38,8 g</td>
-          <td class="num dim" data-l="Salz">3 g</td>
-          <td class="num price" data-l="extern">8,85 €*</td>
-        </tr>
-        <tr>
-          <td class="dish"><span class="station">Hauptgericht 2</span>
-              <strong>Loaded Fries mit Kebab aus Erbsenprotein, Champignons, karamellisierte Zwiebeln, geräucherter Paprika-Tomatensalsa &amp; Che</strong></td>
-          <td class="num" data-l="Portion">400* g</td>
-          <td class="num strong" data-l="kcal">1128</td>
-          <td class="num" data-l="Fett">69,9 g</td>
-          <td class="num dim" data-l="ges. FS">17,3 g</td>
-          <td class="num" data-l="KH">84,3 g</td>
-          <td class="num dim" data-l="Zucker">15,6 g</td>
-          <td class="num strong" data-l="Eiweiß">35,3 g</td>
-          <td class="num dim" data-l="Salz">6,3 g</td>
-          <td class="num price" data-l="extern">8,15 €</td>
-        </tr></tbody>
-      </table>
-      </div>
-    </div>
-    <div class="block">
-      <h3 class="block-title">Empfehlung</h3>
-      <div class="recs"><div class="rec"><span class="rec-label">ausgewogen</span><span class="rec-name">Schweinefilet mit Nudelsalat wie von Oma dazu verschiedene Dips &amp; Hausbrot</span></div><div class="rec"><span class="rec-label">proteinreich</span><span class="rec-name">Pasta Speciale mit Meeresfrüchte Ceviche</span></div></div>
-    </div>
-    <div class="block">
-      <h3 class="block-title">kcal-Vorschläge</h3>
-      <div class="combos">
-        <div class="combo"><span class="combo-target">~600 kcal</span>
-          <span class="combo-items">Pasta Speciale mit Meeresfrüchte Ceviche + Frischer bunter Obstsalat</span>
-          <span class="combo-facts">596 kcal · 79,7 g Eiweiß · 9,75 €</span></div>
-        <div class="combo"><span class="combo-target">~1000 kcal</span>
-          <span class="combo-items">Pasta Originale mit geschmorter Miso Aubergine + Pasta Speciale mit Meeresfrüchte Ceviche + Beilagensalat</span>
-          <span class="combo-facts">994 kcal · 92,2 g Eiweiß · 15,05 €</span></div></div>
-    </div>
-  </section>
-  <section class="day">
-    <header class="day-head">
-      <h2>Freitag</h2><span class="date">04.09.2026</span>
-    </header>
-    <div class="block">
-      <h3 class="block-title">Menü <span class="count">6 Gerichte</span></h3>
-      <div class="table-wrap">
-      <table>
-        <thead><tr><th>Gericht</th><th>Portion</th><th>kcal</th><th>Fett</th><th>ges. FS</th>
-        <th>KH</th><th>Zucker</th><th>Eiweiß</th><th>Salz</th><th>extern</th></tr></thead>
-        <tbody>
-        <tr>
-          <td class="dish"><span class="station">Bowl Basic</span>
-              <strong>Tossed Salat M inkl. 2 Toppings</strong><span class="chip chip-multi">ausgewogen / proteinreich</span></td>
-          <td class="num" data-l="Portion">350* g</td>
-          <td class="num strong" data-l="kcal">749</td>
-          <td class="num" data-l="Fett">54 g</td>
-          <td class="num dim" data-l="ges. FS">12,1 g</td>
-          <td class="num" data-l="KH">20,6 g</td>
-          <td class="num dim" data-l="Zucker">10,6 g</td>
-          <td class="num strong" data-l="Eiweiß">41,3 g</td>
-          <td class="num dim" data-l="Salz">2,7 g</td>
-          <td class="num price" data-l="extern">7,05 €</td>
-        </tr>
-        <tr>
-          <td class="dish"><span class="station">Topping Veggi</span>
-              <strong>Melonen Salat mit Minze</strong></td>
-          <td class="num" data-l="Portion">150* g</td>
-          <td class="num strong" data-l="kcal">102</td>
-          <td class="num" data-l="Fett">4,9 g</td>
-          <td class="num dim" data-l="ges. FS">0,8 g</td>
-          <td class="num" data-l="KH">12,3 g</td>
-          <td class="num dim" data-l="Zucker">12,2 g</td>
-          <td class="num strong" data-l="Eiweiß">1,2 g</td>
-          <td class="num dim" data-l="Salz">0 g</td>
-          <td class="num price" data-l="extern">2,25 €*</td>
-        </tr>
-        <tr>
-          <td class="dish"><span class="station">Topping Land</span>
-              <strong>Frischer bunter Obstsalat</strong></td>
-          <td class="num" data-l="Portion">150* g</td>
-          <td class="num strong" data-l="kcal">96</td>
-          <td class="num" data-l="Fett">0,2 g</td>
-          <td class="num dim" data-l="ges. FS">0,1 g</td>
-          <td class="num" data-l="KH">18,4 g</td>
-          <td class="num dim" data-l="Zucker">18,4 g</td>
-          <td class="num strong" data-l="Eiweiß">1 g</td>
-          <td class="num dim" data-l="Salz">0 g</td>
-          <td class="num price" data-l="extern">2,85 €*</td>
-        </tr>
-        <tr>
-          <td class="dish"><span class="station">Pop up Pesch</span>
-              <strong>Beilagensalat</strong></td>
-          <td class="num" data-l="Portion">150* g</td>
-          <td class="num strong" data-l="kcal">206</td>
-          <td class="num" data-l="Fett">19,4 g</td>
-          <td class="num dim" data-l="ges. FS">1,9 g</td>
-          <td class="num" data-l="KH">5,4 g</td>
-          <td class="num dim" data-l="Zucker">4,1 g</td>
-          <td class="num strong" data-l="Eiweiß">2,2 g</td>
-          <td class="num dim" data-l="Salz">0,5 g</td>
-          <td class="num price" data-l="extern">1,25 €</td>
-        </tr>
-        <tr>
-          <td class="dish"><span class="station">Hauptgericht 1</span>
-              <strong>Beef Burger mit Cheddar, Smokey Onion Mayo, Tomate und Lollo Bionda dazu dazu Pommes Frites Alternativ mit Patty aus Süß</strong></td>
-          <td class="num" data-l="Portion">400* g</td>
-          <td class="num strong" data-l="kcal">1064</td>
-          <td class="num" data-l="Fett">63,1 g</td>
-          <td class="num dim" data-l="ges. FS">20,5 g</td>
-          <td class="num" data-l="KH">84,2 g</td>
-          <td class="num dim" data-l="Zucker">18,2 g</td>
-          <td class="num strong" data-l="Eiweiß">35,2 g</td>
-          <td class="num dim" data-l="Salz">4,2 g</td>
-          <td class="num price" data-l="extern">9,10 €</td>
-        </tr>
-        <tr>
-          <td class="dish"><span class="station">Hauptgericht 2</span>
-              <strong>Wurzelgemüseeintopf mit Kartoffeln &amp; Maultaschen oder Tagessuppe</strong></td>
-          <td class="num" data-l="Portion">300 g</td>
-          <td class="num strong" data-l="kcal">84</td>
-          <td class="num" data-l="Fett">2,2 g</td>
-          <td class="num dim" data-l="ges. FS">1 g</td>
-          <td class="num" data-l="KH">11,5 g</td>
-          <td class="num dim" data-l="Zucker">5,4 g</td>
-          <td class="num strong" data-l="Eiweiß">3 g</td>
-          <td class="num dim" data-l="Salz">2,1 g</td>
-          <td class="num price" data-l="extern">6,90 €*</td>
-        </tr></tbody>
-      </table>
-      </div>
-    </div>
-    <div class="block">
-      <h3 class="block-title">Empfehlung</h3>
-      <div class="recs"><div class="rec"><span class="rec-label">ausgewogen / proteinreich</span><span class="rec-name">Tossed Salat M inkl. 2 Toppings</span></div></div>
-    </div>
-    <div class="block">
-      <h3 class="block-title">kcal-Vorschläge</h3>
-      <div class="combos">
-        <div class="combo"><span class="combo-target">~600 kcal†</span>
-          <span class="combo-items">Tossed Salat M inkl. 2 Toppings</span>
-          <span class="combo-facts">749 kcal · 41,3 g Eiweiß · 7,05 €</span></div>
-        <div class="combo"><span class="combo-target">~1000 kcal</span>
-          <span class="combo-items">Tossed Salat M inkl. 2 Toppings + Beilagensalat + Wurzelgemüseeintopf mit Kartoffeln &amp; Maultaschen oder Tagessuppe</span>
-          <span class="combo-facts">1039 kcal · 46,5 g Eiweiß · 15,20 €</span></div></div>
-    </div>
-  </section>
+<nav class="weekbar" aria-label="Wochenübersicht"><div class="tablist" role="tablist" aria-label="Wochentage"><button class="tab" role="tab" type="button" id="tab-1" aria-controls="tag-1" aria-selected="false" tabindex="-1" data-date="2026-08-31"><span class="tab-wd"><span class="wd-long">Montag</span><span class="wd-short" aria-hidden="true">Mo</span></span><span class="tab-date">31.08.</span><span class="tab-hint">Marokkanisch marinierte…</span></button><button class="tab" role="tab" type="button" id="tab-2" aria-controls="tag-2" aria-selected="false" tabindex="-1" data-date="2026-09-01"><span class="tab-wd"><span class="wd-long">Dienstag</span><span class="wd-short" aria-hidden="true">Di</span></span><span class="tab-date">01.09.</span><span class="tab-hint">Pasta Speciale mit…</span></button><button class="tab" role="tab" type="button" id="tab-3" aria-controls="tag-3" aria-selected="false" tabindex="-1" data-date="2026-09-02"><span class="tab-wd"><span class="wd-long">Mittwoch</span><span class="wd-short" aria-hidden="true">Mi</span></span><span class="tab-date">02.09.</span><span class="tab-hint">Pasta Speciale mit…</span></button><button class="tab" role="tab" type="button" id="tab-4" aria-controls="tag-4" aria-selected="false" tabindex="-1" data-date="2026-09-03"><span class="tab-wd"><span class="wd-long">Donnerstag</span><span class="wd-short" aria-hidden="true">Do</span></span><span class="tab-date">03.09.</span><span class="tab-hint">Schweinefilet mit Nudelsalat…</span></button><button class="tab" role="tab" type="button" id="tab-5" aria-controls="tag-5" aria-selected="false" tabindex="-1" data-date="2026-09-04"><span class="tab-wd"><span class="wd-long">Freitag</span><span class="wd-short" aria-hidden="true">Fr</span></span><span class="tab-date">04.09.</span><span class="tab-hint">Tossed Salat M inkl. 2…</span></button></div><button id="week-toggle" class="pill-btn" type="button" aria-pressed="false"><span class="t-ico" aria-hidden="true">≡</span><span class="w-txt">Ganze Woche zeigen</span></button></nav>
+<main>
+<section class="day" id="tag-1" role="tabpanel" aria-labelledby="tab-1"><header class="day-head"><h2>Montag</h2><span class="date">31.08.2026</span><span class="count">7 Gerichte</span></header><div class="block"><h3 class="block-title">Empfehlung des Tages</h3><div class="recs"><article class="rec-card"><span class="chips"><span class="chip chip-bal">ausgewogen</span></span><h4 class="rec-name">Marokkanisch marinierte Hähnchenkeule mit Tajine-Gemüse, Goldhirse &amp; Harissajoghurt</h4><span class="station">Hauptgericht 1</span><div class="figs"><span class="fig"><b>620</b>kcal</span><span class="fig"><b>39,6 g</b>Eiweiß</span><span class="fig price"><b>10,80 €*</b>extern</span></div></article><article class="rec-card"><span class="chips"><span class="chip chip-pro">proteinreich</span></span><h4 class="rec-name">Spinat &amp; Ei Rahmspinat mit Salzkartoffeln &amp; Rührei</h4><span class="station">Hauptgericht 2</span><div class="figs"><span class="fig"><b>928</b>kcal</span><span class="fig"><b>41,8 g</b>Eiweiß</span><span class="fig price"><b>6,30 €</b>extern</span></div></article></div></div><div class="block"><h3 class="block-title">kcal-Kombis</h3><div class="combos"><article class="combo-card"><div class="combo-head"><span class="combo-target">Ziel 600 kcal</span><span class="combo-kcal">620<small>kcal</small></span></div><ol class="combo-items"><li>Marokkanisch marinierte Hähnchenkeule mit Tajine-Gemüse, Goldhirse &amp; Harissajoghurt<span>620 kcal</span></li></ol><div class="figs"><span class="fig"><b>39,6 g</b>Eiweiß</span><span class="fig price"><b>10,80 €</b>extern</span></div></article><article class="combo-card"><div class="combo-head"><span class="combo-target">Ziel 1000 kcal</span><span class="combo-kcal">998<small>kcal</small></span></div><ol class="combo-items"><li>Tossed Salat M inkl. 2 Toppings<span>749 kcal</span></li><li>Pfirsisch-Maracuja Joghurt<span>249 kcal</span></li></ol><div class="figs"><span class="fig"><b>42,8 g</b>Eiweiß</span><span class="fig price"><b>9,30 €</b>extern</span></div></article></div></div><div class="block"><h3 class="block-title">Alle Gerichte</h3><div class="table-wrap"><table><thead><tr><th>Gericht</th><th class="key">kcal</th><th class="key">Eiweiß</th><th class="key">Preis extern</th><th>Portion</th><th>Fett</th><th>ges. FS</th><th>KH</th><th>Zucker</th><th>Salz</th></tr></thead><tbody><tr><td class="dish"><span class="station">Suppe 1 im DELI</span><strong>Tomatencremesuppe mit Crème fraîche &amp; Croutons</strong></td><td class="num key"><span class="l">kcal</span>102</td><td class="num key"><span class="l">Eiweiß</span>1,7 g</td><td class="num key price"><span class="l">Preis extern</span>3,45 €*</td><td class="num aux"><span class="l">Portion</span>300 g</td><td class="num aux"><span class="l">Fett</span>7,6 g</td><td class="num aux"><span class="l">ges. FS</span>4,2 g</td><td class="num aux"><span class="l">KH</span>6,6 g</td><td class="num aux"><span class="l">Zucker</span>2,2 g</td><td class="num aux"><span class="l">Salz</span>1,4 g</td></tr><tr><td class="dish"><span class="station">Bowl Basic</span><strong>Tossed Salat M inkl. 2 Toppings</strong></td><td class="num key"><span class="l">kcal</span>749</td><td class="num key"><span class="l">Eiweiß</span>41,3 g</td><td class="num key price"><span class="l">Preis extern</span>7,05 €</td><td class="num aux"><span class="l">Portion</span>350* g</td><td class="num aux"><span class="l">Fett</span>54 g</td><td class="num aux"><span class="l">ges. FS</span>12,1 g</td><td class="num aux"><span class="l">KH</span>20,6 g</td><td class="num aux"><span class="l">Zucker</span>10,6 g</td><td class="num aux"><span class="l">Salz</span>2,7 g</td></tr><tr><td class="dish"><span class="station">Topping Veggi</span><strong>Pfirsisch-Maracuja Joghurt</strong></td><td class="num key"><span class="l">kcal</span>249</td><td class="num key"><span class="l">Eiweiß</span>1,5 g</td><td class="num key price"><span class="l">Preis extern</span>2,25 €*</td><td class="num aux"><span class="l">Portion</span>300 g</td><td class="num aux"><span class="l">Fett</span>7,2 g</td><td class="num aux"><span class="l">ges. FS</span>6,3 g</td><td class="num aux"><span class="l">KH</span>43,5 g</td><td class="num aux"><span class="l">Zucker</span>27,6 g</td><td class="num aux"><span class="l">Salz</span>0,1 g</td></tr><tr><td class="dish"><span class="station">Topping Land</span><strong>Frischer bunter Obstsalat</strong></td><td class="num key"><span class="l">kcal</span>96</td><td class="num key"><span class="l">Eiweiß</span>1 g</td><td class="num key price"><span class="l">Preis extern</span>2,85 €*</td><td class="num aux"><span class="l">Portion</span>150* g</td><td class="num aux"><span class="l">Fett</span>0,2 g</td><td class="num aux"><span class="l">ges. FS</span>0,1 g</td><td class="num aux"><span class="l">KH</span>18,4 g</td><td class="num aux"><span class="l">Zucker</span>18,4 g</td><td class="num aux"><span class="l">Salz</span>0 g</td></tr><tr><td class="dish"><span class="station">Pop up Pesch</span><strong>Beilagensalat</strong></td><td class="num key"><span class="l">kcal</span>206</td><td class="num key"><span class="l">Eiweiß</span>2,2 g</td><td class="num key price"><span class="l">Preis extern</span>1,25 €</td><td class="num aux"><span class="l">Portion</span>150* g</td><td class="num aux"><span class="l">Fett</span>19,4 g</td><td class="num aux"><span class="l">ges. FS</span>1,9 g</td><td class="num aux"><span class="l">KH</span>5,4 g</td><td class="num aux"><span class="l">Zucker</span>4,1 g</td><td class="num aux"><span class="l">Salz</span>0,5 g</td></tr><tr class=is-rec><td class="dish"><span class="station">Hauptgericht 1</span><strong>Marokkanisch marinierte Hähnchenkeule mit Tajine-Gemüse, Goldhirse &amp; Harissajoghurt</strong><span class="chips"><span class="chip chip-bal">ausgewogen</span></span></td><td class="num key"><span class="l">kcal</span>620</td><td class="num key"><span class="l">Eiweiß</span>39,6 g</td><td class="num key price"><span class="l">Preis extern</span>10,80 €*</td><td class="num aux"><span class="l">Portion</span>400* g</td><td class="num aux"><span class="l">Fett</span>29,2 g</td><td class="num aux"><span class="l">ges. FS</span>11,1 g</td><td class="num aux"><span class="l">KH</span>45,2 g</td><td class="num aux"><span class="l">Zucker</span>15,6 g</td><td class="num aux"><span class="l">Salz</span>3 g</td></tr><tr class=is-rec><td class="dish"><span class="station">Hauptgericht 2</span><strong>Spinat &amp; Ei Rahmspinat mit Salzkartoffeln &amp; Rührei</strong><span class="chips"><span class="chip chip-pro">proteinreich</span></span></td><td class="num key"><span class="l">kcal</span>928</td><td class="num key"><span class="l">Eiweiß</span>41,8 g</td><td class="num key price"><span class="l">Preis extern</span>6,30 €</td><td class="num aux"><span class="l">Portion</span>800 g</td><td class="num aux"><span class="l">Fett</span>50,9 g</td><td class="num aux"><span class="l">ges. FS</span>15,8 g</td><td class="num aux"><span class="l">KH</span>67,4 g</td><td class="num aux"><span class="l">Zucker</span>16 g</td><td class="num aux"><span class="l">Salz</span>5,5 g</td></tr></tbody></table></div></div></section><section class="day" id="tag-2" role="tabpanel" aria-labelledby="tab-2"><header class="day-head"><h2>Dienstag</h2><span class="date">01.09.2026</span><span class="count">10 Gerichte</span></header><div class="block"><h3 class="block-title">Empfehlung des Tages</h3><div class="recs"><article class="rec-card"><span class="chips"><span class="chip chip-bal">ausgewogen</span><span class="chip chip-pro">proteinreich</span></span><h4 class="rec-name">Pasta Speciale mit Meeresfrüchte Ceviche</h4><div class="figs"><span class="fig"><b>500</b>kcal</span><span class="fig"><b>78,7 g</b>Eiweiß</span><span class="fig price"><b>6,90 €*</b>extern</span></div></article><article class="rec-card"><span class="chips"><span class="chip chip-veg">vegetarisch</span></span><h4 class="rec-name">Gegrillte Karotte mit Kräuter-Ebly dazu Tahin-Zitronensauce &amp; gebackene Kichererbsen</h4><span class="station">Hauptgericht 2</span><div class="figs"><span class="fig"><b>324</b>kcal</span><span class="fig"><b>10,8 g</b>Eiweiß</span><span class="fig price"><b>6,90 €</b>extern</span></div></article></div></div><div class="block"><h3 class="block-title">kcal-Kombis</h3><div class="combos"><article class="combo-card"><div class="combo-head"><span class="combo-target">Ziel 600 kcal</span><span class="combo-kcal">596<small>kcal</small></span></div><ol class="combo-items"><li>Pasta Speciale mit Meeresfrüchte Ceviche<span>500 kcal</span></li><li>Frischer bunter Obstsalat<span>96 kcal</span></li></ol><div class="figs"><span class="fig"><b>79,7 g</b>Eiweiß</span><span class="fig price"><b>9,75 €</b>extern</span></div></article><article class="combo-card"><div class="combo-head"><span class="combo-target">Ziel 1000 kcal</span><span class="combo-kcal">994<small>kcal</small></span></div><ol class="combo-items"><li>Pasta Originale mit geschmorter Miso Aubergine<span>288 kcal</span></li><li>Pasta Speciale mit Meeresfrüchte Ceviche<span>500 kcal</span></li><li>Beilagensalat<span>206 kcal</span></li></ol><div class="figs"><span class="fig"><b>92,2 g</b>Eiweiß</span><span class="fig price"><b>15,05 €</b>extern</span></div></article></div></div><div class="block"><h3 class="block-title">Alle Gerichte</h3><div class="table-wrap"><table><thead><tr><th>Gericht</th><th class="key">kcal</th><th class="key">Eiweiß</th><th class="key">Preis extern</th><th>Portion</th><th>Fett</th><th>ges. FS</th><th>KH</th><th>Zucker</th><th>Salz</th></tr></thead><tbody><tr><td class="dish"><span class="station">Suppe 1 im DELI</span><strong>Ähzezupp Erbseneintopf mit Mettenden</strong></td><td class="num key"><span class="l">kcal</span>1246</td><td class="num key"><span class="l">Eiweiß</span>79,6 g</td><td class="num key price"><span class="l">Preis extern</span>3,45 €*</td><td class="num aux"><span class="l">Portion</span>700 g</td><td class="num aux"><span class="l">Fett</span>39,8 g</td><td class="num aux"><span class="l">ges. FS</span>16,5 g</td><td class="num aux"><span class="l">KH</span>125 g</td><td class="num aux"><span class="l">Zucker</span>27,5 g</td><td class="num aux"><span class="l">Salz</span>13,4 g</td></tr><tr><td class="dish"><span class="station">XL-Salat im DELI</span><strong>Nimm 2 oder 3 Nikkei Bowls mit Reis &amp; Quinoa , Teriyaki, Maiscreme &amp; Koriander</strong></td><td class="num key"><span class="l">kcal</span>606</td><td class="num key"><span class="l">Eiweiß</span>14 g</td><td class="num key price"><span class="l">Preis extern</span>1,80 €*</td><td class="num aux"><span class="l">Portion</span>200 g</td><td class="num aux"><span class="l">Fett</span>13,9 g</td><td class="num aux"><span class="l">ges. FS</span>4,3 g</td><td class="num aux"><span class="l">KH</span>104,6 g</td><td class="num aux"><span class="l">Zucker</span>9,6 g</td><td class="num aux"><span class="l">Salz</span>1,5 g</td></tr><tr><td class="dish"><span class="station">Pasta Originale</span><strong>mit geschmorter Miso Aubergine</strong></td><td class="num key"><span class="l">kcal</span>288</td><td class="num key"><span class="l">Eiweiß</span>11,3 g</td><td class="num key price"><span class="l">Preis extern</span>6,90 €*</td><td class="num aux"><span class="l">Portion</span>400* g</td><td class="num aux"><span class="l">Fett</span>15,5 g</td><td class="num aux"><span class="l">ges. FS</span>1,6 g</td><td class="num aux"><span class="l">KH</span>23,1 g</td><td class="num aux"><span class="l">Zucker</span>16,4 g</td><td class="num aux"><span class="l">Salz</span>5,7 g</td></tr><tr class=is-rec><td class="dish"><span class="station">Pasta Speciale</span><strong>mit Meeresfrüchte Ceviche</strong><span class="chips"><span class="chip chip-bal">ausgewogen</span><span class="chip chip-pro">proteinreich</span></span></td><td class="num key"><span class="l">kcal</span>500</td><td class="num key"><span class="l">Eiweiß</span>78,7 g</td><td class="num key price"><span class="l">Preis extern</span>6,90 €*</td><td class="num aux"><span class="l">Portion</span>500 g</td><td class="num aux"><span class="l">Fett</span>11,2 g</td><td class="num aux"><span class="l">ges. FS</span>4,3 g</td><td class="num aux"><span class="l">KH</span>20,2 g</td><td class="num aux"><span class="l">Zucker</span>2,2 g</td><td class="num aux"><span class="l">Salz</span>7 g</td></tr><tr><td class="dish"><span class="station">Bowl Basic</span><strong>Tossed Salat M inkl. 2 Toppings</strong></td><td class="num key"><span class="l">kcal</span>749</td><td class="num key"><span class="l">Eiweiß</span>41,3 g</td><td class="num key price"><span class="l">Preis extern</span>7,05 €</td><td class="num aux"><span class="l">Portion</span>350* g</td><td class="num aux"><span class="l">Fett</span>54 g</td><td class="num aux"><span class="l">ges. FS</span>12,1 g</td><td class="num aux"><span class="l">KH</span>20,6 g</td><td class="num aux"><span class="l">Zucker</span>10,6 g</td><td class="num aux"><span class="l">Salz</span>2,7 g</td></tr><tr><td class="dish"><span class="station">Topping Veggi</span><strong>Erdbeer-Tiramisu</strong></td><td class="num key"><span class="l">kcal</span>876</td><td class="num key"><span class="l">Eiweiß</span>7,6 g</td><td class="num key price"><span class="l">Preis extern</span>2,25 €*</td><td class="num aux"><span class="l">Portion</span>300 g</td><td class="num aux"><span class="l">Fett</span>67,6 g</td><td class="num aux"><span class="l">ges. FS</span>40,3 g</td><td class="num aux"><span class="l">KH</span>60,9 g</td><td class="num aux"><span class="l">Zucker</span>52,7 g</td><td class="num aux"><span class="l">Salz</span>0,3 g</td></tr><tr><td class="dish"><span class="station">Topping Land</span><strong>Frischer bunter Obstsalat</strong></td><td class="num key"><span class="l">kcal</span>96</td><td class="num key"><span class="l">Eiweiß</span>1 g</td><td class="num key price"><span class="l">Preis extern</span>2,85 €*</td><td class="num aux"><span class="l">Portion</span>150* g</td><td class="num aux"><span class="l">Fett</span>0,2 g</td><td class="num aux"><span class="l">ges. FS</span>0,1 g</td><td class="num aux"><span class="l">KH</span>18,4 g</td><td class="num aux"><span class="l">Zucker</span>18,4 g</td><td class="num aux"><span class="l">Salz</span>0 g</td></tr><tr><td class="dish"><span class="station">Pop up Pesch</span><strong>Beilagensalat</strong></td><td class="num key"><span class="l">kcal</span>206</td><td class="num key"><span class="l">Eiweiß</span>2,2 g</td><td class="num key price"><span class="l">Preis extern</span>1,25 €</td><td class="num aux"><span class="l">Portion</span>150* g</td><td class="num aux"><span class="l">Fett</span>19,4 g</td><td class="num aux"><span class="l">ges. FS</span>1,9 g</td><td class="num aux"><span class="l">KH</span>5,4 g</td><td class="num aux"><span class="l">Zucker</span>4,1 g</td><td class="num aux"><span class="l">Salz</span>0,5 g</td></tr><tr><td class="dish"><span class="station">Hauptgericht 1</span><strong>Alinazik Rinderhackfleisch, Auberginencreme und Türkischer Reis</strong></td><td class="num key"><span class="l">kcal</span>868</td><td class="num key"><span class="l">Eiweiß</span>23,6 g</td><td class="num key price"><span class="l">Preis extern</span>9,75 €*</td><td class="num aux"><span class="l">Portion</span>400* g</td><td class="num aux"><span class="l">Fett</span>50,5 g</td><td class="num aux"><span class="l">ges. FS</span>20,3 g</td><td class="num aux"><span class="l">KH</span>77,6 g</td><td class="num aux"><span class="l">Zucker</span>13,4 g</td><td class="num aux"><span class="l">Salz</span>5,3 g</td></tr><tr class=is-rec><td class="dish"><span class="station">Hauptgericht 2</span><strong>Gegrillte Karotte mit Kräuter-Ebly dazu Tahin-Zitronensauce &amp; gebackene Kichererbsen</strong><span class="chips"><span class="chip chip-veg">vegetarisch</span></span></td><td class="num key"><span class="l">kcal</span>324</td><td class="num key"><span class="l">Eiweiß</span>10,8 g</td><td class="num key price"><span class="l">Preis extern</span>6,90 €</td><td class="num aux"><span class="l">Portion</span>300 g</td><td class="num aux"><span class="l">Fett</span>5,5 g</td><td class="num aux"><span class="l">ges. FS</span>0,8 g</td><td class="num aux"><span class="l">KH</span>54,1 g</td><td class="num aux"><span class="l">Zucker</span>10,2 g</td><td class="num aux"><span class="l">Salz</span>4,3 g</td></tr></tbody></table></div></div></section><section class="day" id="tag-3" role="tabpanel" aria-labelledby="tab-3"><header class="day-head"><h2>Mittwoch</h2><span class="date">02.09.2026</span><span class="count">9 Gerichte</span></header><div class="block"><h3 class="block-title">Empfehlung des Tages</h3><div class="recs"><article class="rec-card"><span class="chips"><span class="chip chip-bal">ausgewogen</span><span class="chip chip-pro">proteinreich</span></span><h4 class="rec-name">Pasta Speciale mit Meeresfrüchte Ceviche</h4><div class="figs"><span class="fig"><b>500</b>kcal</span><span class="fig"><b>78,7 g</b>Eiweiß</span><span class="fig price"><b>6,90 €*</b>extern</span></div></article></div></div><div class="block"><h3 class="block-title">kcal-Kombis</h3><div class="combos"><article class="combo-card"><div class="combo-head"><span class="combo-target">Ziel 600 kcal</span><span class="combo-kcal">596<small>kcal</small></span></div><ol class="combo-items"><li>Pasta Speciale mit Meeresfrüchte Ceviche<span>500 kcal</span></li><li>Frischer bunter Obstsalat<span>96 kcal</span></li></ol><div class="figs"><span class="fig"><b>79,7 g</b>Eiweiß</span><span class="fig price"><b>9,75 €</b>extern</span></div></article><article class="combo-card"><div class="combo-head"><span class="combo-target">Ziel 1000 kcal</span><span class="combo-kcal">994<small>kcal</small></span></div><ol class="combo-items"><li>Pasta Originale mit geschmorter Miso Aubergine<span>288 kcal</span></li><li>Pasta Speciale mit Meeresfrüchte Ceviche<span>500 kcal</span></li><li>Beilagensalat<span>206 kcal</span></li></ol><div class="figs"><span class="fig"><b>92,2 g</b>Eiweiß</span><span class="fig price"><b>15,05 €</b>extern</span></div></article></div></div><div class="block"><h3 class="block-title">Alle Gerichte</h3><div class="table-wrap"><table><thead><tr><th>Gericht</th><th class="key">kcal</th><th class="key">Eiweiß</th><th class="key">Preis extern</th><th>Portion</th><th>Fett</th><th>ges. FS</th><th>KH</th><th>Zucker</th><th>Salz</th></tr></thead><tbody><tr><td class="dish"><span class="station">XL-Salat im DELI</span><strong>Nimm 2 oder 3 Nikkei Bowls mit Reis &amp; Quinoa , Teriyaki, Maiscreme &amp; Koriander</strong></td><td class="num key"><span class="l">kcal</span>606</td><td class="num key"><span class="l">Eiweiß</span>14 g</td><td class="num key price"><span class="l">Preis extern</span>1,80 €*</td><td class="num aux"><span class="l">Portion</span>200 g</td><td class="num aux"><span class="l">Fett</span>13,9 g</td><td class="num aux"><span class="l">ges. FS</span>4,3 g</td><td class="num aux"><span class="l">KH</span>104,6 g</td><td class="num aux"><span class="l">Zucker</span>9,6 g</td><td class="num aux"><span class="l">Salz</span>1,5 g</td></tr><tr><td class="dish"><span class="station">Pasta Originale</span><strong>mit geschmorter Miso Aubergine</strong></td><td class="num key"><span class="l">kcal</span>288</td><td class="num key"><span class="l">Eiweiß</span>11,3 g</td><td class="num key price"><span class="l">Preis extern</span>6,90 €*</td><td class="num aux"><span class="l">Portion</span>400* g</td><td class="num aux"><span class="l">Fett</span>15,5 g</td><td class="num aux"><span class="l">ges. FS</span>1,6 g</td><td class="num aux"><span class="l">KH</span>23,1 g</td><td class="num aux"><span class="l">Zucker</span>16,4 g</td><td class="num aux"><span class="l">Salz</span>5,7 g</td></tr><tr class=is-rec><td class="dish"><span class="station">Pasta Speciale</span><strong>mit Meeresfrüchte Ceviche</strong><span class="chips"><span class="chip chip-bal">ausgewogen</span><span class="chip chip-pro">proteinreich</span></span></td><td class="num key"><span class="l">kcal</span>500</td><td class="num key"><span class="l">Eiweiß</span>78,7 g</td><td class="num key price"><span class="l">Preis extern</span>6,90 €*</td><td class="num aux"><span class="l">Portion</span>500 g</td><td class="num aux"><span class="l">Fett</span>11,2 g</td><td class="num aux"><span class="l">ges. FS</span>4,3 g</td><td class="num aux"><span class="l">KH</span>20,2 g</td><td class="num aux"><span class="l">Zucker</span>2,2 g</td><td class="num aux"><span class="l">Salz</span>7 g</td></tr><tr><td class="dish"><span class="station">Bowl Basic</span><strong>Tossed Salat M inkl. 2 Toppings</strong></td><td class="num key"><span class="l">kcal</span>749</td><td class="num key"><span class="l">Eiweiß</span>41,3 g</td><td class="num key price"><span class="l">Preis extern</span>7,05 €</td><td class="num aux"><span class="l">Portion</span>350* g</td><td class="num aux"><span class="l">Fett</span>54 g</td><td class="num aux"><span class="l">ges. FS</span>12,1 g</td><td class="num aux"><span class="l">KH</span>20,6 g</td><td class="num aux"><span class="l">Zucker</span>10,6 g</td><td class="num aux"><span class="l">Salz</span>2,7 g</td></tr><tr><td class="dish"><span class="station">Topping Veggi</span><strong>Götterspeise mit Vanillesauce</strong></td><td class="num key"><span class="l">kcal</span>508</td><td class="num key"><span class="l">Eiweiß</span>8,1 g</td><td class="num key price"><span class="l">Preis extern</span>2,25 €*</td><td class="num aux"><span class="l">Portion</span>200 g</td><td class="num aux"><span class="l">Fett</span>11,8 g</td><td class="num aux"><span class="l">ges. FS</span>7,7 g</td><td class="num aux"><span class="l">KH</span>90,2 g</td><td class="num aux"><span class="l">Zucker</span>48,8 g</td><td class="num aux"><span class="l">Salz</span>0,8 g</td></tr><tr><td class="dish"><span class="station">Topping Land</span><strong>Frischer bunter Obstsalat</strong></td><td class="num key"><span class="l">kcal</span>96</td><td class="num key"><span class="l">Eiweiß</span>1 g</td><td class="num key price"><span class="l">Preis extern</span>2,85 €*</td><td class="num aux"><span class="l">Portion</span>150* g</td><td class="num aux"><span class="l">Fett</span>0,2 g</td><td class="num aux"><span class="l">ges. FS</span>0,1 g</td><td class="num aux"><span class="l">KH</span>18,4 g</td><td class="num aux"><span class="l">Zucker</span>18,4 g</td><td class="num aux"><span class="l">Salz</span>0 g</td></tr><tr><td class="dish"><span class="station">Pop up Pesch</span><strong>Beilagensalat</strong></td><td class="num key"><span class="l">kcal</span>206</td><td class="num key"><span class="l">Eiweiß</span>2,2 g</td><td class="num key price"><span class="l">Preis extern</span>1,25 €</td><td class="num aux"><span class="l">Portion</span>150* g</td><td class="num aux"><span class="l">Fett</span>19,4 g</td><td class="num aux"><span class="l">ges. FS</span>1,9 g</td><td class="num aux"><span class="l">KH</span>5,4 g</td><td class="num aux"><span class="l">Zucker</span>4,1 g</td><td class="num aux"><span class="l">Salz</span>0,5 g</td></tr><tr><td class="dish"><span class="station">Hauptgericht 1</span><strong>Hähnchenbrust &quot;Saltimbocca&quot; mit Rosmarinkartoffeln &amp; Tomaten-Paprika Salsa</strong></td><td class="num key"><span class="l">kcal</span>572</td><td class="num key"><span class="l">Eiweiß</span>42,5 g</td><td class="num key price"><span class="l">Preis extern</span>9,80 €</td><td class="num aux"><span class="l">Portion</span>400* g</td><td class="num aux"><span class="l">Fett</span>26 g</td><td class="num aux"><span class="l">ges. FS</span>3,4 g</td><td class="num aux"><span class="l">KH</span>38,2 g</td><td class="num aux"><span class="l">Zucker</span>10,6 g</td><td class="num aux"><span class="l">Salz</span>1,7 g</td></tr><tr><td class="dish"><span class="station">Hauptgericht 2</span><strong>Gebackene Süßkartoffel mit Bohnen-Mais Ragout dazu Limette, Sour Cream Nachos</strong></td><td class="num key"><span class="l">kcal</span>516</td><td class="num key"><span class="l">Eiweiß</span>16,5 g</td><td class="num key price"><span class="l">Preis extern</span>11,85 €*</td><td class="num aux"><span class="l">Portion</span>400 g</td><td class="num aux"><span class="l">Fett</span>15 g</td><td class="num aux"><span class="l">ges. FS</span>7 g</td><td class="num aux"><span class="l">KH</span>69,9 g</td><td class="num aux"><span class="l">Zucker</span>18,5 g</td><td class="num aux"><span class="l">Salz</span>2 g</td></tr></tbody></table></div></div></section><section class="day" id="tag-4" role="tabpanel" aria-labelledby="tab-4"><header class="day-head"><h2>Donnerstag</h2><span class="date">03.09.2026</span><span class="count">10 Gerichte</span></header><div class="block"><h3 class="block-title">Empfehlung des Tages</h3><div class="recs"><article class="rec-card"><span class="chips"><span class="chip chip-bal">ausgewogen</span></span><h4 class="rec-name">Schweinefilet mit Nudelsalat wie von Oma dazu verschiedene Dips &amp; Hausbrot</h4><span class="station">Hauptgericht 1</span><div class="figs"><span class="fig"><b>536</b>kcal</span><span class="fig"><b>38,8 g</b>Eiweiß</span><span class="fig price"><b>8,85 €*</b>extern</span></div></article><article class="rec-card"><span class="chips"><span class="chip chip-pro">proteinreich</span></span><h4 class="rec-name">Pasta Speciale mit Meeresfrüchte Ceviche</h4><div class="figs"><span class="fig"><b>500</b>kcal</span><span class="fig"><b>78,7 g</b>Eiweiß</span><span class="fig price"><b>6,90 €*</b>extern</span></div></article></div></div><div class="block"><h3 class="block-title">kcal-Kombis</h3><div class="combos"><article class="combo-card"><div class="combo-head"><span class="combo-target">Ziel 600 kcal</span><span class="combo-kcal">596<small>kcal</small></span></div><ol class="combo-items"><li>Pasta Speciale mit Meeresfrüchte Ceviche<span>500 kcal</span></li><li>Frischer bunter Obstsalat<span>96 kcal</span></li></ol><div class="figs"><span class="fig"><b>79,7 g</b>Eiweiß</span><span class="fig price"><b>9,75 €</b>extern</span></div></article><article class="combo-card"><div class="combo-head"><span class="combo-target">Ziel 1000 kcal</span><span class="combo-kcal">994<small>kcal</small></span></div><ol class="combo-items"><li>Pasta Originale mit geschmorter Miso Aubergine<span>288 kcal</span></li><li>Pasta Speciale mit Meeresfrüchte Ceviche<span>500 kcal</span></li><li>Beilagensalat<span>206 kcal</span></li></ol><div class="figs"><span class="fig"><b>92,2 g</b>Eiweiß</span><span class="fig price"><b>15,05 €</b>extern</span></div></article></div></div><div class="block"><h3 class="block-title">Alle Gerichte</h3><div class="table-wrap"><table><thead><tr><th>Gericht</th><th class="key">kcal</th><th class="key">Eiweiß</th><th class="key">Preis extern</th><th>Portion</th><th>Fett</th><th>ges. FS</th><th>KH</th><th>Zucker</th><th>Salz</th></tr></thead><tbody><tr><td class="dish"><span class="station">Suppe 1 im DELI</span><strong>Gazpacho mit Schmand</strong></td><td class="num key"><span class="l">kcal</span>220</td><td class="num key"><span class="l">Eiweiß</span>2,9 g</td><td class="num key price"><span class="l">Preis extern</span>3,45 €*</td><td class="num aux"><span class="l">Portion</span>400 g</td><td class="num aux"><span class="l">Fett</span>17,8 g</td><td class="num aux"><span class="l">ges. FS</span>5,9 g</td><td class="num aux"><span class="l">KH</span>11,6 g</td><td class="num aux"><span class="l">Zucker</span>5,8 g</td><td class="num aux"><span class="l">Salz</span>1,7 g</td></tr><tr><td class="dish"><span class="station">XL-Salat im DELI</span><strong>Nimm 2 oder 3 Nikkei Bowls mit Reis &amp; Quinoa , Teriyaki, Maiscreme &amp; Koriander</strong></td><td class="num key"><span class="l">kcal</span>606</td><td class="num key"><span class="l">Eiweiß</span>14 g</td><td class="num key price"><span class="l">Preis extern</span>1,80 €*</td><td class="num aux"><span class="l">Portion</span>200 g</td><td class="num aux"><span class="l">Fett</span>13,9 g</td><td class="num aux"><span class="l">ges. FS</span>4,3 g</td><td class="num aux"><span class="l">KH</span>104,6 g</td><td class="num aux"><span class="l">Zucker</span>9,6 g</td><td class="num aux"><span class="l">Salz</span>1,5 g</td></tr><tr><td class="dish"><span class="station">Pasta Originale</span><strong>mit geschmorter Miso Aubergine</strong></td><td class="num key"><span class="l">kcal</span>288</td><td class="num key"><span class="l">Eiweiß</span>11,3 g</td><td class="num key price"><span class="l">Preis extern</span>6,90 €*</td><td class="num aux"><span class="l">Portion</span>400* g</td><td class="num aux"><span class="l">Fett</span>15,5 g</td><td class="num aux"><span class="l">ges. FS</span>1,6 g</td><td class="num aux"><span class="l">KH</span>23,1 g</td><td class="num aux"><span class="l">Zucker</span>16,4 g</td><td class="num aux"><span class="l">Salz</span>5,7 g</td></tr><tr class=is-rec><td class="dish"><span class="station">Pasta Speciale</span><strong>mit Meeresfrüchte Ceviche</strong><span class="chips"><span class="chip chip-pro">proteinreich</span></span></td><td class="num key"><span class="l">kcal</span>500</td><td class="num key"><span class="l">Eiweiß</span>78,7 g</td><td class="num key price"><span class="l">Preis extern</span>6,90 €*</td><td class="num aux"><span class="l">Portion</span>500 g</td><td class="num aux"><span class="l">Fett</span>11,2 g</td><td class="num aux"><span class="l">ges. FS</span>4,3 g</td><td class="num aux"><span class="l">KH</span>20,2 g</td><td class="num aux"><span class="l">Zucker</span>2,2 g</td><td class="num aux"><span class="l">Salz</span>7 g</td></tr><tr><td class="dish"><span class="station">Bowl Basic</span><strong>Tossed Salat M inkl. 2 Toppings</strong></td><td class="num key"><span class="l">kcal</span>749</td><td class="num key"><span class="l">Eiweiß</span>41,3 g</td><td class="num key price"><span class="l">Preis extern</span>7,05 €</td><td class="num aux"><span class="l">Portion</span>350* g</td><td class="num aux"><span class="l">Fett</span>54 g</td><td class="num aux"><span class="l">ges. FS</span>12,1 g</td><td class="num aux"><span class="l">KH</span>20,6 g</td><td class="num aux"><span class="l">Zucker</span>10,6 g</td><td class="num aux"><span class="l">Salz</span>2,7 g</td></tr><tr><td class="dish"><span class="station">Topping Veggi</span><strong>Schokocookie-Mousse</strong></td><td class="num key"><span class="l">kcal</span>1032</td><td class="num key"><span class="l">Eiweiß</span>19,9 g</td><td class="num key price"><span class="l">Preis extern</span>2,25 €*</td><td class="num aux"><span class="l">Portion</span>400 g</td><td class="num aux"><span class="l">Fett</span>66,5 g</td><td class="num aux"><span class="l">ges. FS</span>43,5 g</td><td class="num aux"><span class="l">KH</span>85,9 g</td><td class="num aux"><span class="l">Zucker</span>79,3 g</td><td class="num aux"><span class="l">Salz</span>0,6 g</td></tr><tr><td class="dish"><span class="station">Topping Land</span><strong>Frischer bunter Obstsalat</strong></td><td class="num key"><span class="l">kcal</span>96</td><td class="num key"><span class="l">Eiweiß</span>1 g</td><td class="num key price"><span class="l">Preis extern</span>2,85 €*</td><td class="num aux"><span class="l">Portion</span>150* g</td><td class="num aux"><span class="l">Fett</span>0,2 g</td><td class="num aux"><span class="l">ges. FS</span>0,1 g</td><td class="num aux"><span class="l">KH</span>18,4 g</td><td class="num aux"><span class="l">Zucker</span>18,4 g</td><td class="num aux"><span class="l">Salz</span>0 g</td></tr><tr><td class="dish"><span class="station">Pop up Pesch</span><strong>Beilagensalat</strong></td><td class="num key"><span class="l">kcal</span>206</td><td class="num key"><span class="l">Eiweiß</span>2,2 g</td><td class="num key price"><span class="l">Preis extern</span>1,25 €</td><td class="num aux"><span class="l">Portion</span>150* g</td><td class="num aux"><span class="l">Fett</span>19,4 g</td><td class="num aux"><span class="l">ges. FS</span>1,9 g</td><td class="num aux"><span class="l">KH</span>5,4 g</td><td class="num aux"><span class="l">Zucker</span>4,1 g</td><td class="num aux"><span class="l">Salz</span>0,5 g</td></tr><tr class=is-rec><td class="dish"><span class="station">Hauptgericht 1</span><strong>Schweinefilet mit Nudelsalat wie von Oma dazu verschiedene Dips &amp; Hausbrot</strong><span class="chips"><span class="chip chip-bal">ausgewogen</span></span></td><td class="num key"><span class="l">kcal</span>536</td><td class="num key"><span class="l">Eiweiß</span>38,8 g</td><td class="num key price"><span class="l">Preis extern</span>8,85 €*</td><td class="num aux"><span class="l">Portion</span>350* g</td><td class="num aux"><span class="l">Fett</span>13,6 g</td><td class="num aux"><span class="l">ges. FS</span>2,4 g</td><td class="num aux"><span class="l">KH</span>61,6 g</td><td class="num aux"><span class="l">Zucker</span>4,1 g</td><td class="num aux"><span class="l">Salz</span>3 g</td></tr><tr><td class="dish"><span class="station">Hauptgericht 2</span><strong>Loaded Fries mit Kebab aus Erbsenprotein, Champignons, karamellisierte Zwiebeln, geräucherter Paprika-Tomatensalsa &amp; Che</strong></td><td class="num key"><span class="l">kcal</span>1128</td><td class="num key"><span class="l">Eiweiß</span>35,3 g</td><td class="num key price"><span class="l">Preis extern</span>8,15 €</td><td class="num aux"><span class="l">Portion</span>400* g</td><td class="num aux"><span class="l">Fett</span>69,9 g</td><td class="num aux"><span class="l">ges. FS</span>17,3 g</td><td class="num aux"><span class="l">KH</span>84,3 g</td><td class="num aux"><span class="l">Zucker</span>15,6 g</td><td class="num aux"><span class="l">Salz</span>6,3 g</td></tr></tbody></table></div></div></section><section class="day" id="tag-5" role="tabpanel" aria-labelledby="tab-5"><header class="day-head"><h2>Freitag</h2><span class="date">04.09.2026</span><span class="count">6 Gerichte</span></header><div class="block"><h3 class="block-title">Empfehlung des Tages</h3><div class="recs"><article class="rec-card"><span class="chips"><span class="chip chip-bal">ausgewogen</span><span class="chip chip-pro">proteinreich</span></span><h4 class="rec-name">Tossed Salat M inkl. 2 Toppings</h4><span class="station">Bowl Basic</span><div class="figs"><span class="fig"><b>749</b>kcal</span><span class="fig"><b>41,3 g</b>Eiweiß</span><span class="fig price"><b>7,05 €</b>extern</span></div></article></div></div><div class="block"><h3 class="block-title">kcal-Kombis</h3><div class="combos"><article class="combo-card"><div class="combo-head"><span class="combo-target">Ziel 600 kcal</span><span class="combo-kcal">749†<small>kcal</small></span></div><ol class="combo-items"><li>Tossed Salat M inkl. 2 Toppings<span>749 kcal</span></li></ol><div class="figs"><span class="fig"><b>41,3 g</b>Eiweiß</span><span class="fig price"><b>7,05 €</b>extern</span></div><p class="combo-note">† Ziel nicht exakt erreichbar, beste Annäherung</p></article><article class="combo-card"><div class="combo-head"><span class="combo-target">Ziel 1000 kcal</span><span class="combo-kcal">1039<small>kcal</small></span></div><ol class="combo-items"><li>Tossed Salat M inkl. 2 Toppings<span>749 kcal</span></li><li>Beilagensalat<span>206 kcal</span></li><li>Wurzelgemüseeintopf mit Kartoffeln &amp; Maultaschen oder Tagessuppe<span>84 kcal</span></li></ol><div class="figs"><span class="fig"><b>46,5 g</b>Eiweiß</span><span class="fig price"><b>15,20 €</b>extern</span></div></article></div></div><div class="block"><h3 class="block-title">Alle Gerichte</h3><div class="table-wrap"><table><thead><tr><th>Gericht</th><th class="key">kcal</th><th class="key">Eiweiß</th><th class="key">Preis extern</th><th>Portion</th><th>Fett</th><th>ges. FS</th><th>KH</th><th>Zucker</th><th>Salz</th></tr></thead><tbody><tr class=is-rec><td class="dish"><span class="station">Bowl Basic</span><strong>Tossed Salat M inkl. 2 Toppings</strong><span class="chips"><span class="chip chip-bal">ausgewogen</span><span class="chip chip-pro">proteinreich</span></span></td><td class="num key"><span class="l">kcal</span>749</td><td class="num key"><span class="l">Eiweiß</span>41,3 g</td><td class="num key price"><span class="l">Preis extern</span>7,05 €</td><td class="num aux"><span class="l">Portion</span>350* g</td><td class="num aux"><span class="l">Fett</span>54 g</td><td class="num aux"><span class="l">ges. FS</span>12,1 g</td><td class="num aux"><span class="l">KH</span>20,6 g</td><td class="num aux"><span class="l">Zucker</span>10,6 g</td><td class="num aux"><span class="l">Salz</span>2,7 g</td></tr><tr><td class="dish"><span class="station">Topping Veggi</span><strong>Melonen Salat mit Minze</strong></td><td class="num key"><span class="l">kcal</span>102</td><td class="num key"><span class="l">Eiweiß</span>1,2 g</td><td class="num key price"><span class="l">Preis extern</span>2,25 €*</td><td class="num aux"><span class="l">Portion</span>150* g</td><td class="num aux"><span class="l">Fett</span>4,9 g</td><td class="num aux"><span class="l">ges. FS</span>0,8 g</td><td class="num aux"><span class="l">KH</span>12,3 g</td><td class="num aux"><span class="l">Zucker</span>12,2 g</td><td class="num aux"><span class="l">Salz</span>0 g</td></tr><tr><td class="dish"><span class="station">Topping Land</span><strong>Frischer bunter Obstsalat</strong></td><td class="num key"><span class="l">kcal</span>96</td><td class="num key"><span class="l">Eiweiß</span>1 g</td><td class="num key price"><span class="l">Preis extern</span>2,85 €*</td><td class="num aux"><span class="l">Portion</span>150* g</td><td class="num aux"><span class="l">Fett</span>0,2 g</td><td class="num aux"><span class="l">ges. FS</span>0,1 g</td><td class="num aux"><span class="l">KH</span>18,4 g</td><td class="num aux"><span class="l">Zucker</span>18,4 g</td><td class="num aux"><span class="l">Salz</span>0 g</td></tr><tr><td class="dish"><span class="station">Pop up Pesch</span><strong>Beilagensalat</strong></td><td class="num key"><span class="l">kcal</span>206</td><td class="num key"><span class="l">Eiweiß</span>2,2 g</td><td class="num key price"><span class="l">Preis extern</span>1,25 €</td><td class="num aux"><span class="l">Portion</span>150* g</td><td class="num aux"><span class="l">Fett</span>19,4 g</td><td class="num aux"><span class="l">ges. FS</span>1,9 g</td><td class="num aux"><span class="l">KH</span>5,4 g</td><td class="num aux"><span class="l">Zucker</span>4,1 g</td><td class="num aux"><span class="l">Salz</span>0,5 g</td></tr><tr><td class="dish"><span class="station">Hauptgericht 1</span><strong>Beef Burger mit Cheddar, Smokey Onion Mayo, Tomate und Lollo Bionda dazu dazu Pommes Frites Alternativ mit Patty aus Süß</strong></td><td class="num key"><span class="l">kcal</span>1064</td><td class="num key"><span class="l">Eiweiß</span>35,2 g</td><td class="num key price"><span class="l">Preis extern</span>9,10 €</td><td class="num aux"><span class="l">Portion</span>400* g</td><td class="num aux"><span class="l">Fett</span>63,1 g</td><td class="num aux"><span class="l">ges. FS</span>20,5 g</td><td class="num aux"><span class="l">KH</span>84,2 g</td><td class="num aux"><span class="l">Zucker</span>18,2 g</td><td class="num aux"><span class="l">Salz</span>4,2 g</td></tr><tr><td class="dish"><span class="station">Hauptgericht 2</span><strong>Wurzelgemüseeintopf mit Kartoffeln &amp; Maultaschen oder Tagessuppe</strong></td><td class="num key"><span class="l">kcal</span>84</td><td class="num key"><span class="l">Eiweiß</span>3 g</td><td class="num key price"><span class="l">Preis extern</span>6,90 €*</td><td class="num aux"><span class="l">Portion</span>300 g</td><td class="num aux"><span class="l">Fett</span>2,2 g</td><td class="num aux"><span class="l">ges. FS</span>1 g</td><td class="num aux"><span class="l">KH</span>11,5 g</td><td class="num aux"><span class="l">Zucker</span>5,4 g</td><td class="num aux"><span class="l">Salz</span>2,1 g</td></tr></tbody></table></div></div></section>
+</main>
 <footer>
-  <p class="src">Quelle: <a href="https://axa.eurest.de/restaurant-wiesbaden/web-app/" rel="noreferrer noopener">axa.eurest.de</a> – dort sind die Angaben im Original abrufbar.</p>
-  <p>Nährwerte pro Portion, berechnet aus den 100-g-Angaben der Quelle. Angaben ohne
-  Gewähr; Datenfehler werden plausibilisiert (* = geschätzt).</p>
+  <p class="src">Quelle: <a href="https://axa.eurest.de/restaurant-wiesbaden/web-app/" rel="noreferrer noopener">axa.eurest.de</a>. Dort sind die Angaben im Original abrufbar.</p>
+  <p>Nährwerte pro Portion, berechnet aus den 100-g-Angaben der Quelle. Alle Angaben ohne
+  Gewähr; offensichtliche Datenfehler werden plausibilisiert.</p>
+  <dl>
+    <dt>*</dt><dd>geschätzt: Portionsgewicht ohne Angabe bzw. externer Preis aus internem Preis × 1,5</dd>
+    <dt>†</dt><dd>kcal-Ziel nicht exakt erreichbar, gezeigt wird die beste Annäherung</dd>
+  </dl>
 </footer>
+</div>
 <script>
 (function () {
-  var root = document.documentElement, btn = document.getElementById('theme-toggle');
-  if (!btn) return;
-  function apply(dark) {
-    root.dataset.theme = dark ? 'dark' : 'light';
-    btn.setAttribute('aria-pressed', dark ? 'true' : 'false');
-    btn.querySelector('.t-ico').textContent = dark ? '☀' : '☾';
-    btn.querySelector('.t-txt').textContent = dark ? 'Hell' : 'Dunkel';
-    btn.title = dark ? 'Zum hellen Design wechseln' : 'Zum dunklen Design wechseln';
-    try { localStorage.setItem('theme', dark ? 'dark' : 'light'); } catch (e) {}
+  var root = document.documentElement;
+
+  // Hell/Dunkel
+  var tb = document.getElementById('theme-toggle');
+  if (tb) {
+    var applyTheme = function (dark) {
+      root.dataset.theme = dark ? 'dark' : 'light';
+      tb.setAttribute('aria-pressed', dark ? 'true' : 'false');
+      tb.querySelector('.t-ico').textContent = dark ? '\u2600' : '\u263E';
+      tb.querySelector('.t-txt').textContent = dark ? 'Hell' : 'Dunkel';
+      tb.title = dark ? 'Zum hellen Design wechseln' : 'Zum dunklen Design wechseln';
+      try { localStorage.setItem('theme', dark ? 'dark' : 'light'); } catch (e) {}
+    };
+    applyTheme(root.dataset.theme === 'dark');
+    tb.addEventListener('click', function () { applyTheme(root.dataset.theme !== 'dark'); });
   }
-  apply(root.dataset.theme === 'dark');
-  btn.addEventListener('click', function () { apply(root.dataset.theme !== 'dark'); });
+
+  // Tages-Tabs
+  var tabs = [].slice.call(document.querySelectorAll('[role="tab"]'));
+  var panels = tabs.map(function (t) { return document.getElementById(t.getAttribute('aria-controls')); });
+  var wb = document.getElementById('week-toggle');
+  if (!tabs.length || !wb) return;
+  var week = false, current = 0;
+
+  function show(i, focus, scroll) {
+    current = i;
+    tabs.forEach(function (t, k) {
+      var on = k === i;
+      t.setAttribute('aria-selected', on ? 'true' : 'false');
+      t.tabIndex = on ? 0 : -1;
+      panels[k].hidden = !week && !on;
+    });
+    if (focus) tabs[i].focus();
+    if (scroll && week) panels[i].scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+  function setWeek(on) {
+    week = on;
+    root.classList.toggle('week', on);
+    wb.setAttribute('aria-pressed', on ? 'true' : 'false');
+    wb.querySelector('.w-txt').textContent = on ? 'Nur einen Tag zeigen' : 'Ganze Woche zeigen';
+    show(current, false, false);
+    try { localStorage.setItem('week', on ? '1' : '0'); } catch (e) {}
+  }
+  tabs.forEach(function (t, i) {
+    t.addEventListener('click', function () { show(i, false, true); });
+    t.addEventListener('keydown', function (e) {
+      var n = null;
+      if (e.key === 'ArrowRight') n = (i + 1) % tabs.length;
+      else if (e.key === 'ArrowLeft') n = (i - 1 + tabs.length) % tabs.length;
+      else if (e.key === 'Home') n = 0;
+      else if (e.key === 'End') n = tabs.length - 1;
+      if (n !== null) { e.preventDefault(); show(n, true, true); }
+    });
+  });
+  wb.addEventListener('click', function () { setWeek(!week); });
+
+  // Startzustand: Tag aus #Anker, sonst heutiger Tag, sonst erster Tag.
+  var d = new Date(), p = function (n) { return (n < 10 ? '0' : '') + n; };
+  var today = d.getFullYear() + '-' + p(d.getMonth() + 1) + '-' + p(d.getDate());
+  var start = -1;
+  if (location.hash) start = panels.findIndex(function (pn) { return '#' + pn.id === location.hash; });
+  if (start < 0) start = tabs.findIndex(function (t) { return t.dataset.date === today; });
+  if (start < 0) start = 0;
+  var w = false; try { w = localStorage.getItem('week') === '1'; } catch (e) {}
+  current = start;
+  setWeek(w);
 })();
 </script>
 </body></html>
