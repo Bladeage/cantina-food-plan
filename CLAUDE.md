@@ -6,7 +6,8 @@ pro Portion, empfiehlt pro Tag (ausgewogen/Protein/vegetarisch) und baut
 ~600- & ~1000-kcal-Kombis mit Extern-Preisen. Läuft via GitHub Actions
 (**sonntags 17:35 Ortszeit**, plus Sicherheitsnetz 21:35, das sich bei schon
 vorhandenem Tagesplan selbst überspringt; Plan für die kommende Woche), Ausgabe:
-`docs/index.html`, `docs/plan.json`, vollständige E-Mail mit HTML-Anhang.
+`docs/index.html` und `docs/plan.json`. **Kein E-Mail-Versand** (bewusst
+entfernt, siehe unten).
 
 ## Vertraulichkeit (WICHTIG)
 Das Repo ist ggf. **öffentlich**. Deshalb stehen **weder der Name der
@@ -14,14 +15,11 @@ Kantine/des Betreibers noch persönliche Daten (E-Mail-Adressen) im Code, in
 Commits, im PR oder in Logs**. Konkrete Werte leben ausschließlich in
 Actions-Secrets:
 - `EUREST_BASE` – Basis-URL der Web-App (erforderlich)
-- `MAIL_TO` – Empfänger (erforderlich für Versand)
-- `SMTP_HOST/PORT/USER/PASS`, `MAIL_FROM` – SMTP-Zugang
 - `PLAN_TITLE`, `SOURCE_URL` – optionale Bezeichnung/Quell-Link für Kopf- und
   Fußzeile. Achtung: landen in `docs/` (öffentlich), sofern nicht
-  `PAGE_SHOW_DETAILS=0` gesetzt ist – dann zeigt sie nur die E-Mail.
+  `PAGE_SHOW_DETAILS=0` gesetzt ist.
 Beim Weiterentwickeln darauf achten, dass keine dieser Informationen in
-Ausgaben, Kommentare, Commit-Messages oder Workflow-Logs gerät (send_mail.py
-loggt z. B. nur die Empfängeranzahl).
+Ausgaben, Kommentare, Commit-Messages oder Workflow-Logs gerät.
 
 ## Status: Parser live verifiziert (Stand 25.07.2026)
 Gegen die echte Web-App via GitHub-Actions-Läufe bestätigt: 5 Tage (Mo–Fr),
@@ -52,13 +50,12 @@ Artefakt `debug-html` prüfen.
 
 ## Architektur
 - `scripts/fetch_menu.py` – Discovery, Parser, Scoring, Kombinatorik (Kern)
-- `scripts/render.py` – HTML-Seite + vollständiger E-Mail-Body (inline styles)
-- `scripts/send_mail.py` – SMTP-Versand mit HTML-Anhang, no-op ohne Secrets
+- `scripts/render.py` – HTML-Seite (`render_page`), reines Standard-Python
 - `.github/workflows/wochenplan.yml` – je Slot ein Sommer-/Winter-Cron
   (15:35+19:35 UTC bei UTC+2, 16:35+20:35 UTC bei UTC+1); der Guard-Schritt
   lässt nur den zur aktuellen Zeitzone passenden durch und überspringt das
-  Sicherheitsnetz bei vorhandenem Tagesplan. Manueller Start mit Optionen
-  Debug und skip_mail; committet `docs/` und versendet Mail.
+  Sicherheitsnetz bei vorhandenem Tagesplan. Manueller Start mit Option
+  Debug; committet `docs/`.
 - Zeitzone überall über `PLAN_TZ` (Standard `Europe/Berlin`), zusätzlich als
   `TZ` job-weit gesetzt; Sommer-/Winterzeit kommt aus der Zeitzonendatenbank.
 
@@ -68,6 +65,9 @@ Artefakt `debug-html` prüfen.
 - Kombi-Ziele exakt 600 & 1000 kcal; wenn unerreichbar: beste Annäherung
   mit `†` kennzeichnen (implementiert)
 - Geschätzte Werte transparent mit `*` markieren
-- E-Mail muss den vollständigen Plan enthalten (alle Gerichte + Kombis +
-  HTML-Anhang), da Pages optional ist
+- Kein E-Mail-Versand mehr (auf Wunsch entfernt); die Seite ist die einzige
+  Ausgabe und muss daher den vollständigen Plan zeigen
+- Seitenaufbau: Wochenleiste mit Tages-Tabs (aktueller Tag vorausgewählt,
+  ohne JavaScript alle Tage sichtbar); je Tag zuerst Empfehlungen und
+  kcal-Kombis, danach die vollständige Gerichteliste
 - Sprache aller Ausgaben: Deutsch

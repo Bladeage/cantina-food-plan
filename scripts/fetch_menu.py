@@ -3,7 +3,7 @@
 Kantinen-Wochenplan
 Holt den Speiseplan, berechnet Nährwerte pro Portion, wählt pro Tag
 Empfehlungen (ausgewogen / Protein / vegetarisch) und baut kcal-Kombis
-(~600 & ~1000 kcal). Ausgabe: docs/index.html, docs/plan.json, email_body.html
+(~600 & ~1000 kcal). Ausgabe: docs/index.html, docs/plan.json
 """
 
 import json
@@ -468,22 +468,19 @@ def main():
     base_meta = {"generated": local_now().isoformat(timespec="minutes"),
                  "price_factor": PRICE_FACTOR}
     # Bezeichnung + Quell-Link sind optional und kommen aus der Umgebung
-    # (Secrets), damit sie nicht im Code stehen. Die E-Mail bekommt sie immer;
-    # in die committeten Dateien (Seite/plan.json) nur, wenn PAGE_SHOW_DETAILS
-    # nicht auf "0" steht – so bleibt ein öffentliches Repo anonym, falls
-    # gewünscht.
+    # (Secrets), damit sie nicht im Code stehen. Sie landen nur dann in den
+    # committeten Dateien (Seite/plan.json), wenn PAGE_SHOW_DETAILS nicht auf
+    # "0" steht – so bleibt ein öffentliches Repo anonym, falls gewünscht.
     details = {"title": os.environ.get("PLAN_TITLE", "").strip(),
                "source": os.environ.get("SOURCE_URL", "").strip()}
-    mail_meta = {**base_meta, **details}
-    page_meta = mail_meta if os.environ.get("PAGE_SHOW_DETAILS", "1") != "0" else base_meta
+    page_meta = {**base_meta, **details} if os.environ.get("PAGE_SHOW_DETAILS", "1") != "0" else base_meta
 
     (OUT_DIR / "plan.json").write_text(
         json.dumps({"meta": page_meta, "days": plan}, ensure_ascii=False, indent=2), encoding="utf-8")
 
-    from render import render_page, render_email  # lokale Templates
+    from render import render_page  # lokales Template
     (OUT_DIR / "index.html").write_text(render_page(plan, page_meta), encoding="utf-8")
-    Path("email_body.html").write_text(render_email(plan, mail_meta), encoding="utf-8")
-    log(f"Fertig: {OUT_DIR/'index.html'}, {OUT_DIR/'plan.json'}, email_body.html")
+    log(f"Fertig: {OUT_DIR/'index.html'}, {OUT_DIR/'plan.json'}")
 
 
 if __name__ == "__main__":

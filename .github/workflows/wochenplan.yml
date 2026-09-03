@@ -18,10 +18,6 @@ on:
         description: "Debug-Modus (rohe HTML-Struktur loggen + als Artefakt sichern)"
         type: boolean
         default: false
-      skip_mail:
-        description: "Nur Plan erzeugen, keine E-Mail versenden (Testlauf)"
-        type: boolean
-        default: false
 
 permissions:
   contents: write
@@ -112,7 +108,7 @@ jobs:
           # nicht im (ggf. öffentlichen) Repo steht.
           EUREST_BASE: ${{ secrets.EUREST_BASE }}
           # Optional: Bezeichnung in der Kopfzeile + Quell-Link in der Fußzeile.
-          # PAGE_SHOW_DETAILS=0 hält Seite/plan.json neutral (nur Mail zeigt sie).
+          # PAGE_SHOW_DETAILS=0 hält Seite/plan.json neutral (ohne Bezeichnung/Quelle).
           PLAN_TITLE: ${{ secrets.PLAN_TITLE }}
           SOURCE_URL: ${{ secrets.SOURCE_URL }}
           PAGE_SHOW_DETAILS: ${{ vars.PAGE_SHOW_DETAILS || '1' }}
@@ -143,17 +139,3 @@ jobs:
           git add docs/
           git diff --cached --quiet || git commit -m "Wochenplan $(date +%d.%m.%Y)"
           git push
-
-      - name: E-Mail versenden
-        if: always() && steps.guard.outputs.skip != 'true' && !inputs.skip_mail
-        env:
-          SMTP_HOST: ${{ secrets.SMTP_HOST }}
-          SMTP_PORT: ${{ secrets.SMTP_PORT }}
-          SMTP_USER: ${{ secrets.SMTP_USER }}
-          SMTP_PASS: ${{ secrets.SMTP_PASS }}
-          MAIL_FROM: ${{ secrets.MAIL_FROM }}
-          # Empfänger ausschließlich aus dem Secret (keine Adresse im Repo)
-          MAIL_TO: ${{ secrets.MAIL_TO }}
-        run: |
-          mv scripts/email_body.html . 2>/dev/null || true
-          python scripts/send_mail.py
